@@ -16,25 +16,25 @@ public class Decide {
     }
 
     public boolean DECIDE() {
-        LIC lic = new LIC(NUMPOINTS, POINTS, PARAMETERS);
-        boolean[] CMV = lic.getCMV();
-        boolean[][] PUM = getPUM(CMV);
-        boolean[] FUV = getFUV(PUM);
-        boolean decision = launch(FUV);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        boolean[] CMV = LIC.getConditionsMetVector();
+        boolean[][] PUM = getPreliminaryUnlockingMatrix(CMV);
+        boolean[] FUV = getFinalUnlockingVector(PUM);
+        boolean decision = getLaunchDecision(FUV);
         return decision;
     }
 
-    public boolean[][] getPUM(boolean[] CMV) {
+    public boolean[][] getPreliminaryUnlockingMatrix(boolean[] CMV) {
         boolean[][] PUM = new boolean[][]{{ true }};
         return PUM;
     }
 
-    public boolean[] getFUV(boolean[][] PUM) {
+    public boolean[] getFinalUnlockingVector(boolean[][] PUM) {
         boolean[] FUV = new boolean[]{ true };
         return FUV;
     }
 
-    public boolean launch(boolean[] FUV) {
+    public boolean getLaunchDecision(boolean[] FUV) {
         return true;
     }
 }

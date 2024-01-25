@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class LICTest {
+public class LaunchInterceptorConditionsTest {
 
     @Test
     public void shouldAnswerWithTrue()
@@ -12,8 +12,8 @@ public class LICTest {
         int NUMPOINTS = 1;
         Point[] POINTS = new Point[]{ new Point(1, 2) };
         Parameters PARAMETERS = new Parameters();
-        LIC lic = new LIC(NUMPOINTS, POINTS, PARAMETERS);
-        assertTrue(lic.LIC0());
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptionCondition0());
     }
 
 }
