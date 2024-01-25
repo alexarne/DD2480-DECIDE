@@ -13,82 +13,82 @@ public class LaunchInterceptorConditions {
 
     public boolean[] getConditionsMetVector() {
         boolean[] CMV = new boolean[]{
-            getLaunchInterceptionCondition0(),
-            getLaunchInterceptionCondition1(),
-            getLaunchInterceptionCondition2(),
-            getLaunchInterceptionCondition3(),
-            getLaunchInterceptionCondition4(),
-            getLaunchInterceptionCondition5(),
-            getLaunchInterceptionCondition6(),
-            getLaunchInterceptionCondition7(),
-            getLaunchInterceptionCondition8(),
-            getLaunchInterceptionCondition9(),
-            getLaunchInterceptionCondition10(),
-            getLaunchInterceptionCondition11(),
-            getLaunchInterceptionCondition12(),
-            getLaunchInterceptionCondition13(),
-            getLaunchInterceptionCondition14()
+            getLaunchInterceptorCondition0(),
+            getLaunchInterceptorCondition1(),
+            getLaunchInterceptorCondition2(),
+            getLaunchInterceptorCondition3(),
+            getLaunchInterceptorCondition4(),
+            getLaunchInterceptorCondition5(),
+            getLaunchInterceptorCondition6(),
+            getLaunchInterceptorCondition7(),
+            getLaunchInterceptorCondition8(),
+            getLaunchInterceptorCondition9(),
+            getLaunchInterceptorCondition10(),
+            getLaunchInterceptorCondition11(),
+            getLaunchInterceptorCondition12(),
+            getLaunchInterceptorCondition13(),
+            getLaunchInterceptorCondition14()
         };
         return CMV;
     }
     
-    public boolean getLaunchInterceptionCondition0() {
+    public boolean getLaunchInterceptorCondition0() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition1() {
+    public boolean getLaunchInterceptorCondition1() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition2() {
+    public boolean getLaunchInterceptorCondition2() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition3() {
+    public boolean getLaunchInterceptorCondition3() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition4() {
+    public boolean getLaunchInterceptorCondition4() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition5() {
+    public boolean getLaunchInterceptorCondition5() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition6() {
+    public boolean getLaunchInterceptorCondition6() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition7() {
+    public boolean getLaunchInterceptorCondition7() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition8() {
+    public boolean getLaunchInterceptorCondition8() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition9() {
+    public boolean getLaunchInterceptorCondition9() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition10() {
+    public boolean getLaunchInterceptorCondition10() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition11() {
+    public boolean getLaunchInterceptorCondition11() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition12() {
+    public boolean getLaunchInterceptorCondition12() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition13() {
+    public boolean getLaunchInterceptorCondition13() {
         return true;
     }
 
-    public boolean getLaunchInterceptionCondition14() {
+    public boolean getLaunchInterceptorCondition14() {
         return true;
     }
     
