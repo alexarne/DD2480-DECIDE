@@ -20,10 +20,8 @@ public class Decide {
         boolean[] CMV = lic.getCMV();
         boolean[][] PUM = getPUM(CMV);
         boolean[] FUV = getFUV(PUM);
-        for (boolean value : FUV) {
-            if (!value) return false;
-        }
-        return true;
+        boolean decision = launch(FUV);
+        return decision;
     }
 
     public boolean[][] getPUM(boolean[] CMV) {
@@ -34,5 +32,12 @@ public class Decide {
     public boolean[] getFUV(boolean[][] PUM) {
         boolean[] FUV = new boolean[]{ true };
         return FUV;
+    }
+
+    public boolean launch(boolean[] FUV) {
+        for (boolean value : FUV) {
+            if (!value) return false;
+        }
+        return true;
     }
 }
