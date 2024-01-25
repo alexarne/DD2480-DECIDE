@@ -35,9 +35,6 @@ public class Decide {
     }
 
     public boolean launch(boolean[] FUV) {
-        for (boolean value : FUV) {
-            if (!value) return false;
-        }
         return true;
     }
 }
