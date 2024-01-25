@@ -13,7 +13,7 @@ public class LaunchInterceptorConditionsTest {
         Point[] POINTS = new Point[]{ new Point(1, 2) };
         Parameters PARAMETERS = new Parameters();
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        assertTrue(LIC.getLaunchInterceptionCondition0());
+        assertTrue(LIC.getLaunchInterceptorCondition0());
     }
 
 }
