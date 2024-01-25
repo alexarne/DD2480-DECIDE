@@ -18,20 +18,20 @@ public class Decide {
     public boolean DECIDE() {
         LIC lic = new LIC(NUMPOINTS, POINTS, PARAMETERS);
         boolean[] CMV = lic.getCMV();
-        boolean[][] PUM = computePUM(CMV);
-        boolean[] FUV = computeFUV(PUM);
+        boolean[][] PUM = getPUM(CMV);
+        boolean[] FUV = getFUV(PUM);
         for (boolean value : FUV) {
             if (!value) return false;
         }
         return true;
     }
 
-    public boolean[][] computePUM(boolean[] CMV) {
+    public boolean[][] getPUM(boolean[] CMV) {
         boolean[][] PUM = new boolean[][]{{ true }};
         return PUM;
     }
 
-    public boolean[] computeFUV(boolean[][] PUM) {
+    public boolean[] getFUV(boolean[][] PUM) {
         boolean[] FUV = new boolean[]{ true };
         return FUV;
     }
