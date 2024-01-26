@@ -34,7 +34,17 @@ public class Decide {
         return FUV;
     }
 
-    public boolean getLaunchDecision(boolean[] FUV) {
+    /**
+     * Final Unlocking Vector:
+     * The decision to launch requires that all elements in the 
+     * Final Unlocking Vector be true.
+     * @param FinalUnlockingVector The Final Unlocking Vector.
+     * @return True if all values in FinalUnlockingVector are true.
+     */
+    public boolean getLaunchDecision(boolean[] FinalUnlockingVector) {
+        for (boolean value : FinalUnlockingVector) {
+            if (value == false) return false;
+        }
         return true;
     }
 }
