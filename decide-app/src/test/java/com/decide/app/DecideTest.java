@@ -6,6 +6,11 @@ import org.junit.Test;
 
 public class DecideTest 
 {
+    
+    /**
+     * ========================= [ GENERAL ] =========================
+     */
+    
     @Test
     public void shouldAnswerWithTrue()
     {
@@ -18,4 +23,23 @@ public class DecideTest
         Decide decide = new Decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
         assertTrue(decide.DECIDE());
     }
+    
+    /**
+     * =========================== [ PUM ] ===========================
+     */
+
+    
+    
+    /**
+     * =========================== [ FUV ] ===========================
+     */
+
+    
+    
+    /**
+     * ========================== [ LAUNCH ] ==========================
+     */
+
+    
+    
 }
