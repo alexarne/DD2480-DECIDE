@@ -20,7 +20,6 @@ public class LaunchInterceptorConditionsTest {
         assertTrue(LIC.getLaunchInterceptorCondition0());
     }
 
-    @Ignore
     @Test
     public void LIC0TrueDistanceGreaterThanLENGTH1(){
         int NUMPOINTS = 2;
@@ -31,7 +30,6 @@ public class LaunchInterceptorConditionsTest {
         assertTrue(LIC.getLaunchInterceptorCondition0());
     }
 
-    @Ignore
     @Test
     public void LIC0FalseDistanceSmallerThanLENGTH1(){
         int NUMPOINTS = 2;
@@ -42,7 +40,6 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition0());
     }
 
-    @Ignore
     @Test
     public void LIC0FalseOnlyOnePoint(){
         int NUMPOINTS = 1;
@@ -53,7 +50,6 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition0());
     }
 
-    @Ignore
     @Test
     public void LIC0FalseDistanceEqualToLENGTH1(){
         int NUMPOINTS = 1;
