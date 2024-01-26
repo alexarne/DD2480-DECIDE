@@ -3,6 +3,7 @@ package com.decide.app;
 import static org.junit.Assert.assertTrue;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
@@ -79,6 +80,27 @@ public class LaunchInterceptorConditionsTest {
         };
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertFalse(LIC.getLaunchInterceptorCondition0());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC0 throws IllegalArgumentException
+     * if the supplied parameter LENGTH1 is less than 0.
+     */
+    @Test
+    public void LIC0ThrowsIllegalArgumentExceptionOnInvalidParameter() {
+        int NUMPOINTS = 1;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.LENGTH1 = -1;
+        Point[] POINTS = new Point[]{
+            new Point(1, 2),
+            new Point(2, 2),
+            new Point(2, 3)
+        };
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> {LIC.getLaunchInterceptorCondition0();}
+        );
     }
 
 }
