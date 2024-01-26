@@ -128,11 +128,12 @@ public class LaunchInterceptorConditionsTest {
     }
 
     @Test
-    public void diagonalDistanceCorrect(){
+    public void diagonalDistanceCorrect() {
         Point[] POINTS = new Point[]{ new Point(3, 3), new Point(0,-1)};
         int NUMPOINTS = 2;
         Parameters PARAMETERS = new Parameters();
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertEquals(5, LIC.distance(POINTS[0], POINTS[1]), 0.00001);
+    }
 
 }
