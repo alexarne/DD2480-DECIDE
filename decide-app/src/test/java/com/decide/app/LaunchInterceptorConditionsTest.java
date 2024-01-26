@@ -1,6 +1,9 @@
 package com.decide.app;
 
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -9,6 +12,12 @@ import static org.junit.Assert.assertThrows;
 import org.junit.Test;
 
 public class LaunchInterceptorConditionsTest {
+    Parameters PARAMETERS;
+
+    @Before
+    public void setUp() {
+        PARAMETERS = new Parameters();
+    }
 
     /**
      * ========================== [ LIC 0 ] ==========================
