@@ -7,6 +7,10 @@ public class Decide {
     Connector[][] LCM;
     boolean[] PUV;
 
+    public Decide() {
+        
+    }
+
     public Decide(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, Connector[][] LCM, boolean[] PUV) {
         this.NUMPOINTS = NUMPOINTS;
         this.POINTS = POINTS;
