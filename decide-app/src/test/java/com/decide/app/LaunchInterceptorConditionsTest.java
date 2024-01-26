@@ -142,7 +142,7 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
-     * Invalid input test case, ensure the distance between null objects
+     * Invalid input test case, ensure the distance to a null object
      * causes an IllegalArgumentException to be thrown.
      */
     @Test
