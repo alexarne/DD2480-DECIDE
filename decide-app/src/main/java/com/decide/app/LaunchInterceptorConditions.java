@@ -32,6 +32,12 @@ public class LaunchInterceptorConditions {
         return CMV;
     }
     
+    /**
+     * Launch Interceptor Condition 0:
+     * There exists at least one set of two consecutive data points 
+     * that are a distance greater than the length, LENGTH1, apart.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition0() {
         if (PARAMETERS.LENGTH1 < 0) throw new IllegalArgumentException();
         for (int i = 0; i < NUMPOINTS-1; i++) {
