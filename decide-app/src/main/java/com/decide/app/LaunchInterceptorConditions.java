@@ -33,6 +33,7 @@ public class LaunchInterceptorConditions {
     }
     
     public boolean getLaunchInterceptorCondition0() {
+        if (PARAMETERS.LENGTH1 < 0) throw new IllegalArgumentException();
         for (int i = 0; i < NUMPOINTS-1; i++) {
             double dx = Math.abs(POINTS[i].x - POINTS[i+1].x);
             double dy = Math.abs(POINTS[i].y - POINTS[i+1].y);
