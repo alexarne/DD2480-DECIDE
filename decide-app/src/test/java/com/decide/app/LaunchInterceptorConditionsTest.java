@@ -109,27 +109,42 @@ public class LaunchInterceptorConditionsTest {
      * ========================= [ HELPERS ] =========================
      */
 
+    /**
+     * Positive test case, ensure the distance between two points is correct.
+     */
     @Test
-    public void distanceCorrect(){
-        Point[] POINTS = new Point[]{ new Point(1, 2), new Point(1, 3)};
+    public void distanceCorrect() {
+        Point[] POINTS = new Point[]{
+            new Point(1, 2),
+            new Point(1, 3)};
         int NUMPOINTS = 2;
         Parameters PARAMETERS = new Parameters();
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertEquals(1, LIC.distance(POINTS[0], POINTS[1]), 0.00001);
     }
 
+    /**
+     * Negative test case, ensure the distance between two points is not incorrect.
+     */
     @Test
-    public void distanceIncorrect(){
-        Point[] POINTS = new Point[]{ new Point(1, 2), new Point(1, 3)};
+    public void distanceIncorrect() {
+        Point[] POINTS = new Point[]{
+            new Point(0, 0),
+            new Point(0, 0)};
         int NUMPOINTS = 2;
         Parameters PARAMETERS = new Parameters();
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        assertNotEquals(3, LIC.distance(POINTS[0], POINTS[1]), 0.00001);
+        assertNotEquals(1, LIC.distance(POINTS[0], POINTS[1]), 0.00001);
     }
 
+    /**
+     * Positive test case, ensure the distance between two diagonal points is correct.
+     */
     @Test
     public void diagonalDistanceCorrect() {
-        Point[] POINTS = new Point[]{ new Point(3, 3), new Point(0,-1)};
+        Point[] POINTS = new Point[]{
+            new Point(3, 3),
+            new Point(0,-1)};
         int NUMPOINTS = 2;
         Parameters PARAMETERS = new Parameters();
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
