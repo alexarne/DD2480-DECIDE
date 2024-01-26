@@ -114,13 +114,10 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void distanceCorrect() {
-        Point[] POINTS = new Point[]{
-            new Point(1, 2),
-            new Point(1, 3)};
-        int NUMPOINTS = 2;
-        Parameters PARAMETERS = new Parameters();
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        assertEquals(1, LIC.distance(POINTS[0], POINTS[1]), 0.00001);
+        Point p1 = new Point(1, 2);
+        Point p2 = new Point(1, 3);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(1, LIC.distance(p1, p2), 0.00001);
     }
 
     /**
@@ -128,13 +125,10 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void distanceIncorrect() {
-        Point[] POINTS = new Point[]{
-            new Point(0, 0),
-            new Point(0, 0)};
-        int NUMPOINTS = 2;
-        Parameters PARAMETERS = new Parameters();
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        assertNotEquals(1, LIC.distance(POINTS[0], POINTS[1]), 0.00001);
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(0, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertNotEquals(1, LIC.distance(p1, p2), 0.00001);
     }
 
     /**
@@ -142,13 +136,10 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void diagonalDistanceCorrect() {
-        Point[] POINTS = new Point[]{
-            new Point(3, 3),
-            new Point(0,-1)};
-        int NUMPOINTS = 2;
-        Parameters PARAMETERS = new Parameters();
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        assertEquals(5, LIC.distance(POINTS[0], POINTS[1]), 0.00001);
+        Point p1 = new Point(3, 3);
+        Point p2 = new Point(0,-1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(5, LIC.distance(p1, p2), 0.00001);
     }
 
 }

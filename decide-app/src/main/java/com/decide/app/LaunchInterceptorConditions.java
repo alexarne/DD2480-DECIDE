@@ -5,6 +5,10 @@ public class LaunchInterceptorConditions {
     Point[] POINTS;
     Parameters PARAMETERS;
 
+    public LaunchInterceptorConditions() {
+        
+    }
+
     public LaunchInterceptorConditions(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS) {
         this.NUMPOINTS = NUMPOINTS;
         this.POINTS = POINTS;
