@@ -20,7 +20,7 @@ public class LaunchInterceptorConditionsTest {
      * points are more than LENGTH1 apart.
      */
     @Test
-    public void LIC0TrueDistanceGreaterThanLENGTH1() {
+    public void LIC0TrueOnDistanceGreaterThanLENGTH1() {
         int NUMPOINTS = 2;
         Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 4;
@@ -37,7 +37,7 @@ public class LaunchInterceptorConditionsTest {
      * consecutive points are more than LENGTH1 apart.
      */
     @Test
-    public void LIC0FalseDistanceSmallerThanLENGTH1() {
+    public void LIC0FalseOnDistanceSmallerThanLENGTH1() {
         int NUMPOINTS = 2;
         Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 4;
@@ -54,7 +54,7 @@ public class LaunchInterceptorConditionsTest {
      * are exactly LENGHT1 apart.
      */
     @Test
-    public void LIC0FalseDistanceEqualToLENGTH1() {
+    public void LIC0FalseOnDistanceEqualToLENGTH1() {
         int NUMPOINTS = 1;
         Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 2;
@@ -71,7 +71,7 @@ public class LaunchInterceptorConditionsTest {
      * is only one point.
      */
     @Test
-    public void LIC0FalseOnlyOnePoint() {
+    public void LIC0FalseOnOnlyOnePoint() {
         int NUMPOINTS = 1;
         Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 2;
