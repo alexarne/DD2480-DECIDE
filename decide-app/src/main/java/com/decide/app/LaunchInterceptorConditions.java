@@ -15,6 +15,14 @@ public class LaunchInterceptorConditions {
         this.PARAMETERS = PARAMETERS;
     }
 
+    /**
+     * Conditions Met Vector:
+     * The Conditions Met Vector (CMV) should be set according to the 
+     * results of each Launch Interceptor Condition. CMV[i] should be 
+     * set to true if and only if the i:th LIC is met.
+     * @return Boolean array where the i:th element gives the value
+     * for the i:th Launch Interceptor Condition.
+     */
     public boolean[] getConditionsMetVector() {
         boolean[] CMV = new boolean[]{
             getLaunchInterceptorCondition0(),
