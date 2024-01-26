@@ -23,9 +23,9 @@ public class LaunchInterceptorConditionsTest {
     public void positiveLIC1Test() {
         // Setup
         Parameters PARAMETERS = new Parameters();
-        PARAMETERS.RADIUS1 = 4.0;
-        int NUMPOINTS = 3;
-        Point[] POINTS = new Point[]{ new Point(1, 2), new Point(3, 4), new Point(4, 4) };
+        PARAMETERS.RADIUS1 = 2.0;
+        int NUMPOINTS = 4;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(5, 2.5), new Point(3, 5), new Point(0, 0) };
         
         // Processing
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
@@ -39,9 +39,9 @@ public class LaunchInterceptorConditionsTest {
     public void negativeLIC1Test() {
         // Setup
         Parameters PARAMETERS = new Parameters();
-        PARAMETERS.RADIUS1 = 2.0;
-        int NUMPOINTS = 4;
-        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(5, 2.5), new Point(3, 5), new Point(0, 0) };
+        PARAMETERS.RADIUS1 = 4.0;
+        int NUMPOINTS = 3;
+        Point[] POINTS = new Point[]{ new Point(1, 2), new Point(3, 4), new Point(4, 4) };
         
         // Processing
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
@@ -63,7 +63,7 @@ public class LaunchInterceptorConditionsTest {
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         
         // Assertion
-        assertTrue(LIC.getLaunchInterceptorCondition1());
+        assertFalse(LIC.getLaunchInterceptorCondition1());
     }
 
     @Ignore
