@@ -15,11 +15,13 @@ public class DecideTest {
 
     @Test
     public void shouldAnswerWithTrue() {
-        int NUMPOINTS = 1;
-        Point[] POINTS = new Point[]{ new Point(1, 2) };
+        Point[] POINTS = new Point[]{
+            new Point(1, 2)
+        };
+        int NUMPOINTS = POINTS.length;
         PARAMETERS.AREA1 = 1.0;
         Connector[][] LCM = new Connector[][]{{ Connector.ANDD }};
-        boolean[] PUV = new boolean[]{ true };
+        boolean[] PUV = new boolean[]{ false };
         Decide decide = new Decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
         assertTrue(decide.DECIDE());
     }

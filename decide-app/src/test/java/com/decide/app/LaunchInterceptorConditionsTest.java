@@ -29,13 +29,12 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void LIC0TrueOnDistanceGreaterThanLENGTH1() {
-        int NUMPOINTS = 2;
-        Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 4;
         Point[] POINTS = new Point[]{
             new Point(1, 2), 
             new Point(1, 2+PARAMETERS.LENGTH1+1)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertTrue(LIC.getLaunchInterceptorCondition0());
     }
@@ -46,13 +45,12 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void LIC0FalseOnDistanceSmallerThanLENGTH1() {
-        int NUMPOINTS = 2;
-        Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 4;
         Point[] POINTS = new Point[]{ 
             new Point(1, 2), 
             new Point(1, 2+PARAMETERS.LENGTH1-1)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertFalse(LIC.getLaunchInterceptorCondition0());
     }
@@ -63,13 +61,12 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void LIC0FalseOnDistanceEqualToLENGTH1() {
-        int NUMPOINTS = 1;
-        Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 2;
         Point[] POINTS = new Point[]{
             new Point(1, 2), 
             new Point(1, 2+PARAMETERS.LENGTH1)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertFalse(LIC.getLaunchInterceptorCondition0());
     }
@@ -80,12 +77,11 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void LIC0FalseOnOnlyOnePoint() {
-        int NUMPOINTS = 1;
-        Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 2;
         Point[] POINTS = new Point[]{
             new Point(1, 2)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertFalse(LIC.getLaunchInterceptorCondition0());
     }
@@ -96,14 +92,13 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void LIC0ThrowsIllegalArgumentExceptionOnInvalidParameter() {
-        int NUMPOINTS = 1;
-        Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = -1;
         Point[] POINTS = new Point[]{
             new Point(1, 2),
             new Point(2, 2),
             new Point(2, 3)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertThrows(
             IllegalArgumentException.class, 
