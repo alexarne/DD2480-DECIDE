@@ -1,13 +1,12 @@
 package com.decide.app;
 
 import static org.junit.Assert.assertTrue;
-
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
-
-import org.junit.Ignore;
 
 public class LaunchInterceptorConditionsTest {
 
@@ -99,7 +98,61 @@ public class LaunchInterceptorConditionsTest {
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertThrows(
             IllegalArgumentException.class, 
-            () -> {LIC.getLaunchInterceptorCondition0();}
+            () -> { LIC.getLaunchInterceptorCondition0(); }
+        );
+    }
+  
+  
+
+    /**
+     * ========================= [ HELPERS ] =========================
+     */
+
+    /**
+     * Positive test case, ensure the distance between two points is correct.
+     */
+    @Test
+    public void distanceCorrect() {
+        Point p1 = new Point(1, 2);
+        Point p2 = new Point(1, 3);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(1, LIC.distance(p1, p2), 0.00001);
+    }
+
+    /**
+     * Negative test case, ensure the distance between two points is not incorrect.
+     */
+    @Test
+    public void distanceIncorrect() {
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(0, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertNotEquals(1, LIC.distance(p1, p2), 0.00001);
+    }
+
+    /**
+     * Positive test case, ensure the distance between two diagonal points is correct.
+     */
+    @Test
+    public void diagonalDistanceCorrect() {
+        Point p1 = new Point(3, 3);
+        Point p2 = new Point(0,-1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(5, LIC.distance(p1, p2), 0.00001);
+    }
+
+    /**
+     * Invalid input test case, ensure the distance to a null object
+     * causes an IllegalArgumentException to be thrown.
+     */
+    @Test
+    public void distanceThrowsIllegalArgumentExceptionOnNull() {
+        Point p1 = new Point(0, 0);
+        Point p2 = null;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.distance(p1, p2); }
         );
     }
 
