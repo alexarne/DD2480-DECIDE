@@ -33,7 +33,16 @@ public class LaunchInterceptorConditions {
     }
     
     public boolean getLaunchInterceptorCondition0() {
-        return true;
+        double x;
+        double y;
+        double distance;
+        for(int i = 0; i < NUMPOINTS-1; i++){
+            x = Math.abs(POINTS[i].x - POINTS[i+1].x);
+            y = Math.abs(POINTS[i].y - POINTS[i+1].y);
+            distance = Math.sqrt((x*x) + (y*y));
+            if(distance > PARAMETERS.LENGTH1) return true;
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition1() {
