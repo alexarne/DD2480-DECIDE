@@ -91,5 +91,12 @@ public class LaunchInterceptorConditions {
     public boolean getLaunchInterceptorCondition14() {
         return true;
     }
+
+    /* Helper method */
+    public double distance(Point p1, Point p2){
+        double x = Math.abs(p1.x - p2.x);
+        double y = Math.abs(p1.y - p2.y);
+        return Math.sqrt((x*x) + (y*y));
+    }
     
 }
