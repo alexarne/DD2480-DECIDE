@@ -8,7 +8,7 @@ public class Decide {
     boolean[] PUV;
 
     public Decide() {
-        
+
     }
 
     public Decide(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, Connector[][] LCM, boolean[] PUV) {
@@ -39,7 +39,7 @@ public class Decide {
     }
 
     /**
-     * Final Unlocking Vector:
+     * Final launch decision:
      * The decision to launch requires that all elements in the 
      * Final Unlocking Vector be true.
      * @param FinalUnlockingVector The Final Unlocking Vector.
