@@ -6,7 +6,7 @@ public class LaunchInterceptorConditions {
     Parameters PARAMETERS;
 
     public LaunchInterceptorConditions() {
-        
+
     }
 
     public LaunchInterceptorConditions(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS) {
@@ -118,10 +118,11 @@ public class LaunchInterceptorConditions {
     /**
      * 
      * @param p1 The first point.
-     * @param p2 The seconds point.
+     * @param p2 The second point.
      * @return The Euclidean distance between the points.
      */
-    public double distance(Point p1, Point p2){
+    public double distance(Point p1, Point p2) {
+        if (p1 == null || p2 == null) throw new IllegalArgumentException();
         double dx = Math.abs(p1.x - p2.x);
         double dy = Math.abs(p1.y - p2.y);
         return Math.sqrt(dx*dx + dy*dy);

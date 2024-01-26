@@ -7,7 +7,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
-import org.junit.Ignore;
 
 public class LaunchInterceptorConditionsTest {
 
@@ -99,7 +98,7 @@ public class LaunchInterceptorConditionsTest {
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertThrows(
             IllegalArgumentException.class, 
-            () -> {LIC.getLaunchInterceptorCondition0();}
+            () -> { LIC.getLaunchInterceptorCondition0(); }
         );
     }
   
@@ -140,6 +139,21 @@ public class LaunchInterceptorConditionsTest {
         Point p2 = new Point(0,-1);
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
         assertEquals(5, LIC.distance(p1, p2), 0.00001);
+    }
+
+    /**
+     * Invalid input test case, ensure the distance between null objects
+     * causes an IllegalArgumentException to be thrown.
+     */
+    @Test
+    public void distanceThrowsIllegalArgumentExceptionOnNull() {
+        Point p1 = new Point(0, 0);
+        Point p2 = null;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.distance(p1, p2); }
+        );
     }
 
 }
