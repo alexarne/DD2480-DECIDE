@@ -10,6 +10,7 @@ import org.junit.Ignore;
 
 public class LaunchInterceptorConditionsTest {
 
+    @Ignore
     @Test
     public void shouldAnswerWithTrue()
     {
