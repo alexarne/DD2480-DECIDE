@@ -20,6 +20,14 @@ public class LaunchInterceptorConditionsTest {
         assertTrue(LIC.getLaunchInterceptorCondition0());
     }
 
+    /**
+     * ========================== [ LIC 0 ] ==========================
+     */
+
+    /**
+     * Positive test case, ensure LIC0 is satisfied when two consecutive
+     * points are more than LENGTH1 apart.
+     */
     @Test
     public void LIC0TrueDistanceGreaterThanLENGTH1() {
         int NUMPOINTS = 2;
@@ -33,7 +41,10 @@ public class LaunchInterceptorConditionsTest {
         assertTrue(LIC.getLaunchInterceptorCondition0());
     }
 
-
+    /**
+     * Negative test case, ensure LIC0 is not satisfied when no two 
+     * consecutive points are more than LENGTH1 apart.
+     */
     @Test
     public void LIC0FalseDistanceSmallerThanLENGTH1() {
         int NUMPOINTS = 2;
@@ -47,6 +58,10 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition0());
     }
 
+    /**
+     * Edge-case test case, ensure LIC0 is not satisfied when points
+     * are exactly LENGHT1 apart.
+     */
     @Test
     public void LIC0FalseDistanceEqualToLENGTH1() {
         int NUMPOINTS = 1;
@@ -60,6 +75,10 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition0());
     }
 
+    /**
+     * Edge-case test case, ensure LIC0 is not satisfied when there
+     * is only one point.
+     */
     @Test
     public void LIC0FalseOnlyOnePoint() {
         int NUMPOINTS = 1;
