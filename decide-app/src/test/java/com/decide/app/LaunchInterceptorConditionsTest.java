@@ -104,6 +104,12 @@ public class LaunchInterceptorConditionsTest {
   
   
 
+    @Test
+    public void WhichQuad() {
+        Point p1 = new Point(0, -1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(3, LIC.whichQuad(p1), 0.00001);
+    }
     /**
      * ========================= [ HELPERS ] =========================
      */
