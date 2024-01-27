@@ -113,11 +113,11 @@ public class LaunchInterceptorConditionsTest {
     public void LIC4TruewithThreePointsAndTwoQuads() {
         int NUMPOINTS = 3;
         Parameters PARAMETERS = new Parameters();
-        PARAMETERS.QUADS = 2;
+        PARAMETERS.QUADS = 1;
         PARAMETERS.Q_PTS = 3;
         Point[] POINTS = new Point[]{
             new Point(1, 2), 
-            new Point(1, 2),
+            new Point(-1, 2),
             new Point(2,-1)
         };
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
@@ -128,9 +128,9 @@ public class LaunchInterceptorConditionsTest {
 
     @Test
     public void WhichQuad() {
-        Point p1 = new Point(0, -1);
+        Point p1 = new Point(2,-1);
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
-        assertEquals(3, LIC.whichQuad(p1), 0.00001);
+        assertEquals(4, LIC.whichQuad(p1), 0.00001);
     }
     /**
      * ========================= [ HELPERS ] =========================
