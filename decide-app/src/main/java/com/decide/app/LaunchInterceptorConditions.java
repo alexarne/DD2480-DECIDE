@@ -66,7 +66,24 @@ public class LaunchInterceptorConditions {
     }
 
     public boolean getLaunchInterceptorCondition4() {
-        return true;
+        
+        //if (PARAMETERS.Q_PTS < 2 || PARAMETERS.Q_PTS>NUMPOINTS) throw new IllegalArgumentException("incorrect No. of Points");
+        //if (PARAMETERS.QUADS < 0 || PARAMETERS.QUADS > 3) throw new IllegalArgumentException("incorrect No. of Quads");
+        for (int i = 0; i < NUMPOINTS-(PARAMETERS.Q_PTS-1); i++) {
+            int Q1=0;
+            int Q2=0;
+            int Q3=0;
+            int Q4=0;
+            for (int j = i; j < PARAMETERS.QUADS; j++){
+                if (whichQuad(POINTS[i])==1) Q1+=1;
+                else if (whichQuad(POINTS[i])==2) Q1+=2;
+                else if (whichQuad(POINTS[i])==3) Q1+=3;
+                else Q4+=1;
+            }
+            if (Q1+Q2+Q3+Q4 > PARAMETERS.QUADS && checkQuadrantDistribution(Q1,Q2,Q3,Q4)) return true;
+            
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition5() {
@@ -134,4 +151,11 @@ public class LaunchInterceptorConditions {
         else if (p.x <=0 && p.y <0) return 3;
         else return 4;
     }
+
+    public boolean checkQuadrantDistribution(int Q1,int Q2,int Q3,int Q4){
+        if (Q1<PARAMETERS.Q_PTS/(PARAMETERS.QUADS+1) && Q2<PARAMETERS.Q_PTS/(PARAMETERS.QUADS+1)
+        && Q3<PARAMETERS.Q_PTS/(PARAMETERS.QUADS+1) && Q4<PARAMETERS.Q_PTS/(PARAMETERS.QUADS+1)) return true;
+        return false;
+    }
+    
 }
