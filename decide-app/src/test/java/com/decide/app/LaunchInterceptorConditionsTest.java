@@ -105,6 +105,41 @@ public class LaunchInterceptorConditionsTest {
             () -> { LIC.getLaunchInterceptorCondition0(); }
         );
     }
+
+    /**
+     * ========================== [ LIC 1 ] ==========================
+     */
+
+
+    /**
+     * Positive test case. Ensure LIC2 satisfied when angle between points smaller than
+     * Pi - EPSILON.
+     */
+    @Test
+    public void LIC2TrueAngleSmallerThanLowerLimit(){
+        int NUMPOINTS = 3;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(1,1), new Point(2, 1.2)};
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition2());
+
+    }
+
+    /**
+     * Positive test case. Ensure LIC2 satisfied when angle between points larger than
+     * EPSILON + Pi.
+     */
+    @Test
+    public void LIC2TrueAngleGreaterThanUpperLimit(){
+        int NUMPOINTS = 3;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(1,1), new Point(2, 0.8)};
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition2());
+        
+    }
   
   
 
