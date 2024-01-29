@@ -162,6 +162,22 @@ public class LaunchInterceptorConditionsTest {
      * separated by exactly K_PTS consecutive points that are exactly at a distance
      * of LENGTH1 of each other
      */
+    @Ignore
+    @Test
+    public void LIC7FalseOnPointsSeparatedByKptsPointsExactlyLength1Apart() {
+        Parameters.K_PTS = 1;
+        Parameters.LENGHT1 = 5;
+        Point[] POINTS = new Point[]{
+            new Point(0, 0),
+            new Point(1, 2),
+            new Point(0, 5),
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        
+        assertFalse(LIC.getLaunchInterceptorCondition7());
+    }
 
     /**
      * Unsufficient input test case for LIC7, must return false when there are two or less
