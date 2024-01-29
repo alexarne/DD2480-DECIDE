@@ -184,6 +184,19 @@ public class LaunchInterceptorConditionsTest {
      * Unsufficient input test case for LIC7, must return false when there are two or less
      * points
      */
+    @Ignore
+    @Test
+    public void LIC7UnsufficientInputNotEnoughPoints() {
+        Point[] POINTS = new Point[]{
+            new Point(0, 0),
+            new Point(1, 2)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        
+        assertFalse(LIC.getLaunchInterceptorCondition7());
+    }
 
     /**
      * Illegal argument value test case for LIC7, ensures an exception is raised if the
