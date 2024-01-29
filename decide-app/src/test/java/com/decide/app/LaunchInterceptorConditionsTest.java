@@ -10,7 +10,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
-import org.junit.Ignore;
 
 public class LaunchInterceptorConditionsTest {
     Parameters PARAMETERS;
@@ -115,7 +114,6 @@ public class LaunchInterceptorConditionsTest {
      * Positive test case, ensure LIC7 is satisfied when two points seperated by
      * exactly K_PTS consecutive points are striclty more than LENGTH1 apart.
      */
-    @Ignore
     @Test
     public void LIC7TrueOnPointsSeparatedByKptsPointsMoreThanLength1Apart() {
         PARAMETERS.K_PTS = 2;
@@ -139,7 +137,6 @@ public class LaunchInterceptorConditionsTest {
      * points seperated by exactly K_PTS consecutive points are no more than
      * LENGTH1 apart.
      */
-    @Ignore
     @Test
     public void LIC7FalseOnPointsSeparatedByKptsPointsLessThanLength1Apart() {
         PARAMETERS.K_PTS = 1;
@@ -163,7 +160,6 @@ public class LaunchInterceptorConditionsTest {
      * separated by exactly K_PTS consecutive points that are exactly at a distance
      * of LENGTH1 of each other
      */
-    @Ignore
     @Test
     public void LIC7FalseOnPointsSeparatedByKptsPointsExactlyLength1Apart() {
         PARAMETERS.K_PTS = 1;
@@ -184,7 +180,6 @@ public class LaunchInterceptorConditionsTest {
      * Unsufficient input test case for LIC7, must return false when there are two or less
      * points
      */
-    @Ignore
     @Test
     public void LIC7UnsufficientInputNotEnoughPoints() {
         Point[] POINTS = new Point[]{
@@ -202,7 +197,6 @@ public class LaunchInterceptorConditionsTest {
      * Illegal argument value test case for LIC7, ensures an exception is raised if the
      * value of LENGTH1 is strictly negative.
      */
-    @Ignore
     @Test
     public void LIC7InvalidArgumentStrictlyNegativeLength() {
         PARAMETERS.LENGTH1 = -5;
@@ -227,7 +221,6 @@ public class LaunchInterceptorConditionsTest {
      * Illegal argument value test case for LIC7, ensures an exception is raised if the
      * value of K_PTS is negative or null.
      */
-    @Ignore
     @Test
     public void LIC7InvalidArgumentKptsMegativeOrNull() {
         PARAMETERS.K_PTS = 0;
@@ -252,7 +245,6 @@ public class LaunchInterceptorConditionsTest {
      * Illegal argument value test case for LIC7, ensures an exception is raised if the
      * value of K_PTS is stricyl superior to NUMPOINTS-2.
      */
-    @Ignore
     @Test
     public void LIC7InvalidArgumentKptsStrictlySuperiorToNumpointsMinusTwo() {
         PARAMETERS.LENGTH1 = 5;
