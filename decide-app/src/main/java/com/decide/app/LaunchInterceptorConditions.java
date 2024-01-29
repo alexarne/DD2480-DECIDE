@@ -52,8 +52,26 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 1:
+     * There exists at least one set of three consecutive data points that cannot all be contained
+     * within or on a circle of radius RADIUS1.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition1() {
-        return true;
+        if(PARAMETERS.RADIUS1 < 0) throw new IllegalArgumentException();
+        double d1;
+        double d2;
+        double d3;
+        if(NUMPOINTS != POINTS.length) return false;
+        for(int i = 0; i < NUMPOINTS-2; i++){
+            d1 = distance(POINTS[i], POINTS[i+1]);
+            d2 = distance(POINTS[i], POINTS[i+2]);
+            d3 = distance(POINTS[i+1], POINTS[i+2]);
+
+            if(d1 > PARAMETERS.RADIUS1*2 || d2 > PARAMETERS.RADIUS1*2 || d3 > PARAMETERS.RADIUS1*2) return true;
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition2() {
