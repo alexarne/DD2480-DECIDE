@@ -208,7 +208,8 @@ public class LaunchInterceptorConditionsTest {
         PARAMETERS.LENGTH1 = -5;
         Point[] POINTS = new Point[]{
             new Point(0, 0),
-            new Point(1, 2)
+            new Point(1, 2),
+            new Point(0, 5),
         };
         int NUMPOINTS = POINTS.length;
 
@@ -233,7 +234,8 @@ public class LaunchInterceptorConditionsTest {
         PARAMETERS.LENGTH1 = 5;
         Point[] POINTS = new Point[]{
             new Point(0, 0),
-            new Point(1, 2)
+            new Point(1, 2),
+            new Point(0, 5),
         };
         int NUMPOINTS = POINTS.length;
 
@@ -250,6 +252,26 @@ public class LaunchInterceptorConditionsTest {
      * Illegal argument value test case for LIC7, ensures an exception is raised if the
      * value of K_PTS is stricyl superior to NUMPOINTS-2.
      */
+    @Ignore
+    @Test
+    public void LIC7InvalidArgumentKptsStrictlySuperiorToNumpointsMinusTwo() {
+        PARAMETERS.LENGTH1 = 5;
+        Point[] POINTS = new Point[]{
+            new Point(0, 0),
+            new Point(1, 2),
+            new Point(0, 5),
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.K_PTS = NUMPOINTS;
+
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition7(); }
+        );
+    }
 
   
 
