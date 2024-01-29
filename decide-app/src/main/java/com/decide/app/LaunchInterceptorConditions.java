@@ -45,10 +45,9 @@ public class LaunchInterceptorConditions {
     public boolean getLaunchInterceptorCondition0() {
         if (PARAMETERS.LENGTH1 < 0) throw new IllegalArgumentException();
         for (int i = 0; i < NUMPOINTS-1; i++) {
-            double dx = Math.abs(POINTS[i].getX() - POINTS[i+1].getX());
-            double dy = Math.abs(POINTS[i].getY() - POINTS[i+1].getY());
-            double distance = Math.sqrt(dx*dx + dy*dy);
-            if (distance > PARAMETERS.LENGTH1) return true;
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+1];
+            if (distance(p1, p2) > PARAMETERS.LENGTH1) return true;
         }
         return false;
     }
