@@ -108,6 +108,34 @@ public class LaunchInterceptorConditionsTest {
   
   
 
+    
+    
+    
+    /**
+     * ========================== [ LIC 8 ] ==========================
+     */
+
+    /**
+     * Positive test case. Ensure LIC8 is satisfied when three points separated by 
+     * exactly A_PTS and B_PTS consecutive intervening points, respectively, 
+     * cannot be contained within or on a circle of radius RADIUS1.
+     */
+    @Test 
+    public void LIC8TruePointsNotInRadius(){
+        PARAMETERS.RADIUS1 = 2.0;
+        PARAMETERS.A_PTS = 1;
+        PARAMETERS.B_PTS = 2;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(0, 0), new Point(5, 2.5), new Point(1, 2), new Point(3, 3), new Point(3, 5), new Point(0, 0) };
+        int NUMPOINTS = POINTS.length;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertTrue(LIC.getLaunchInterceptorCondition8());
+
+    }
+
+    
+    
     /**
      * ========================= [ HELPERS ] =========================
      */
