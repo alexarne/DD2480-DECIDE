@@ -1,6 +1,9 @@
 package com.decide.app;
 
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -9,6 +12,49 @@ import static org.junit.Assert.assertThrows;
 import org.junit.Test;
 
 public class LaunchInterceptorConditionsTest {
+    Parameters PARAMETERS;
+
+    @Before
+    public void setUp() {
+        PARAMETERS = new Parameters();
+    }
+
+    /**
+     * =========================== [ CMV ] ===========================
+     */
+
+    /**
+     * Ensure the value of the i:th element in the Conditions Met Vector
+     * is the same as the i:th Launch Interceptor Condition.
+     */
+    @Test
+    public void ConditionsMetVectorSameAsEachLIC() {
+        Parameters PARAMETERS = new Parameters();
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(2, 2), 
+            new Point(21, 1), 
+            new Point(14, 5)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        boolean[] CMV = LIC.getConditionsMetVector();
+        assertTrue(CMV[0] == LIC.getLaunchInterceptorCondition0());
+        assertTrue(CMV[1] == LIC.getLaunchInterceptorCondition1());
+        assertTrue(CMV[2] == LIC.getLaunchInterceptorCondition2());
+        assertTrue(CMV[3] == LIC.getLaunchInterceptorCondition3());
+        assertTrue(CMV[4] == LIC.getLaunchInterceptorCondition4());
+        assertTrue(CMV[5] == LIC.getLaunchInterceptorCondition5());
+        assertTrue(CMV[6] == LIC.getLaunchInterceptorCondition6());
+        assertTrue(CMV[7] == LIC.getLaunchInterceptorCondition7());
+        assertTrue(CMV[8] == LIC.getLaunchInterceptorCondition8());
+        assertTrue(CMV[9] == LIC.getLaunchInterceptorCondition9());
+        assertTrue(CMV[10] == LIC.getLaunchInterceptorCondition10());
+        assertTrue(CMV[11] == LIC.getLaunchInterceptorCondition11());
+        assertTrue(CMV[12] == LIC.getLaunchInterceptorCondition12());
+        assertTrue(CMV[13] == LIC.getLaunchInterceptorCondition13());
+        assertTrue(CMV[14] == LIC.getLaunchInterceptorCondition14());
+    }
 
     /**
      * ========================== [ LIC 0 ] ==========================
@@ -20,13 +66,12 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void LIC0TrueOnDistanceGreaterThanLENGTH1() {
-        int NUMPOINTS = 2;
-        Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 4;
         Point[] POINTS = new Point[]{
             new Point(1, 2), 
             new Point(1, 2+PARAMETERS.LENGTH1+1)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertTrue(LIC.getLaunchInterceptorCondition0());
     }
@@ -37,13 +82,12 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void LIC0FalseOnDistanceSmallerThanLENGTH1() {
-        int NUMPOINTS = 2;
-        Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 4;
         Point[] POINTS = new Point[]{ 
             new Point(1, 2), 
             new Point(1, 2+PARAMETERS.LENGTH1-1)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertFalse(LIC.getLaunchInterceptorCondition0());
     }
@@ -54,13 +98,12 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void LIC0FalseOnDistanceEqualToLENGTH1() {
-        int NUMPOINTS = 1;
-        Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 2;
         Point[] POINTS = new Point[]{
             new Point(1, 2), 
             new Point(1, 2+PARAMETERS.LENGTH1)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertFalse(LIC.getLaunchInterceptorCondition0());
     }
@@ -71,12 +114,11 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void LIC0FalseOnOnlyOnePoint() {
-        int NUMPOINTS = 1;
-        Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = 2;
         Point[] POINTS = new Point[]{
             new Point(1, 2)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertFalse(LIC.getLaunchInterceptorCondition0());
     }
@@ -87,14 +129,13 @@ public class LaunchInterceptorConditionsTest {
      */
     @Test
     public void LIC0ThrowsIllegalArgumentExceptionOnInvalidParameter() {
-        int NUMPOINTS = 1;
-        Parameters PARAMETERS = new Parameters();
         PARAMETERS.LENGTH1 = -1;
         Point[] POINTS = new Point[]{
             new Point(1, 2),
             new Point(2, 2),
             new Point(2, 3)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertThrows(
             IllegalArgumentException.class, 
