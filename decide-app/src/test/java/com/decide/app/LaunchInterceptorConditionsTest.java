@@ -188,6 +188,62 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition8());
 
     }
+
+    /**
+     * Invalid input test case. Ensure LIC8 throws IllegalArgumentException when
+     * A_PTS is less than 1.
+     */
+    @Test 
+    public void LIC8ThrowsIllegalArgumentExceptionOnInvalidA_PTS(){
+        PARAMETERS.A_PTS = 0;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(0, 0), new Point(5, 2.5), new Point(1, 2), new Point(3, 3), new Point(3, 5), new Point(0, 0) };
+        int NUMPOINTS = POINTS.length;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition8(); }
+        );
+
+    }
+
+    /**
+     * Invalid input test case. Ensure LIC8 throws IllegalArgumentException when
+     * B_PTS is less than 1.
+     */
+    @Test 
+    public void LIC8ThrowsIllegalArgumentExceptionOnInvalidB_PTS(){
+        PARAMETERS.B_PTS = -2;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(0, 0), new Point(5, 2.5), new Point(1, 2), new Point(3, 3), new Point(3, 5), new Point(0, 0) };
+        int NUMPOINTS = POINTS.length;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition8(); }
+        );
+    }
+
+    /**
+     * Invalid input test case. Ensure LIC8 throws IllegalArgumentException when
+     * A_PTS + B_PTS > NUMPOINTS-3.
+     */
+    @Test 
+    public void LIC8ThrowsIllegalArgumentExceptionOnInvalidNUMPOINTS(){
+        PARAMETERS.A_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(0, 0), new Point(5, 2.5), new Point(1, 2), new Point(3, 3), new Point(3, 5), new Point(0, 0) };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.B_PTS = NUMPOINTS-2-PARAMETERS.A_PTS;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition8(); }
+        );
+    }
     
     /**
      * ========================= [ HELPERS ] =========================
