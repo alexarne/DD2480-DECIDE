@@ -226,6 +226,25 @@ public class LaunchInterceptorConditionsTest {
      * Illegal argument value test case for LIC7, ensures an exception is raised if the
      * value of K_PTS is negative or null.
      */
+    @Ignore
+    @Test
+    public void LIC7InvalidArgumentKptsMegativeOrNull() {
+        PARAMETERS.K_PTS = 0;
+        PARAMETERS.LENGTH1 = 5;
+        Point[] POINTS = new Point[]{
+            new Point(0, 0),
+            new Point(1, 2)
+        };
+        int NUMPOINTS = POINTS.length;
+
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition7(); }
+        );
+    }
 
     /**
      * Illegal argument value test case for LIC7, ensures an exception is raised if the
