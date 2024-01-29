@@ -121,11 +121,11 @@ public class LaunchInterceptorConditionsTest {
     public void LIC1TruePointsNotInRadius() {
         // Setup
         PARAMETERS.RADIUS1 = 2.0;
-        int NUMPOINTS = 4;
         Point[] POINTS = new Point[]{ new Point(6, 1), new Point(5, 2.5), new Point(3, 5), new Point(0, 0) };
-         // Processing
+        int NUMPOINTS = POINTS.length;
+        // Processing
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-         // Assertion
+        // Assertion
         assertTrue(LIC.getLaunchInterceptorCondition1());
     }
 
@@ -137,8 +137,8 @@ public class LaunchInterceptorConditionsTest {
     public void LIC1FalsePointsInRadius() {
         // Setup
         PARAMETERS.RADIUS1 = 4.0;
-        int NUMPOINTS = 3;
         Point[] POINTS = new Point[]{ new Point(1, 2), new Point(3, 4), new Point(4, 4) };
+        int NUMPOINTS = POINTS.length;
          // Processing
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
          // Assertion
@@ -153,8 +153,8 @@ public class LaunchInterceptorConditionsTest {
     public void LIC1FalsePointsOnCircleExtremities() {
         // Setup
         PARAMETERS.RADIUS1 = 3.0;
-        int NUMPOINTS = 3;
         Point[] POINTS = new Point[]{ new Point(4, 4), new Point(4, 1), new Point(1, 4) };
+        int NUMPOINTS = POINTS.length;
           // Processing
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
          // Assertion
@@ -168,11 +168,11 @@ public class LaunchInterceptorConditionsTest {
     public void LIC1FalseInsufficientInput() {
         // Setup
         PARAMETERS.RADIUS1 = 10.0;
-        int NUMPOINTS = 2;
         Point[] POINTS = new Point[]{ new Point(1, 2), new Point(3, 4) };
-         // Processing
+        int NUMPOINTS = POINTS.length;
+        // Processing
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-         // Assertion
+        // Assertion
         assertFalse(LIC.getLaunchInterceptorCondition1());
     }
 
@@ -183,9 +183,8 @@ public class LaunchInterceptorConditionsTest {
     @Test
     public void LIC1ThrowsIllegalArgumentExceptionOnInvalidParameter() {
         PARAMETERS.RADIUS1 = -1;
-        int NUMPOINTS = 4;
         Point[] POINTS = new Point[]{ new Point(6, 1), new Point(5, 2.5), new Point(3, 5), new Point(0, 0) };
-
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertThrows(
             IllegalArgumentException.class, 
