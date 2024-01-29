@@ -151,6 +151,25 @@ public class LaunchInterceptorConditionsTest {
         // Assertion
         assertFalse(LIC.getLaunchInterceptorCondition8());
     }
+
+    /**
+     * Edge case test case. Ensure LIC8 is not satisfied when three points separated by 
+     * exactly A_PTS and B_PTS consecutive intervening points, respectively, 
+     * are on the edge of a circle of radius RADIUS1.
+     */
+    @Test 
+    public void LIC8FalsePointsOnRadiusEdge(){
+        PARAMETERS.RADIUS1 = 3.0;
+        PARAMETERS.A_PTS = 1;
+        PARAMETERS.B_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(7, 4), new Point(10, 10), new Point(4, 1), new Point(0, 7), new Point(1, 4) };
+        int NUMPOINTS = POINTS.length;
+          // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+         // Assertion
+        assertFalse(LIC.getLaunchInterceptorCondition8());
+        
+    }
     
     /**
      * ========================= [ HELPERS ] =========================
