@@ -155,6 +155,20 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition2());
         
     }
+
+    /**
+     * Edge-case test case. Ensure LIC2 not satisfied when one of the two points
+     * coincide with the vertex. 
+     */
+    @Test
+    public void LIC2FalsePointEqualsVertex(){
+        int NUMPOINTS = 3;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        Point[] POINTS = new Point[]{ new Point(1, 1), new Point(1,1), new Point(2, 1.2)};
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition2());
+    }
   
   
 
