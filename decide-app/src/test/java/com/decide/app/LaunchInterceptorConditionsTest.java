@@ -11,6 +11,8 @@ import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
+import java.lang.Math;
+
 public class LaunchInterceptorConditionsTest {
     Parameters PARAMETERS;
 
@@ -183,6 +185,38 @@ public class LaunchInterceptorConditionsTest {
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertFalse(LIC.getLaunchInterceptorCondition2());
         
+    }
+
+    /**
+     * Invalid input test case, ensure LIC2 throws IllegalArgumentException
+     * if the supplied parameter EPSILON is less than 0.
+     */
+    @Test
+    public void LIC2ThrowsIllegalArgumentExceptionOnInvalidParameterSmall() {
+        PARAMETERS.EPSILON = -1.0;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(1,1), new Point(2, 1.2)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition2(); }
+        );
+    }
+
+    /**
+     * Invalid input test case, ensure LIC2 throws IllegalArgumentException
+     * if the supplied parameter EPSILON is equal to Pi. 
+     */
+    @Test
+    public void LIC2ThrowsIllegalArgumentExceptionOnInvalidParameterLarge() {
+        PARAMETERS.EPSILON = Math.PI;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(1,1), new Point(2, 1.2)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition2(); }
+        );
     }
   
   
