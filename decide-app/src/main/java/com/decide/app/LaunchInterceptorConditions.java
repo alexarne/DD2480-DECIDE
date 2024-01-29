@@ -56,6 +56,15 @@ public class LaunchInterceptorConditions {
         return true;
     }
 
+    /**
+     * Launch Interceptor Condition 2:
+     * There exists at least one set of three consecutive data points
+     * which form an angle such that:
+     * angle < (PI−EPSILON) or angle > (PI+EPSILON)
+     * The second of the three consecutive points is always the vertex of the angle. 
+     * If a point coincides with the vertex, the angle is undefined and the LIC is not satisfied.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition2() {
         if (PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
         double a;
