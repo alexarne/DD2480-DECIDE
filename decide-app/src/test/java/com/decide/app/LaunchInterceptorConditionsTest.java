@@ -10,6 +10,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
+import org.junit.Ignore;
 
 public class LaunchInterceptorConditionsTest {
     Parameters PARAMETERS;
@@ -57,7 +58,7 @@ public class LaunchInterceptorConditionsTest {
 
     /**
      * Edge-case test case, ensure LIC0 is not satisfied when points
-     * are exactly LENGHT1 apart.
+     * are exactly LENGTH1 apart.
      */
     @Test
     public void LIC0FalseOnDistanceEqualToLENGTH1() {
@@ -112,13 +113,13 @@ public class LaunchInterceptorConditionsTest {
 
     /**
      * Positive test case, ensure LIC7 is satisfied when two points seperated by
-     * exactly K_PTS consecutive points are striclty more than LENGHT1 apart.
+     * exactly K_PTS consecutive points are striclty more than LENGTH1 apart.
      */
     @Ignore
     @Test
     public void LIC7TrueOnPointsSeparatedByKptsPointsMoreThanLength1Apart() {
-        Parameters.K_PTS = 2;
-        Parameters.LENGHT1 = 3;
+        PARAMETERS.K_PTS = 2;
+        PARAMETERS.LENGTH1 = 3;
         Point[] POINTS = new Point[]{
             new Point(4, 2),
             new Point(1, 2),
@@ -136,13 +137,13 @@ public class LaunchInterceptorConditionsTest {
     /**
      * Negative test case, ensure LIC7 is not satisfied when all seta of two
      * points seperated by exactly K_PTS consecutive points are no more than
-     * LENGHT1 apart.
+     * LENGTH1 apart.
      */
     @Ignore
     @Test
     public void LIC7FalseOnPointsSeparatedByKptsPointsLessThanLength1Apart() {
-        Parameters.K_PTS = 1;
-        Parameters.LENGHT1 = 20;
+        PARAMETERS.K_PTS = 1;
+        PARAMETERS.LENGTH1 = 20;
         Point[] POINTS = new Point[]{
             new Point(4, 2),
             new Point(1, 2),
@@ -165,8 +166,8 @@ public class LaunchInterceptorConditionsTest {
     @Ignore
     @Test
     public void LIC7FalseOnPointsSeparatedByKptsPointsExactlyLength1Apart() {
-        Parameters.K_PTS = 1;
-        Parameters.LENGHT1 = 5;
+        PARAMETERS.K_PTS = 1;
+        PARAMETERS.LENGTH1 = 5;
         Point[] POINTS = new Point[]{
             new Point(0, 0),
             new Point(1, 2),
