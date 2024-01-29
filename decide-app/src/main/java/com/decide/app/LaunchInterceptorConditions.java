@@ -15,6 +15,14 @@ public class LaunchInterceptorConditions {
         this.PARAMETERS = PARAMETERS;
     }
 
+    /**
+     * Conditions Met Vector:
+     * The Conditions Met Vector (CMV) should be set according to the 
+     * results of each Launch Interceptor Condition. CMV[i] should be 
+     * set to true if and only if the i:th LIC is met.
+     * @return Boolean array where the i:th element gives the value
+     * for the i:th Launch Interceptor Condition.
+     */
     public boolean[] getConditionsMetVector() {
         boolean[] CMV = new boolean[]{
             getLaunchInterceptorCondition0(),
@@ -45,10 +53,9 @@ public class LaunchInterceptorConditions {
     public boolean getLaunchInterceptorCondition0() {
         if (PARAMETERS.LENGTH1 < 0) throw new IllegalArgumentException();
         for (int i = 0; i < NUMPOINTS-1; i++) {
-            double dx = Math.abs(POINTS[i].x - POINTS[i+1].x);
-            double dy = Math.abs(POINTS[i].y - POINTS[i+1].y);
-            double distance = Math.sqrt(dx*dx + dy*dy);
-            if (distance > PARAMETERS.LENGTH1) return true;
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+1];
+            if (distance(p1, p2) > PARAMETERS.LENGTH1) return true;
         }
         return false;
     }
@@ -123,8 +130,8 @@ public class LaunchInterceptorConditions {
      */
     public double distance(Point p1, Point p2) {
         if (p1 == null || p2 == null) throw new IllegalArgumentException();
-        double dx = Math.abs(p1.x - p2.x);
-        double dy = Math.abs(p1.y - p2.y);
+        double dx = Math.abs(p1.getX() - p2.getX());
+        double dy = Math.abs(p1.getY() - p2.getY());
         return Math.sqrt(dx*dx + dy*dy);
     }
 
