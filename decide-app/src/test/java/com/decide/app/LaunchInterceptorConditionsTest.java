@@ -105,7 +105,67 @@ public class LaunchInterceptorConditionsTest {
             () -> { LIC.getLaunchInterceptorCondition0(); }
         );
     }
-  
+
+    /**
+     * ========================== [ LIC 7 ] ==========================
+     */
+
+    /**
+     * Positive test case, ensure LIC7 is satisfied when two points seperated by
+     * exactly K_PTS consecutive points are striclty more than LENGHT1 apart.
+     */
+    @Ignore
+    @Test
+    public void LIC7TrueOnPointsSeparatedByKptsPointsMoreThanLength1Apart() {
+        Parameters.K_PTS = 2;
+        Parameters.LENGHT1 = 3;
+        Point[] POINTS = new Point[]{
+            new Point(4, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(10, 7),
+            new Point(1, 10)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        
+        assertTrue(LIC.getLaunchInterceptorCondition7());
+    }
+
+
+    /**
+     * Negative test case, ensure LIC7 is not satisfied when all seta of two
+     * points seperated by exactly K_PTS consecutive points are no more than
+     * LENGHT1 apart.
+     */
+
+    /**
+     * Edge-case test case, ensure LIC7 is not satisfied when there exists two points
+     * separated by exactly K_PTS consecutive points that are exactly at a distance
+     * of LENGTH1 of each other
+     */
+
+    /**
+     * Unsufficient input test case for LIC7, must return false when there are two or less
+     * points
+     */
+
+    /**
+     * Illegal argument value test case for LIC7, ensures an exception is raised if the
+     * value of LENGTH1 is strictly negative.
+     */
+
+    /**
+     * Illegal argument value test case for LIC7, ensures an exception is raised if the
+     * value of K_PTS is negative or null.
+     */
+
+    /**
+     * Illegal argument value test case for LIC7, ensures an exception is raised if the
+     * value of K_PTS is stricyl superior to NUMPOINTS-2.
+     */
+
   
 
     /**
