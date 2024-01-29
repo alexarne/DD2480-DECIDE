@@ -161,6 +161,21 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition1());
     }
 
+    /**
+     * Invalid input test case. Ensure LIC1 not satisfied when only two data points are provided.
+     */
+    @Test
+    public void LIC1FalseInsufficientInput() {
+        // Setup
+        PARAMETERS.RADIUS1 = 10.0;
+        int NUMPOINTS = 2;
+        Point[] POINTS = new Point[]{ new Point(1, 2), new Point(3, 4) };
+         // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+         // Assertion
+        assertFalse(LIC.getLaunchInterceptorCondition1());
+    }
+
 
     /**
      * ========================= [ HELPERS ] =========================
