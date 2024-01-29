@@ -140,6 +140,21 @@ public class LaunchInterceptorConditionsTest {
         assertTrue(LIC.getLaunchInterceptorCondition2());
         
     }
+
+    /**
+     * Negative test case. Ensure LIC2 not satisfied when angle between points is
+     * between Pi - EPSILON and EPSILON + Pi.
+     */
+    @Test
+    public void LIC2FalseAngleBetweenLimits(){
+        int NUMPOINTS = 3;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        Point[] POINTS = new Point[]{ new Point(2, 1), new Point(1,1), new Point(0, 1)};
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition2());
+        
+    }
   
   
 
