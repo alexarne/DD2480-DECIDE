@@ -73,8 +73,40 @@ public class LaunchInterceptorConditions {
         return true;
     }
 
+    /*
+     * There exists at least one set of N PTS consecutive data points such that at least one of the
+     * points lies a distance greater than DIST from the line joining the first and last of these N PTS
+     * points. If the first and last points of these N PTS are identical, then the calculated distance
+     * to compare with DIST will be the distance from the coincident point to all other points of
+     * the N PTS consecutive points. The condition is not met when NUMPOINTS < 3.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition6() {
-        return true;
+        if (NUMPOINTS<3) return false;
+        Point[] p = new Point[PARAMETERS.N_PTS];
+        for (int i = 0; i < NUMPOINTS-PARAMETERS.N_PTS+1; i++) {
+            for (int j = 0; j < PARAMETERS.N_PTS; j++) {
+                p[j] = POINTS[i+j]; 
+            }
+            Point first = new Point((p[0].x),(p[0].y));
+            Point last = new Point((p[PARAMETERS.N_PTS - 1].x),(p[PARAMETERS.N_PTS - 1].y));
+            Point line = new Point(last.x-first.x, last.y-first.y);
+            for (int j = 1; j < PARAMETERS.N_PTS - 1; j++) {
+                double x1 = first.x;
+                double x2 = p[j].x;
+                double y1 = first.y;
+                double y2= p[j].y;
+                Point v = new Point(x2 - x1, y2 - y1);
+                double skal = (line.x * v.x) + (line.y * v.y);
+                double lineNorm = Math.sqrt(line.x*line.x + line.y*line.y);
+                double mult = skal / (lineNorm * lineNorm);
+                Point proj = new Point(line.x * mult, line.y * mult);
+                Point distance = new Point(v.x - proj.x, v.y-proj.y);
+                double distanceNorm = Math.sqrt(distance.x*distance.x + distance.y * distance.y);
+                if (distanceNorm > PARAMETERS.DIST) return true;
+            }
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition7() {
