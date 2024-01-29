@@ -169,6 +169,21 @@ public class LaunchInterceptorConditionsTest {
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertFalse(LIC.getLaunchInterceptorCondition2());
     }
+
+    /**
+     * Edge-case test case. Ensure LIC2 not satisfied when angle between points is
+     * exactly Pi - EPSILON
+     */
+    @Test
+    public void LIC2FalseAngleEqualToLimit(){
+        int NUMPOINTS = 3;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.0;
+        Point[] POINTS = new Point[]{ new Point(2, 1), new Point(1,1), new Point(0, 1)};
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition2());
+        
+    }
   
   
 
