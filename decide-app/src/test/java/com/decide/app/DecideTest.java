@@ -13,37 +13,39 @@ public class DecideTest {
     public void setUp() {
         PARAMETERS = new Parameters();
     }
+    
+    /**
+     * ========================= [ GENERAL ] =========================
+     */
+
+    @Test
+    public void shouldAnswerWithTrue() {
+        Point[] POINTS = new Point[]{
+            new Point(1, 2)
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.AREA1 = 1.0;
+        Connector[][] LCM = new Connector[][]{{ Connector.ANDD }};
+        boolean[] PUV = new boolean[]{ false };
+        Decide decide = new Decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
+        assertTrue(decide.DECIDE());
+    }
+    
+    /**
+     * =========================== [ PUM ] ===========================
+     */
+
+    
+    
+    /**
+     * =========================== [ FUV ] ===========================
+     */
+
+    
 
     /**
      * ========================= [ LAUNCH ] ==========================
      */
-
-    /**
-     * Negative test case, ensure that the final launch decision is
-     * false if not all elements in the Final Unlocking Vector are true.
-     */
-    @Test
-    public void LaunchIsFalseIfFinalUnlockingVectorIsFalse() {
-        Decide decide = new Decide();
-        boolean[] FUV = new boolean[]{
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            false,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-        };
-        assertFalse(decide.getLaunchDecision(FUV));
-    }
 
     /**
      * Positive test case, ensure that the final launch decision is
@@ -72,16 +74,31 @@ public class DecideTest {
         assertTrue(decide.getLaunchDecision(FUV));
     }
 
+    /**
+     * Negative test case, ensure that the final launch decision is
+     * false if not all elements in the Final Unlocking Vector are true.
+     */
     @Test
-    public void shouldAnswerWithTrue() {
-        Point[] POINTS = new Point[]{
-            new Point(1, 2)
+    public void LaunchIsFalseIfFinalUnlockingVectorIsFalse() {
+        Decide decide = new Decide();
+        boolean[] FUV = new boolean[]{
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
         };
-        int NUMPOINTS = POINTS.length;
-        PARAMETERS.AREA1 = 1.0;
-        Connector[][] LCM = new Connector[][]{{ Connector.ANDD }};
-        boolean[] PUV = new boolean[]{ false };
-        Decide decide = new Decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
-        assertTrue(decide.DECIDE());
+        assertFalse(decide.getLaunchDecision(FUV));
     }
+
 }
