@@ -170,6 +170,24 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition8());
         
     }
+
+    /**
+     * Incorrect input test case. Ensure LIC8 is not satisfied when less than 5 points
+     * are supplied.
+     */
+    @Test 
+    public void LIC8FalseLessThan5Points(){
+        PARAMETERS.RADIUS1 = 2.0;
+        PARAMETERS.A_PTS = 1;
+        PARAMETERS.B_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(4, 2), new Point(1, 2), new Point(3, 5)};
+        int NUMPOINTS = POINTS.length;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertFalse(LIC.getLaunchInterceptorCondition8());
+
+    }
     
     /**
      * ========================= [ HELPERS ] =========================
