@@ -57,6 +57,7 @@ public class LaunchInterceptorConditions {
     }
 
     public boolean getLaunchInterceptorCondition2() {
+        if (PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
         double a;
         Point vertex;
         double x1;
@@ -67,7 +68,6 @@ public class LaunchInterceptorConditions {
             vertex = POINTS[i+1];
             if(POINTS[i].getX() == vertex.getX() && POINTS[i].getY() == vertex.getY()
             || POINTS[i+2].getX() == vertex.getX() && POINTS[i+2].getY() == vertex.getY()) return false;
-            //else if(POINTS[i+2].getX() == vertex.getX() && POINTS[i+2].getY() == vertex.getY()) return false;
             x1 = (POINTS[i].getX() - vertex.getX());
             y1 = (POINTS[i].getY() - vertex.getY());
             x2 = (POINTS[i+2].getX() - vertex.getX());
