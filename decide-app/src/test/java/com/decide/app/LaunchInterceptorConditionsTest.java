@@ -101,6 +101,36 @@ public class LaunchInterceptorConditionsTest {
             () -> { LIC.getLaunchInterceptorCondition0(); }
         );
     }
+
+    /**
+    * ========================== [ LIC 6 ] ==========================
+    */
+
+    /**
+     * Positive test case, ensure LIC6 is satisfied when one of N_PTS consecutive
+     * points lies a distance greater than DIST apart from the line joining the
+     * first and last of these N_PTS points.
+     */
+    @Test
+    public void LIC6TrueOnDistanceGreaterThanDIST() {
+        Point[] p = {
+            new Point(1, 1), 
+            new Point(0,2), 
+            new Point(5,3), 
+            new Point(8,2), 
+            new Point(3,9), 
+            new Point(1,3), 
+            new Point(7,2), 
+            new Point(9,2), 
+            new Point(3,1), 
+            new Point(1,4)
+        };
+        Parameters par = new Parameters();
+        par.N_PTS = 6;
+        par.DIST = 8;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(10, p, par);
+        assertTrue(LIC.getLaunchInterceptorCondition6());
+    }
   
   
 
