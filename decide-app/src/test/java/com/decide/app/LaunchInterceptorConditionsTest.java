@@ -176,6 +176,23 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition1());
     }
 
+    /**
+     * Invalid input test case, ensure LIC1 throws IllegalArgumentException
+     * if the supplied parameter RADIUS1 is less than 0.
+     */
+    @Test
+    public void LIC1ThrowsIllegalArgumentExceptionOnInvalidParameter() {
+        PARAMETERS.RADIUS1 = -1;
+        int NUMPOINTS = 4;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(5, 2.5), new Point(3, 5), new Point(0, 0) };
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition1(); }
+        );
+    }
+
 
     /**
      * ========================= [ HELPERS ] =========================
