@@ -145,6 +145,22 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition1());
     }
 
+    /**
+     * Edge-case test case. Ensure LIC1 not satisfied when three consecutive data points
+     * are on the edge of the circle of radius RADIUS1.
+     */
+    @Test
+    public void LIC1FalsePointsOnCircleExtremities() {
+        // Setup
+        PARAMETERS.RADIUS1 = 3.0;
+        int NUMPOINTS = 3;
+        Point[] POINTS = new Point[]{ new Point(4, 4), new Point(4, 1), new Point(1, 4) };
+          // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+         // Assertion
+        assertFalse(LIC.getLaunchInterceptorCondition1());
+    }
+
 
     /**
      * ========================= [ HELPERS ] =========================
