@@ -129,6 +129,22 @@ public class LaunchInterceptorConditionsTest {
         assertTrue(LIC.getLaunchInterceptorCondition1());
     }
 
+    /**
+     * Negative test case. Ensure LIC1 not satisfied when three consecutive data points
+     * can be contained within a circle of radius RADIUS1.
+     */
+    @Test
+    public void LIC1FalsePointsInRadius() {
+        // Setup
+        PARAMETERS.RADIUS1 = 4.0;
+        int NUMPOINTS = 3;
+        Point[] POINTS = new Point[]{ new Point(1, 2), new Point(3, 4), new Point(4, 4) };
+         // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+         // Assertion
+        assertFalse(LIC.getLaunchInterceptorCondition1());
+    }
+
 
     /**
      * ========================= [ HELPERS ] =========================
