@@ -122,8 +122,8 @@ public class LaunchInterceptorConditions {
      */
     public double distance(Point p1, Point p2) {
         if (p1 == null || p2 == null) throw new IllegalArgumentException();
-        double dx = Math.abs(p1.x - p2.x);
-        double dy = Math.abs(p1.y - p2.y);
+        double dx = Math.abs(p1.getX() - p2.getX());
+        double dy = Math.abs(p1.getY() - p2.getY());
         return Math.sqrt(dx*dx + dy*dy);
     }
 
