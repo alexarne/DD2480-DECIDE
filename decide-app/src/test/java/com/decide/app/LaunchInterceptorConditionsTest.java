@@ -129,16 +129,33 @@ public class LaunchInterceptorConditionsTest {
         int NUMPOINTS = POINTS.length;
 
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        
+
         assertTrue(LIC.getLaunchInterceptorCondition7());
     }
-
 
     /**
      * Negative test case, ensure LIC7 is not satisfied when all seta of two
      * points seperated by exactly K_PTS consecutive points are no more than
      * LENGHT1 apart.
      */
+    @Ignore
+    @Test
+    public void LIC7FalseOnPointsSeparatedByKptsPointsLessThanLength1Apart() {
+        Parameters.K_PTS = 1;
+        Parameters.LENGHT1 = 20;
+        Point[] POINTS = new Point[]{
+            new Point(4, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(10, 7),
+            new Point(1, 10)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        
+        assertFalse(LIC.getLaunchInterceptorCondition7());
+    }
 
     /**
      * Edge-case test case, ensure LIC7 is not satisfied when there exists two points
