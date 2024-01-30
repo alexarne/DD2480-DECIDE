@@ -7,6 +7,10 @@ public class Decide {
     Connector[][] LCM;
     boolean[] PUV;
 
+    public Decide() {
+
+    }
+
     public Decide(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, Connector[][] LCM, boolean[] PUV) {
         this.NUMPOINTS = NUMPOINTS;
         this.POINTS = POINTS;
@@ -34,7 +38,17 @@ public class Decide {
         return FUV;
     }
 
-    public boolean getLaunchDecision(boolean[] FUV) {
+    /**
+     * Final launch decision:
+     * The decision to launch requires that all elements in the 
+     * Final Unlocking Vector be true.
+     * @param FinalUnlockingVector The Final Unlocking Vector.
+     * @return True if all values in FinalUnlockingVector are true.
+     */
+    public boolean getLaunchDecision(boolean[] FinalUnlockingVector) {
+        for (boolean value : FinalUnlockingVector) {
+            if (value == false) return false;
+        }
         return true;
     }
 }
