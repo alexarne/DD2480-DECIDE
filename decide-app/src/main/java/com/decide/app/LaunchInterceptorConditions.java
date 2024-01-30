@@ -67,21 +67,15 @@ public class LaunchInterceptorConditions {
      */
     public boolean getLaunchInterceptorCondition2() {
         if (PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
-        double a;
-        Point vertex;
-        double x1;
-        double x2;
-        double y1;
-        double y2;
         for(int i = 0; i < NUMPOINTS-2; i++){
-            vertex = POINTS[i+1];
+            Point vertex = POINTS[i+1];
             if(POINTS[i].getX() == vertex.getX() && POINTS[i].getY() == vertex.getY()
             || POINTS[i+2].getX() == vertex.getX() && POINTS[i+2].getY() == vertex.getY()) return false;
-            x1 = (POINTS[i].getX() - vertex.getX());
-            y1 = (POINTS[i].getY() - vertex.getY());
-            x2 = (POINTS[i+2].getX() - vertex.getX());
-            y2 = (POINTS[i+2].getY() - vertex.getY());
-            a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
+            double x1 = (POINTS[i].getX() - vertex.getX());
+            double y1 = (POINTS[i].getY() - vertex.getY());
+            double x2 = (POINTS[i+2].getX() - vertex.getX());
+            double y2 = (POINTS[i+2].getY() - vertex.getY());
+            double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
             if(a < Math.PI - PARAMETERS.EPSILON) return true;
             else if(a > PARAMETERS.EPSILON + Math.PI) return true;
         }
