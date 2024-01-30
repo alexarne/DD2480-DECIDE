@@ -408,6 +408,24 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
+     * Negative test case, ensure LIC12 returns false if there are
+     * only 2 points.
+     */
+    @Test
+    public void LIC12FalseWhenTwoPoints() {
+        PARAMETERS.K_PTS = 1;
+        PARAMETERS.LENGTH1 = 5;
+        PARAMETERS.LENGTH2 = 5000;
+        Point[] POINTS = new Point[]{
+            new Point(0,3),
+            new Point(1,70)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition12());
+    }
+
+    /**
      * Invalid input test case, ensure LIC3 throws IllegalArgumentException
      * if the supplied parameter AREA1 is less than 0.
      */
