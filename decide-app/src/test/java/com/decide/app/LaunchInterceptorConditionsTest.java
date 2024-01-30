@@ -360,7 +360,84 @@ public class LaunchInterceptorConditionsTest {
      * ========================= [ LIC 11 ] ==========================
      */
 
-    
+    /**
+     * Positive test case, ensure LIC11 returns true when there is a set
+     * of points with G_PTS intervening points such that their x-difference
+     * is negative.
+     */
+    @Test
+    public void LIC11TrueWhenSatisfied() {
+        PARAMETERS.G_PTS = 4;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(0,2),
+            new Point(0,2),
+            new Point(0,2),
+            new Point(0,2),
+            new Point(0,2)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition11());
+    }
+
+    /**
+     * Negative test case, ensure LIC11 returns false if there are
+     * only 2 points.
+     */
+    @Test
+    public void LIC11FalseWhenTwoPoints() {
+        PARAMETERS.G_PTS = 1;
+        Point[] POINTS = new Point[]{
+            new Point(0,3),
+            new Point(1,70)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition11());
+    }
+
+    /**
+     * Negative test case, ensure LIC11 returns false if all points are
+     * non-decreasing in x-value.
+     */
+    @Test
+    public void LIC11FalseWhenIncreasingX() {
+        PARAMETERS.G_PTS = 1;
+        Point[] POINTS = new Point[]{
+            new Point(0,3),
+            new Point(1,70),
+            new Point(1,2),
+            new Point(2,22),
+            new Point(2.2,2),
+            new Point(3,24),
+            new Point(4,2)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition11());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC11 throws IllegalArgumentException
+     * if G_PTS is out of bounds.
+     */
+    @Test
+    public void LIC11ThrowsExceptionOnInvalidParameter() {
+        PARAMETERS.G_PTS = 0;
+        Point[] POINTS = new Point[]{
+            new Point(0,3),
+            new Point(1,70),
+            new Point(1,2)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition11(); }
+        );
+    }
 
     /**
      * ========================= [ LIC 12 ] ==========================
