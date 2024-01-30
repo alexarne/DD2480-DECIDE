@@ -102,16 +102,16 @@ public class LaunchInterceptorConditionsTest {
         );
     }
   
-  /**
+    /**
      * ========================== [ LIC 4 ] ==========================
      */
 
     /**
-     * Positive test case, ensure LIC4 is satisfied when 
+     * Positive test case, ensure LIC4 is satisfied when receives three points with at least two
+     * of them in different Quads
      */
     @Test
     public void LIC4TruewithThreePointsAndTwoQuads() {
-        int NUMPOINTS = 3;
         Parameters PARAMETERS = new Parameters();
         PARAMETERS.QUADS = 1;
         PARAMETERS.Q_PTS = 3;
@@ -120,12 +120,14 @@ public class LaunchInterceptorConditionsTest {
             new Point(-1, 2),
             new Point(2,-1)
         };
+        int NUMPOINTS = POINTS.length;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertTrue(LIC.getLaunchInterceptorCondition4());
     }
 
-    /**caso borde, si los Q_pts son menos que los quads, deberia dar falso */
-
+    /**
+     * caso borde, si los Q_pts son menos que los quads, deberia dar falso 
+    */
     @Test
     public void WhichQuad() {
         Point p1 = new Point(2,-1);
