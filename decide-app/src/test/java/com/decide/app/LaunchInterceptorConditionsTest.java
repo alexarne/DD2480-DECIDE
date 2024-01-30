@@ -163,7 +163,7 @@ public class LaunchInterceptorConditionsTest {
 
     /**
      * Edge-case test case. Ensure LIC1 satisfied when three consecutive data points
-     * form a equilateral triangle with side length = RADIUS1
+     * form a equilateral triangle with side length = RADIUS1*2
      * and can not be contained within a circle of radius RADIUS1.
      */
     @Test
