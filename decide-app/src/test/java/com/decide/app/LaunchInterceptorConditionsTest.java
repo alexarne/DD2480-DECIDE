@@ -205,7 +205,7 @@ public class LaunchInterceptorConditionsTest {
      * points are in the same X position.
      */
     @Test
-    public void LIC5TruewithEqualX() {
+    public void LIC5FalseWithEqualX() {
         Point[] POINTS = new Point[]{
             new Point(1, 2), 
             new Point(1, 4)
