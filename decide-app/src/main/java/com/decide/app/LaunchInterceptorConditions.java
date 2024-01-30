@@ -133,8 +133,24 @@ public class LaunchInterceptorConditions {
         return true;
     }
 
+    /**
+     * Launch Interceptor Condition 11:
+     * There exists at least one set of two data points, (X[i],Y[i]) 
+     * and (X[j],Y[j]), separated by exactly G_PTS consecutive 
+     * intervening points, such that X[j] - X[i] < 0. (where i < j) 
+     * The condition is not met when NUMPOINTS < 3.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition11() {
-        return true;
+        if (NUMPOINTS < 3) return false;
+        if (PARAMETERS.G_PTS < 1 || PARAMETERS.G_PTS > NUMPOINTS-2) 
+            throw new IllegalArgumentException();
+        for (int i = 0; i < NUMPOINTS-PARAMETERS.G_PTS-1; ++i) {
+            Point pi = POINTS[i];
+            Point pj = POINTS[i + PARAMETERS.G_PTS + 1];
+            if (pj.getX() - pi.getX() < 0) return true;
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition12() {
