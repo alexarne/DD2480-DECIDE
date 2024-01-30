@@ -170,7 +170,20 @@ public class LaunchInterceptorConditionsTest {
     /**
      * ========================== [ LIC 5 ] ==========================
      */
-
+    /**
+     * Positive test case, ensure LIC5 is satisfied when two consecutive
+     * points follow that X[J] - X[i] < 0. with J = I+1
+     */
+    @Test
+    public void LIC5TruewithX2lowerThanX1() {
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(0, 4)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition5());
+    }
     
 
     /**
