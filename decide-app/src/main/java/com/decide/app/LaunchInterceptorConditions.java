@@ -71,12 +71,8 @@ public class LaunchInterceptorConditions {
     public boolean getLaunchInterceptorCondition3() {
         if (PARAMETERS.AREA1 < 0) throw new IllegalArgumentException();
         for (int i = 0; i < NUMPOINTS-2; i++) {
-            double distance1 = distance(POINTS[i], POINTS[i+1]);
-            double distance2 = distance(POINTS[i+1], POINTS[i+2]);
-            double distance3 = distance(POINTS[i], POINTS[i+2]);
-            double S = (distance1+distance2+distance3)/2;
-            double Area = Math.sqrt(S*(S-distance1)*(S-distance2)*(S-distance3));
-            if (Area > PARAMETERS.AREA1) return true;
+            double area = triangleArea(POINTS[i], POINTS[i+1], POINTS[i+2]);
+            if (area > PARAMETERS.AREA1) return true;
         }
         return false;
     }
@@ -166,6 +162,26 @@ public class LaunchInterceptorConditions {
         double dx = Math.abs(p1.getX() - p2.getX());
         double dy = Math.abs(p1.getY() - p2.getY());
         return Math.sqrt(dx*dx + dy*dy);
+    }
+
+    /**
+     * Calculating the area of a triangle formed by three points.
+     * Using Heron's formula: 
+     * https://www.geeksforgeeks.org/area-of-a-triangle-coordinate-geometry/
+     * @param p1 The first corner point.
+     * @param p2 The second corner point.
+     * @param p3 The third corner point.
+     * @return The area of the triangle.
+     */
+    public double triangleArea(Point p1, Point p2, Point p3) {
+        if (p1 == null || p2 == null || p3 == null) 
+            throw new IllegalArgumentException();
+        double distance1 = distance(p1, p2);
+        double distance2 = distance(p2, p3);
+        double distance3 = distance(p1, p3);
+        double S = (distance1+distance2+distance3)/2;
+        double area = Math.sqrt(S*(S-distance1)*(S-distance2)*(S-distance3));
+        return area;
     }
 
 }
