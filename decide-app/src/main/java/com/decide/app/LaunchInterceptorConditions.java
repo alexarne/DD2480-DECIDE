@@ -127,4 +127,63 @@ public class LaunchInterceptorConditions {
         return Math.sqrt(dx*dx + dy*dy);
     }
 
+        /**
+     * 
+     * @param p1 The first point.
+     * @param p2 The second point.
+     * @param p3 The third point.
+     * @return The radius of the circle through points p1, p2 and p3.
+     */
+    public double findCircleRadius(Point p1, Point p2, Point p3){
+        if (p1 == null || p2 == null || p3 == null) throw new IllegalArgumentException();
+        double x1 = p1.getX();
+        double y1 = p1.getY();
+        double x2 = p2.getX();
+        double y2 = p2.getY();
+        double x3 = p3.getX();
+        double y3 = p3.getY();
+
+        // Points are on a vertical or horizontal line. Cannot form a circle
+        if((x1 == x2 && x2 == x3) || (y1 == y2 && y2 == y3)){
+            return Double.NaN;
+        }
+        //two lines A through p1-p2 and B through p2-p3
+        double slopeA = (y2-y1)/(x2-x1);
+        double slopeB = (y3-y2)/(x3-x2);
+        
+        // if slope is infinite, line is vertical. Change order of points. 
+        if(Double.isInfinite(slopeA)){
+            double tempx = x3;
+            double tempy = y3;
+            x3 = x2;
+            y3 = y2;
+            x2 = tempx;
+            y2 = tempy;
+            slopeA = (y2-y1)/(x2-x1);
+            slopeB = (y3-y2)/(x3-x2);
+        }
+        if(Double.isInfinite(slopeB)){
+            double tempx = x1;
+            double tempy = y1;
+            x1 = x2;
+            y1 = y2;
+            x2 = tempx;
+            y2 = tempy;
+            slopeA = (y2-y1)/(x2-x1);
+            slopeB = (y3-y2)/(x3-x2);
+        }
+
+        // Intersection of two lines perpendicular to and passing through midpoints of A and B
+        // is center of circle.
+        double x = ((slopeA*slopeB*(y1-y3)) + slopeB*(x1+x2) - slopeA*(x2+x3))/(2*(slopeB-slopeA));
+        double y = (-1/slopeA)*(x-((x1+x2)/2)) + (y1+y2)/2;
+        // If slopeA is 0, use slopeB to calculate y. 
+        if(slopeA == 0){
+            y = (-1/slopeB)*(x-(x2+x3)/2) + (y2+y3)/2;
+        }
+        return distance(new Point(x, y), p1);
+    }
+
+}
+
 }
