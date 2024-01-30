@@ -546,6 +546,18 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
+     * Positive test case, ensure that the area of a slim triangle is 0.
+     */
+    @Test
+    public void triangleAreaCorrectOnSlimTriangle() {
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(2, 2);
+        Point p3 = new Point(3, 3);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(0, LIC.triangleArea(p1, p2, p3), 0.00001);
+    }
+
+    /**
      * Invalid input test case, ensure the triangle area with a null vertex
      * causes an IllegalArgumentException to be thrown.
      */
