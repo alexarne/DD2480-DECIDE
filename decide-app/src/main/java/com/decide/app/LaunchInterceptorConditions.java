@@ -69,15 +69,14 @@ public class LaunchInterceptorConditions {
         if (PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
         for(int i = 0; i < NUMPOINTS-2; i++){
             Point vertex = POINTS[i+1];
-            if(POINTS[i].getX() == vertex.getX() && POINTS[i].getY() == vertex.getY()
-            || POINTS[i+2].getX() == vertex.getX() && POINTS[i+2].getY() == vertex.getY()) return false;
             double x1 = (POINTS[i].getX() - vertex.getX());
             double y1 = (POINTS[i].getY() - vertex.getY());
             double x2 = (POINTS[i+2].getX() - vertex.getX());
             double y2 = (POINTS[i+2].getY() - vertex.getY());
             double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
-            if(a < Math.PI - PARAMETERS.EPSILON) return true;
-            if(a > PARAMETERS.EPSILON + Math.PI) return true;
+            if((a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI)
+                && !(POINTS[i].getX() == vertex.getX() && POINTS[i].getY() == vertex.getY()
+                || POINTS[i+2].getX() == vertex.getX() && POINTS[i+2].getY() == vertex.getY())) return true;
         }
         return false;
     }
