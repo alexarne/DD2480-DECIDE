@@ -77,7 +77,12 @@ public class LaunchInterceptorConditions {
     }
 
     public boolean getLaunchInterceptorCondition5() {
-        return true;
+        for (int i = 0; i < NUMPOINTS-1; i++) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+1];
+            if ((p2.getX()-p1.getX())<0) return true;
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition6() {
