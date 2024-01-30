@@ -77,7 +77,7 @@ public class LaunchInterceptorConditions {
             double y2 = (POINTS[i+2].getY() - vertex.getY());
             double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
             if(a < Math.PI - PARAMETERS.EPSILON) return true;
-            else if(a > PARAMETERS.EPSILON + Math.PI) return true;
+            if(a > PARAMETERS.EPSILON + Math.PI) return true;
         }
         return false;
     }
