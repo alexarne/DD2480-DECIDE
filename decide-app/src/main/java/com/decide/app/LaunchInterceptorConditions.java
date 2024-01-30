@@ -68,6 +68,8 @@ public class LaunchInterceptorConditions {
     public boolean getLaunchInterceptorCondition4() {
         if (PARAMETERS.Q_PTS < 2 || PARAMETERS.Q_PTS>NUMPOINTS) throw new IllegalArgumentException("incorrect No. of Points");
         if (PARAMETERS.QUADS < 0 || PARAMETERS.QUADS > 3) throw new IllegalArgumentException("incorrect No. of Quads");
+
+        if(PARAMETERS.QUADS>PARAMETERS.Q_PTS) return false;
         for (int i = 0; i < NUMPOINTS-(PARAMETERS.Q_PTS-1); i++) {
             int Q1=0;
             int Q2=0;

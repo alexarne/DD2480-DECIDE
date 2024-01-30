@@ -163,6 +163,49 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
+     * Invalid input test case, ensure LIC4 throws IllegalArgumentException
+     * if the supplied parameter QUADS are not betweem 1 and 3
+     */
+    @Test
+    public void LIC4ThrowErrorIfQuadsAreNotOK() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.QUADS = 4;
+        PARAMETERS.Q_PTS = 2;
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(-10, 20)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition4(); }
+        );
+    }
+
+    /**
+     * Invalid input test case, ensure LIC4 throws IllegalArgumentException
+     * if the supplied parameter Q_PTS are not betweem 2 and NUMPOINTS
+     */
+    @Test
+    public void LIC4ThrowErrorIfQ_PTSAreNotOK() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.QUADS = 2;
+        PARAMETERS.Q_PTS = 3;
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(-10, 20)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition4(); }
+        );
+    }
+    
+
+    /**
     * WhichQuad is expected to return the Quad where the point is.
     */
     @Test
