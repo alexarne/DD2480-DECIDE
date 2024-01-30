@@ -162,12 +162,67 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition4());
     }
 
+
+    /**
+    * WhichQuad is expected to return the Quad where the point is.
+    */
     @Test
     public void WhichQuad() {
         Point p1 = new Point(2,-1);
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
         assertEquals(4, LIC.whichQuad(p1), 0.00001);
     }
+
+    /**
+    * Edge-case, for point (0,0) should return 1
+    */
+    @Test
+    public void WhichQuadCenter() {
+        Point p1 = new Point(0,0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(1, LIC.whichQuad(p1), 0.00001);
+    }
+
+    /**
+    * Edge-case, for point (0,1) should return 1
+    */
+    @Test
+    public void WhichQuadBetweenQuadIAndQuadII() {
+        Point p1 = new Point(0,1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(1, LIC.whichQuad(p1), 0.00001);
+    }
+
+    /**
+    * Edge-case, for point (1,0) should return 1
+    */
+    @Test
+    public void WhichQuadBetweenQuadIAndQuadIV() {
+        Point p1 = new Point(1,0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(1, LIC.whichQuad(p1), 0.00001);
+    }
+
+    /**
+    * Edge-case, for point (-1,0) should return 2
+    */
+    @Test
+    public void WhichQuadBetweenQuadIIAndQuadIII() {
+        Point p1 = new Point(-1,0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(2, LIC.whichQuad(p1), 0.00001);
+    }
+
+    /**
+    * Edge-case, for point (0,-1) should return 3
+    */
+    @Test
+    public void WhichQuadBetweenQuadIIIAndQuadIV() {
+        Point p1 = new Point(0,-1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(3, LIC.whichQuad(p1), 0.00001);
+    }
+
     /**
      * ========================= [ HELPERS ] =========================
      */
