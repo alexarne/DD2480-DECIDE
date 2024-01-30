@@ -200,6 +200,21 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition5());
     }
 
+     /**
+     * Egde-case test, ensure LIC5 is not satisfied when two consecutive
+     * points are in the same X position.
+     */
+    @Test
+    public void LIC5TruewithEqualX() {
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(1, 4)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition5());
+    }
+    
    
 
     /**
