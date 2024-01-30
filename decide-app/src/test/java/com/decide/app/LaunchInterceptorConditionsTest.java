@@ -130,7 +130,7 @@ public class LaunchInterceptorConditionsTest {
      * which are in the same Quad
      */
     @Test
-    public void LIC4FalseithThreePointsInSameQuad() {
+    public void LIC4FalsewithThreePointsInSameQuad() {
         Parameters PARAMETERS = new Parameters();
         PARAMETERS.QUADS = 1;
         PARAMETERS.Q_PTS = 3;
@@ -145,8 +145,23 @@ public class LaunchInterceptorConditionsTest {
     }
     
     /**
-     * caso borde, si los Q_pts son menos que los quads, deberia dar falso 
+    * edge case, if the number of Q_PTS is lower than the number
+    * of QUADS, the test should be FALSE  
     */
+    @Test
+    public void LIC4FalseWithMoreQuadsThanPoints() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.QUADS = 3;
+        PARAMETERS.Q_PTS = 2;
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(-10, 20)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition4());
+    }
+
     @Test
     public void WhichQuad() {
         Point p1 = new Point(2,-1);
