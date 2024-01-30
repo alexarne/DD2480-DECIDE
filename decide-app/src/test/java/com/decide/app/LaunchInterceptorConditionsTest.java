@@ -160,4 +160,58 @@ public class LaunchInterceptorConditionsTest {
         );
     }
 
+        /**
+     * Positive test case. Ensure the radius of the circle through the
+     * points is correct.
+     */
+    @Test
+    public void findCircleRadiusCorrect() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(2, 1);
+        Point p3 = new Point(3, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(1, LIC.findCircleRadius(p1, p2, p3), 0.00001);
+    }
+
+    /**
+     * Negative test case. Ensure the radius of the circle through the
+     * points is not incorrect.
+     */
+    @Test
+    public void findCircleRadiusIncorrect() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(2, 1);
+        Point p3 = new Point(5, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertNotEquals(1, LIC.findCircleRadius(p1, p2, p3), 0.00001);
+    }
+
+    /**
+     * Edge-case test case. Ensure the radius of a straight line is returned as NaN.
+     */
+    @Test
+    public void findCircleRadiusStraightLine() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(1, 1);
+        Point p3 = new Point(1, 2);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(Double.NaN, LIC.findCircleRadius(p1, p2, p3), 0.00001);
+    }
+
+    /**
+     * Invalid input test case, ensure the distance to a null object
+     * causes an IllegalArgumentException to be thrown.
+     */
+    @Test
+    public void findCircleRadiusThrowsIllegalArgumentExceptionOnNull() {
+        Point p1 = new Point(0, 0);
+        Point p2 = null;
+        Point p3 = new Point(1, 3);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.findCircleRadius(p1, p2, p3); }
+        );
+    }
+
 }
