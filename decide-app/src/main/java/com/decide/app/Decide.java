@@ -36,14 +36,15 @@ public class Decide {
      * to be applied to CMV[i] and CMV[j]. PUM[i,j] is set according 
      * to the result of this operation. If LCM[i,j] is NOTUSED, then 
      * PUM[i,j] should be set to true.
-     * @param ConditionsMetVector The Conditions Met Vector (length 15)
-     * @return Preliminary Unlocking Matrix: Matrix (15x15) of boolean values.
+     * @param ConditionsMetVector The Conditions Met Vector (length n)
+     * @return Preliminary Unlocking Matrix: Matrix (n x n) of boolean values.
      */
     public boolean[][] getPreliminaryUnlockingMatrix(boolean[] ConditionsMetVector) {
-        if (ConditionsMetVector.length != 15) throw new IllegalArgumentException();
-        if (LCM.length != 15 || LCM[0].length != 15) throw new IllegalArgumentException();
-        boolean[][] PUM = new boolean[15][15];
+        int n = ConditionsMetVector.length;
+        if (LCM.length < n) throw new IllegalArgumentException();
+        boolean[][] PUM = new boolean[n][n];
         for (int i = 0; i < PUM.length; ++i) {
+            if (LCM[i].length < n) throw new IllegalArgumentException();
             for (int j = 0; j < PUM[i].length; ++j) {
                 if (LCM[i][j] == Connector.ANDD) 
                     PUM[i][j] = ConditionsMetVector[i] && ConditionsMetVector[j];
