@@ -3,6 +3,7 @@ package com.decide.app;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -10,6 +11,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
+import org.junit.Ignore;
 
 public class LaunchInterceptorConditionsTest {
     Parameters PARAMETERS;
@@ -201,7 +203,32 @@ public class LaunchInterceptorConditionsTest {
      * ========================= [ LIC 10 ] ==========================
      */
 
-    
+    /**
+     * Positive test case, ensure LIC10 is satisfied when three points seperated by
+     * exactly E_PTS and F_PTS consecutive pointsrespectively form a triangle of area
+     * striclty more than AREA1 apart.
+     */
+    @Ignore
+    @Test
+    public void LIC10TrueOnPointsSeparatedByEptsAndFptsPointsOfAreaStrictlySuperiorToArea1() {
+        PARAMETERS.E_PTS = 2;
+        PARAMETERS.E_PTS = 2;
+        PARAMETERS.AREA1 = 3;
+        Point[] POINTS = new Point[]{
+            new Point(4, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(10, 7),
+            new Point(1, 10),
+            new Point(1, 1),
+            new Point(-1, -7)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertTrue(LIC.getLaunchInterceptorCondition10());
+    }
 
     /**
      * ========================= [ LIC 11 ] ==========================
