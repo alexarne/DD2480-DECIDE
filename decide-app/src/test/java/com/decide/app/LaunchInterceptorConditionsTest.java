@@ -152,8 +152,8 @@ public class LaunchInterceptorConditionsTest {
     @Test
     public void LIC1FalsePointsOnCircleExtremities() {
         // Setup
-        PARAMETERS.RADIUS1 = 3.0;
-        Point[] POINTS = new Point[]{ new Point(4, 4), new Point(4, 1), new Point(1, 4) };
+        PARAMETERS.RADIUS1 = Math.sqrt(1.25);
+        Point[] POINTS = new Point[]{ new Point(1, 0), new Point(1, 1), new Point(3, 0)};
         int NUMPOINTS = POINTS.length;
           // Processing
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
