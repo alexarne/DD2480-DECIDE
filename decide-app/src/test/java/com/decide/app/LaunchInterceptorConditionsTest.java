@@ -184,7 +184,23 @@ public class LaunchInterceptorConditionsTest {
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertTrue(LIC.getLaunchInterceptorCondition5());
     }
-    
+
+    /**
+     * Negative test case, ensure LIC5 is not satisfied when two consecutive
+     * points don't follow that X[J] - X[i] < 0. with J = I+1
+     */
+    @Test
+    public void LIC5FalseWithX2HigherThanX1() {
+        Point[] POINTS = new Point[]{
+            new Point(0, 2), 
+            new Point(1, 4)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition5());
+    }
+
+   
 
     /**
      * ========================== [ LIC 6 ] ==========================
