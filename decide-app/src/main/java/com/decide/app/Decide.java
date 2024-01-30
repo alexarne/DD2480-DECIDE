@@ -33,8 +33,27 @@ public class Decide {
         return PUM;
     }
 
-    public boolean[] getFinalUnlockingVector(boolean[][] PUM) {
-        boolean[] FUV = new boolean[]{ true };
+    /**
+     * Final Unlocking Vector:
+     * The Preliminary Unlocking Matrix indicates whether the corresponding 
+     * LIC is to be considered as a factor in signaling interceptor launch. 
+     * FUV[i] should be set to true if PUV[i] is false (indicating that the 
+     * associated LIC should not hold back launch) or if all elements in 
+     * PUM row i are true.
+     * @param PreliminaryUnlockingMatrix The Preliminary Unlocking Matrix.
+     * @return The Final Unlocking Vector, an array of boolean values.
+     */
+    public boolean[] getFinalUnlockingVector(boolean[][] PreliminaryUnlockingMatrix) {
+        int n = PUV.length;
+        if (PreliminaryUnlockingMatrix.length < n) throw new IllegalArgumentException();
+        boolean[] FUV = new boolean[n];
+        for (int i = 0; i < FUV.length; ++i) {
+            FUV[i] = true;
+            if (PUV[i] == false) continue;
+            for (int j = 0; j < PreliminaryUnlockingMatrix[i].length; ++j) {
+                FUV[i] = FUV[i] && PreliminaryUnlockingMatrix[i][j];
+            }
+        }
         return FUV;
     }
 
