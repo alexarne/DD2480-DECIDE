@@ -69,7 +69,16 @@ public class LaunchInterceptorConditions {
     }
 
     public boolean getLaunchInterceptorCondition3() {
-        return true;
+        if (PARAMETERS.AREA1 < 0) throw new IllegalArgumentException();
+        for (int i = 0; i < NUMPOINTS-2; i++) {
+            double distance1 = distance(POINTS[i], POINTS[i+1]);
+            double distance2 = distance(POINTS[i+1], POINTS[i+2]);
+            double distance3 = distance(POINTS[i], POINTS[i+2]);
+            double S = (distance1+distance2+distance3)/2;
+            double Area = Math.sqrt(S*(S-distance1)*(S-distance2)*(S-distance3));
+            if (Area > PARAMETERS.AREA1) return true;
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition4() {
