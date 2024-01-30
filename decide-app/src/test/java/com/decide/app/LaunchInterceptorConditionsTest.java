@@ -162,6 +162,23 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
+     * Edge-case test case. Ensure LIC1 satisfied when three consecutive data points
+     * form a equilateral triangle with side length = RADIUS1
+     * and can not be contained within a circle of radius RADIUS1.
+     */
+    @Test
+    public void LIC1TrueEquilateralTriangleSideEqualsRadius() {
+        // Setup
+        PARAMETERS.RADIUS1 = 1.0;
+        Point[] POINTS = new Point[]{ new Point(0, 0), new Point(2, 0), new Point(1, Math.sqrt(3))};
+        int NUMPOINTS = POINTS.length;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertTrue(LIC.getLaunchInterceptorCondition1());
+    }
+
+    /**
      * Invalid input test case. Ensure LIC1 not satisfied when only two data points are provided.
      */
     @Test
