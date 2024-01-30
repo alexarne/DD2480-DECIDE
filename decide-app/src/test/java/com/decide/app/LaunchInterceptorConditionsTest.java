@@ -162,7 +162,6 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition4());
     }
 
-
     /**
     * WhichQuad is expected to return the Quad where the point is.
     */
