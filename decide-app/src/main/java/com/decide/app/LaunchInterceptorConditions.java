@@ -121,7 +121,39 @@ public class LaunchInterceptorConditions {
     }
 
     public boolean getLaunchInterceptorCondition4() {
-        return true;
+        if (PARAMETERS.Q_PTS < 2 || PARAMETERS.Q_PTS>NUMPOINTS) throw new IllegalArgumentException("incorrect No. of Points");
+        if (PARAMETERS.QUADS < 1 || PARAMETERS.QUADS > 3) throw new IllegalArgumentException("incorrect No. of Quads");
+
+        if(PARAMETERS.QUADS>=PARAMETERS.Q_PTS) return false;
+        for (int i = 0; i < NUMPOINTS-(PARAMETERS.Q_PTS-1); i++) {
+            int Q1=0;
+            int Q2=0;
+            int Q3=0;
+            int Q4=0;
+            int countQuads = 0;
+            for (int j = i; j < i+PARAMETERS.Q_PTS; j++){
+                if (whichQuad(POINTS[j])==1) {
+                    Q1+=1;
+                    if (Q1==1) countQuads+=1;
+                }
+                else if (whichQuad(POINTS[j])==2) {
+                    Q2+=1;
+                    if (Q2==1) countQuads+=1;
+                }
+                else if (whichQuad(POINTS[j])==3) {
+                    Q3+=1;
+                    if (Q3==1) countQuads+=1;
+                }
+                else {
+                    Q4+=1;
+                    if (Q4==1) countQuads+=1;
+                }
+            }
+            
+            if (countQuads>PARAMETERS.QUADS) return true;
+            
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition5() {
@@ -306,6 +338,12 @@ public class LaunchInterceptorConditions {
         return Math.sqrt(dx*dx + dy*dy);
     }
 
+    public int whichQuad(Point p) {
+        if (p.getX() >=0 && p.getY() >=0) return 1;
+        else if (p.getX() <0 && p.getY() >=0) return 2;
+        else if (p.getX() <=0 && p.getY() <0) return 3;
+        else return 4;
+    }
     /**
      * Tell whether or not three points can be contained on or inside a
      * circle with specified radius.

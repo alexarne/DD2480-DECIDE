@@ -27,8 +27,8 @@ public class Parameters {
         RADIUS1 = 0;
         EPSILON = 0;
         AREA1 = 0;
-        Q_PTS = 0;
-        QUADS = 0;
+        Q_PTS = 2;
+        QUADS = 1;
         DIST = 0;
         N_PTS = 1;
         K_PTS = 1;
