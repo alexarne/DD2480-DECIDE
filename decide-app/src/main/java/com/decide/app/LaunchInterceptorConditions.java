@@ -180,21 +180,23 @@ public class LaunchInterceptorConditions {
             for (int j = 0; j < PARAMETERS.N_PTS; j++) {
                 p[j] = POINTS[i+j]; 
             }
-            Point first = new Point((p[0].x),(p[0].y));
-            Point last = new Point((p[PARAMETERS.N_PTS - 1].x),(p[PARAMETERS.N_PTS - 1].y));
-            Point line = new Point(last.x-first.x, last.y-first.y);
+            Point first = new Point((p[0].getX()),(p[0].getY()));
+            double x1 = first.getX();
+            double y1 = first.getY();
+            Point last = new Point((p[PARAMETERS.N_PTS - 1].getX()),(p[PARAMETERS.N_PTS - 1].getY()));
+            Point line = new Point(last.getX()-x1, last.getY()-y1);
+            double xLine = line.getX();
+            double yLine = line.getY();
             for (int j = 1; j < PARAMETERS.N_PTS - 1; j++) {
-                double x1 = first.x;
-                double x2 = p[j].x;
-                double y1 = first.y;
-                double y2= p[j].y;
+                double x2 = p[j].getX();
+                double y2= p[j].getY();
                 Point v = new Point(x2 - x1, y2 - y1);
-                double skal = (line.x * v.x) + (line.y * v.y);
-                double lineNorm = Math.sqrt(line.x*line.x + line.y*line.y);
+                double skal = (xLine * v.getX()) + (yLine * v.getY());
+                double lineNorm = Math.sqrt(xLine*xLine + yLine*yLine);
                 double mult = skal / (lineNorm * lineNorm);
-                Point proj = new Point(line.x * mult, line.y * mult);
-                Point distance = new Point(v.x - proj.x, v.y-proj.y);
-                double distanceNorm = Math.sqrt(distance.x*distance.x + distance.y * distance.y);
+                Point proj = new Point(xLine * mult, yLine * mult);
+                Point distance = new Point(v.getX() - proj.getX(), v.getY()-proj.getY());
+                double distanceNorm = Math.sqrt(distance.getX()*distance.getX() + distance.getY() * distance.getY());
                 if (distanceNorm > PARAMETERS.DIST) return true;
             }
         }
