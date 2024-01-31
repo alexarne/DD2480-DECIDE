@@ -990,7 +990,86 @@ public class LaunchInterceptorConditionsTest {
      * ========================= [ LIC 12 ] ==========================
      */
 
-    
+    /**
+     * Positive test case, ensure LIC12 is satisfied when two points separated
+     * by K_PTS intervening points are farther than LENGTH1 apart, and a set 
+     * of points with K_PTS intervening points are closer than LENGTH2 apart. 
+     */
+    @Test
+    public void LIC12TrueWhenSatisfied() {
+        PARAMETERS.K_PTS = 2;
+        PARAMETERS.LENGTH1 = 5;
+        PARAMETERS.LENGTH2 = 7;
+        Point[] POINTS = new Point[]{
+            new Point(2,0),
+            new Point(1,3),
+            new Point(2,0),
+            new Point(2,0),
+            new Point(6,7)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition12());
+    }
+
+    /**
+     * Negative test case, ensure LIC12 is not satisfied when the sets of points
+     * are exactly on the boundary of LENGTH1 and LENGTH2 apart. 
+     */
+    @Test
+    public void LIC12FalseOnBoundaryDistances() {
+        PARAMETERS.K_PTS = 1;
+        PARAMETERS.LENGTH1 = 5;
+        PARAMETERS.LENGTH2 = 5;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(1,3),
+            new Point(0,5),
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition12());
+    }
+
+    /**
+     * Negative test case, ensure LIC12 returns false if there are
+     * only 2 points.
+     */
+    @Test
+    public void LIC12FalseWhenTwoPoints() {
+        PARAMETERS.K_PTS = 1;
+        PARAMETERS.LENGTH1 = 5;
+        PARAMETERS.LENGTH2 = 5000;
+        Point[] POINTS = new Point[]{
+            new Point(0,3),
+            new Point(1,70)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition12());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC12 throws IllegalArgumentException
+     * if the supplied parameters LENGTH1, LENGTH2, or K_PTS are out of bounds.
+     */
+    @Test
+    public void LIC12ThrowsIllegalArgumentExceptionOnInvalidInput() {
+        PARAMETERS.LENGTH1 = -1;
+        PARAMETERS.LENGTH2 = -1;
+        PARAMETERS.K_PTS = 0;
+        Point[] POINTS = new Point[]{
+            new Point(0, 0),
+            new Point(1, 0),
+            new Point(0, 1)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition12(); }
+        );
+    }
 
     /**
      * ========================= [ LIC 13 ] ==========================

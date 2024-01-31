@@ -132,7 +132,7 @@ public class LaunchInterceptorConditions {
         return true;
     }
 
-/**
+    /**
      * Launch Interceptor Condition 7:
      * There exists at least one set of two data points separated
      * by exactly K PTS consecutive intervening points that are a
@@ -229,8 +229,33 @@ public class LaunchInterceptorConditions {
         return true;
     }
 
+    /**
+     * Launch Interceptor Condition 12:
+     * There exists at least one set of two data points, separated by 
+     * exactly K_PTS consecutive intervening points, which are a distance 
+     * greater than the length, LENGTH1, apart. In addition, there exists 
+     * at least one set of two data points (which can be the same or 
+     * different from the two data points just mentioned), separated 
+     * by exactly K_PTS consecutive intervening points, that are a distance 
+     * less than the length, LENGTH2, apart. Both parts must be true for 
+     * the LIC to be true
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition12() {
-        return true;
+        if (PARAMETERS.LENGTH1 < 0) throw new IllegalArgumentException();
+        if (PARAMETERS.LENGTH2 < 0) throw new IllegalArgumentException();
+        if (NUMPOINTS < 3) return false;
+        if (PARAMETERS.K_PTS < 1 || PARAMETERS.K_PTS > NUMPOINTS-2)
+            throw new IllegalArgumentException();
+        boolean L1_condition = false;
+        boolean L2_condition = false;
+        for (int i = 0; i < NUMPOINTS-PARAMETERS.K_PTS-1; ++i) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i + PARAMETERS.K_PTS + 1];
+            if (distance(p1, p2) > PARAMETERS.LENGTH1) L1_condition = true;
+            if (distance(p1, p2) < PARAMETERS.LENGTH2) L2_condition = true;
+        }
+        return L1_condition && L2_condition;
     }
 
     public boolean getLaunchInterceptorCondition13() {
