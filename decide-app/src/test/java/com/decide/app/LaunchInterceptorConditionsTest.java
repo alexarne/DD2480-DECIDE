@@ -456,6 +456,33 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition10());
     }
 
+    /**
+     * Illegal argument value test case for LIC10, ensures an exception is raised if the
+     * value of AREA1 is strictly negative.
+     */
+    @Ignore
+    @Test
+    public void LIC10InvalidArgumentStrictlyNegativeArea() {
+        PARAMETERS.AREA1 = -1;
+        Point[] POINTS = new Point[]{
+            new Point(0, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(0, 0),
+            new Point(1, 10),
+            new Point(1, 2),
+            new Point(2, 0)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition10(); }
+        );
+    }
+
 
     
     /**
