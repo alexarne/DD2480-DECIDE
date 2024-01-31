@@ -440,6 +440,25 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
+     * Unsufficient input test for LIC10, must return false if there are 5 points or less
+     */
+    @Ignore
+    @Test
+    public void LIC10FalseOn5PointsOrLess() {
+        Point[] POINTS = new Point[]{
+            new Point(0, 2),
+            new Point(1, 2)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertFalse(LIC.getLaunchInterceptorCondition10());
+    }
+
+
+    
+    /**
      * ========================= [ LIC 11 ] ==========================
      */
 
