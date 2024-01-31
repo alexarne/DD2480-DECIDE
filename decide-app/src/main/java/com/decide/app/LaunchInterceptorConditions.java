@@ -153,11 +153,7 @@ public class LaunchInterceptorConditions {
             Point p1 = POINTS[i];
             Point p2 = POINTS[i+PARAMETERS.E_PTS+1];
             Point p3 = POINTS[i+PARAMETERS.E_PTS+1+PARAMETERS.F_PTS+1];
-            double distance1 = distance(p1, p2);
-            double distance2 = distance(p2, p3);
-            double distance3 = distance(p1, p3);
-            double S = (distance1+distance2+distance3)/2;
-            double Area = Math.sqrt(S*(S-distance1)*(S-distance2)*(S-distance3));
+            double Area = triangleArea(p1, p2, p3);
             if (Area > PARAMETERS.AREA1) return true;
         }
 
