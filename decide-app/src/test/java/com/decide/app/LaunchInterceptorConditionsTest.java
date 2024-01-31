@@ -426,7 +426,7 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
-     * Invalid input test case, ensure LIC3 throws IllegalArgumentException
+     * Invalid input test case, ensure LIC12 throws IllegalArgumentException
      * if the supplied parameter AREA1 is less than 0.
      */
     @Test
