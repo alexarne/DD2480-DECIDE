@@ -377,4 +377,23 @@ public class LaunchInterceptorConditions {
         return area;
     }
 
+    /**
+     * Find the angle formed by 3 points, at point 2.
+     * @param p1 The first point.
+     * @param p2 The second point.
+     * @param p3 The third point.
+     * @return The angle formed by 3 points, at point 2.
+     */
+    public double angle(Point p1, Point p2, Point p3) {
+        if (p1 == null || p2 == null || p3 == null || (p2.getX() == p1.getX()) && (p2.getY() == p1.getY()) ||  (p2.getX() == p3.getX()) && (p2.getY() == p3.getY()))  throw new IllegalArgumentException();
+        if (p1.getX() == p3.getX() && p1.getY() == p3.getY()) return 0;
+        double[] v1 = {p1.getX()-p2.getX(), p1.getY()-p2.getY()};
+        double[] v2 = {p3.getX()-p2.getX(), p3.getY()-p2.getY()};
+        double scal = v1[0]*v2[0] + v1[1] * v2[1];
+        double norm1 = Math.sqrt(v1[0]*v1[0]+v1[1]*v1[1]);
+        double norm2 = Math.sqrt(v2[0]*v2[0]+v2[1]*v2[1]);
+        double ang = Math.acos(scal / (norm1 * norm2));
+        return ang;
+    }
+
 }
