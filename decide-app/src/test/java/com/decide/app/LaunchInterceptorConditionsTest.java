@@ -147,6 +147,102 @@ public class LaunchInterceptorConditionsTest {
      * ========================== [ LIC 1 ] ==========================
      */
 
+    /**
+     * Positive test case. Ensure LIC1 satisfied when three consecutive data points
+     * can not be contained within a circle of radius RADIUS1.
+     */
+    @Test
+    public void LIC1TruePointsNotInRadius() {
+        // Setup
+        PARAMETERS.RADIUS1 = 2.0;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(5, 2.5), new Point(3, 5), new Point(0, 0) };
+        int NUMPOINTS = POINTS.length;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertTrue(LIC.getLaunchInterceptorCondition1());
+    }
+
+    /**
+     * Negative test case. Ensure LIC1 not satisfied when three consecutive data points
+     * can be contained within a circle of radius RADIUS1.
+     */
+    @Test
+    public void LIC1FalsePointsInRadius() {
+        // Setup
+        PARAMETERS.RADIUS1 = 4.0;
+        Point[] POINTS = new Point[]{ new Point(1, 2), new Point(3, 4), new Point(4, 4) };
+        int NUMPOINTS = POINTS.length;
+         // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+         // Assertion
+        assertFalse(LIC.getLaunchInterceptorCondition1());
+    }
+
+    /**
+     * Edge-case test case. Ensure LIC1 not satisfied when three consecutive data points
+     * are on the edge of the circle of radius RADIUS1.
+     */
+    @Test
+    public void LIC1FalsePointsOnCircleExtremities() {
+        // Setup
+        PARAMETERS.RADIUS1 = Math.sqrt(1.25);
+        Point[] POINTS = new Point[]{ new Point(1, 0), new Point(1, 1), new Point(3, 0)};
+        int NUMPOINTS = POINTS.length;
+          // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+         // Assertion
+        assertFalse(LIC.getLaunchInterceptorCondition1());
+    }
+
+    /**
+     * Edge-case test case. Ensure LIC1 satisfied when three consecutive data points
+     * form a equilateral triangle with side length = RADIUS1*2
+     * and can not be contained within a circle of radius RADIUS1.
+     */
+    @Test
+    public void LIC1TrueEquilateralTriangleSideEqualsRadius() {
+        // Setup
+        PARAMETERS.RADIUS1 = 1.0;
+        Point[] POINTS = new Point[]{ new Point(0, 0), new Point(2, 0), new Point(1, Math.sqrt(3))};
+        int NUMPOINTS = POINTS.length;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertTrue(LIC.getLaunchInterceptorCondition1());
+    }
+
+    /**
+     * Invalid input test case. Ensure LIC1 not satisfied when only two data points are provided.
+     */
+    @Test
+    public void LIC1FalseInsufficientInput() {
+        // Setup
+        PARAMETERS.RADIUS1 = 10.0;
+        Point[] POINTS = new Point[]{ new Point(1, 2), new Point(3, 4) };
+        int NUMPOINTS = POINTS.length;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertFalse(LIC.getLaunchInterceptorCondition1());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC1 throws IllegalArgumentException
+     * if the supplied parameter RADIUS1 is less than 0.
+     */
+    @Test
+    public void LIC1ThrowsIllegalArgumentExceptionOnInvalidParameter() {
+        PARAMETERS.RADIUS1 = -1;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(5, 2.5), new Point(3, 5), new Point(0, 0) };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition1(); }
+        );
+    }
+
     
 
     /**
@@ -672,111 +768,6 @@ public class LaunchInterceptorConditionsTest {
      * ========================= [ LIC 14 ] ==========================
      */
     
-  
-  
-  
-  
-
-
-    /**
-     * ========================== [ LIC 1 ] ==========================
-     */
-
-    /**
-     * Positive test case. Ensure LIC1 satisfied when three consecutive data points
-     * can not be contained within a circle of radius RADIUS1.
-     */
-    @Test
-    public void LIC1TruePointsNotInRadius() {
-        // Setup
-        PARAMETERS.RADIUS1 = 2.0;
-        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(5, 2.5), new Point(3, 5), new Point(0, 0) };
-        int NUMPOINTS = POINTS.length;
-        // Processing
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        // Assertion
-        assertTrue(LIC.getLaunchInterceptorCondition1());
-    }
-
-    /**
-     * Negative test case. Ensure LIC1 not satisfied when three consecutive data points
-     * can be contained within a circle of radius RADIUS1.
-     */
-    @Test
-    public void LIC1FalsePointsInRadius() {
-        // Setup
-        PARAMETERS.RADIUS1 = 4.0;
-        Point[] POINTS = new Point[]{ new Point(1, 2), new Point(3, 4), new Point(4, 4) };
-        int NUMPOINTS = POINTS.length;
-         // Processing
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-         // Assertion
-        assertFalse(LIC.getLaunchInterceptorCondition1());
-    }
-
-    /**
-     * Edge-case test case. Ensure LIC1 not satisfied when three consecutive data points
-     * are on the edge of the circle of radius RADIUS1.
-     */
-    @Test
-    public void LIC1FalsePointsOnCircleExtremities() {
-        // Setup
-        PARAMETERS.RADIUS1 = Math.sqrt(1.25);
-        Point[] POINTS = new Point[]{ new Point(1, 0), new Point(1, 1), new Point(3, 0)};
-        int NUMPOINTS = POINTS.length;
-          // Processing
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-         // Assertion
-        assertFalse(LIC.getLaunchInterceptorCondition1());
-    }
-
-    /**
-     * Edge-case test case. Ensure LIC1 satisfied when three consecutive data points
-     * form a equilateral triangle with side length = RADIUS1*2
-     * and can not be contained within a circle of radius RADIUS1.
-     */
-    @Test
-    public void LIC1TrueEquilateralTriangleSideEqualsRadius() {
-        // Setup
-        PARAMETERS.RADIUS1 = 1.0;
-        Point[] POINTS = new Point[]{ new Point(0, 0), new Point(2, 0), new Point(1, Math.sqrt(3))};
-        int NUMPOINTS = POINTS.length;
-        // Processing
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        // Assertion
-        assertTrue(LIC.getLaunchInterceptorCondition1());
-    }
-
-    /**
-     * Invalid input test case. Ensure LIC1 not satisfied when only two data points are provided.
-     */
-    @Test
-    public void LIC1FalseInsufficientInput() {
-        // Setup
-        PARAMETERS.RADIUS1 = 10.0;
-        Point[] POINTS = new Point[]{ new Point(1, 2), new Point(3, 4) };
-        int NUMPOINTS = POINTS.length;
-        // Processing
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        // Assertion
-        assertFalse(LIC.getLaunchInterceptorCondition1());
-    }
-
-    /**
-     * Invalid input test case, ensure LIC1 throws IllegalArgumentException
-     * if the supplied parameter RADIUS1 is less than 0.
-     */
-    @Test
-    public void LIC1ThrowsIllegalArgumentExceptionOnInvalidParameter() {
-        PARAMETERS.RADIUS1 = -1;
-        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(5, 2.5), new Point(3, 5), new Point(0, 0) };
-        int NUMPOINTS = POINTS.length;
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        assertThrows(
-            IllegalArgumentException.class, 
-            () -> { LIC.getLaunchInterceptorCondition1(); }
-        );
-    }
 
 
     /**
