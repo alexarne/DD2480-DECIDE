@@ -1334,4 +1334,92 @@ public class LaunchInterceptorConditionsTest {
         );
     }
 
+    /**
+     * ======================= [ Angle ] =======================
+     */
+          
+    /**
+     * Positive test case, ensure that the angle of a right angle is correct.
+     */
+    @Test
+    public void angleCorrectOnRightAngle() {
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(1, 0);
+        Point p3 = new Point(0, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        double ang = LIC.angle(p1, p2, p3);
+        assertEquals(ang, Math.PI / 2, 0.00001);
+    }
+    
+    /**
+     * Positive test case, ensure that the angle of an acute angle is correct.
+     */
+    @Test
+    public void angleCorrectOnAcuteAngle() {
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(1, 2);
+        Point p3 = new Point(2, 1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        double ang = LIC.angle(p1, p2, p3);
+        assertEquals(ang, Math.PI / 4, 0.00001);
+    }
+
+    /**
+     * Positive test case, ensure that the angle of an obtuse angle is correct.
+     */
+    @Test
+    public void angleCorrectOnObtuseAngle() {
+        Point p1 = new Point(5, 2);
+        Point p2 = new Point(3, 2);
+        Point p3 = new Point(1, 4);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        double ang = LIC.angle(p1, p2, p3);
+        assertEquals(ang, 3* Math.PI / 4, 0.00001);
+    }
+
+    /**
+     * Edge-case test case, ensure that the angle of equal start and end point is zero.
+     */
+    @Test
+    public void angleCorrectOnZeroAngle() {
+        Point p1 = new Point(7, 3);
+        Point p2 = new Point(2, 4);
+        Point p3 = new Point(7, 3);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        double ang = LIC.angle(p1, p2, p3);
+        assertEquals(ang, 0, 0.00001);
+    }
+
+    /**
+     * Invalid input test case, ensure a null point
+     * causes an IllegalArgumentException to be thrown.
+     */
+    @Test
+    public void angleThrowsExceptionOnNull() {
+        Point p1 = new Point(0, 0);
+        Point p2 = null;
+        Point p3 = new Point(0, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.angle(p1, p2, p3); }
+        );
+    }
+
+    /**
+     * Invalid input test case, ensure no angle being formed
+     * causes an IllegalArgumentException to be thrown.
+     */
+    @Test
+    public void angleThrowsExceptionOnNoAngle() {
+        Point p1 = new Point(1, 5);
+        Point p2 = new Point(2, 1);
+        Point p3 = new Point(2, 1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.angle(p1, p2, p3); }
+        );
+    }
+
 }
