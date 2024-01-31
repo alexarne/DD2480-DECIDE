@@ -165,8 +165,57 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /*
+     * There exists at least one set of N PTS consecutive data points such that at least one of the
+     * points lies a distance greater than DIST from the line joining the first and last of these N PTS
+     * points. If the first and last points of these N PTS are identical, then the calculated distance
+     * to compare with DIST will be the distance from the coincident point to all other points of
+     * the N PTS consecutive points. The condition is not met when NUMPOINTS < 3.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition6() {
-        return true;
+        if (NUMPOINTS<3) return false;
+        Point[] p = new Point[PARAMETERS.N_PTS];
+        if (PARAMETERS.N_PTS > NUMPOINTS || PARAMETERS.N_PTS < 3 || PARAMETERS.DIST < 0) throw new IllegalArgumentException();
+        for (int i = 0; i < NUMPOINTS-PARAMETERS.N_PTS+1; i++) {
+            for (int j = 0; j < PARAMETERS.N_PTS; j++) {
+                p[j] = POINTS[i+j]; 
+            }
+
+            Point first = new Point((p[0].getX()),(p[0].getY()));
+            double x1 = first.getX();
+            double y1 = first.getY();
+            Point last = new Point((p[PARAMETERS.N_PTS - 1].getX()),(p[PARAMETERS.N_PTS - 1].getY()));
+            double xLast = last.getX();
+            double yLast = last.getY();
+            if (x1 == xLast && y1 == yLast){
+                for (int j = 1; j < PARAMETERS.N_PTS - 1; j++) {
+                    double x2 = p[j].getX();
+                    double y2= p[j].getY();
+                    Point v = new Point(x2 - x1, y2 - y1);
+                    double vNorm = Math.sqrt(v.getX()*v.getX() + v.getY() * v.getY());
+                    if (vNorm > PARAMETERS.DIST) return true;
+                }
+            }
+            else {
+                Point line = new Point(last.getX()-x1, last.getY()-y1);
+                double xLine = line.getX();
+                double yLine = line.getY();
+                for (int j = 1; j < PARAMETERS.N_PTS - 1; j++) {
+                    double x2 = p[j].getX();
+                    double y2= p[j].getY();
+                    Point v = new Point(x2 - x1, y2 - y1);
+                    double skal = (xLine * v.getX()) + (yLine * v.getY());
+                    double lineNorm = Math.sqrt(xLine*xLine + yLine*yLine);
+                    double mult = skal / (lineNorm * lineNorm);
+                    Point proj = new Point(xLine * mult, yLine * mult);
+                    Point distance = new Point(v.getX() - proj.getX(), v.getY()-proj.getY());
+                    double distanceNorm = Math.sqrt(distance.getX()*distance.getX() + distance.getY() * distance.getY());
+                    if (distanceNorm > PARAMETERS.DIST) return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
