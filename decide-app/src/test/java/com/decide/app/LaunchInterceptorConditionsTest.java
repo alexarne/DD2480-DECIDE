@@ -174,15 +174,16 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
-     * Edge-case test case. Ensure the radius of a straight line is returned as NaN.
+     * Edge-case test case. Ensure the radius is correct when one of the lines formed by
+     * the three points is a vertical line (slope = infinity).
      */
     @Test
     public void findCircleRadiusStraightLine() {
         Point p1 = new Point(1, 0);
-        Point p2 = new Point(1, 1);
-        Point p3 = new Point(1, 2);
+        Point p2 = new Point(1, 2);
+        Point p3 = new Point(2, 3);
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
-        assertEquals(Double.NaN, LIC.findCircleRadius(p1, p2, p3), 0.00001);
+        assertEquals(Math.sqrt(5), LIC.findCircleRadius(p1, p2, p3), 0.00001);
     }
 
     /**
