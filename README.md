@@ -11,10 +11,12 @@ DECIDE is a boolean decision-maker for a hypothetical anti-ballistic missile sys
 - [Initial code structure](https://github.com/alexarne/DECIDE/pull/28)
 - [LIC11 + Tests](https://github.com/alexarne/DECIDE/pull/69)
 - [LIC12 + Tests](https://github.com/alexarne/DECIDE/pull/68)
+- [LIC14 + Tests](https://github.com/alexarne/DECIDE/pull/81)
 - [CMV + Tests](https://github.com/alexarne/DECIDE/pull/48)
 - [PUM + Tests](https://github.com/alexarne/DECIDE/pull/65)
 - [FUV + Tests](https://github.com/alexarne/DECIDE/pull/66)
 - [Final Launch Decision + Tests](https://github.com/alexarne/DECIDE/pull/49)
+- [ContainedInCircle Helper + Tests](https://github.com/alexarne/DECIDE/pull/79)
 - [Extract TriangleArea Helper + Tests](https://github.com/alexarne/DECIDE/pull/67)
 - []()
 
@@ -31,7 +33,7 @@ DECIDE is a boolean decision-maker for a hypothetical anti-ballistic missile sys
 
 **Elliot Elmenbeck**
 
-- []()
+- [Angle Helper + Tests](https://github.com/alexarne/DECIDE/pull/78)
 - []()
 
 **Hugo Tricot**
@@ -44,6 +46,8 @@ DECIDE is a boolean decision-maker for a hypothetical anti-ballistic missile sys
 **Juan Bautista Lavagnini Portela**
 
 - [LIC3 + Tests](https://github.com/alexarne/DECIDE/pull/52)
+- [LIC4 + Tests](https://github.com/alexarne/DECIDE/pull/60)
+- [LIC5 + Tests](https://github.com/alexarne/DECIDE/pull/61)
 - [TriangleArea Helper](https://github.com/alexarne/DECIDE/pull/52)
 
 ## Essence
