@@ -70,6 +70,10 @@ public class LaunchInterceptorConditions {
             d3 = distance(POINTS[i+1], POINTS[i+2]);
 
             if(d1 > PARAMETERS.RADIUS1*2 || d2 > PARAMETERS.RADIUS1*2 || d3 > PARAMETERS.RADIUS1*2) return true;
+            else{
+                double r = findCircleRadius(POINTS[i], POINTS[i+1], POINTS[i+2]);
+                if(r > PARAMETERS.RADIUS1) return true;
+            }
         }
         return false;
     }
