@@ -444,8 +444,212 @@ public class LaunchInterceptorConditionsTest {
      * ========================= [ LIC 10 ] ==========================
      */
 
-    
+    /**
+     * Positive test case, ensure LIC10 is satisfied when three points seperated by
+     * exactly E_PTS and F_PTS consecutive points respectively form a triangle of area
+     * striclty superior to AREA1.
+     */
+    @Test
+    public void LIC10TrueTriangleOfAreaStrictlySuperiorToArea1() {
+        PARAMETERS.E_PTS = 2;
+        PARAMETERS.F_PTS = 2;
+        PARAMETERS.AREA1 = 3;
+        Point[] POINTS = new Point[]{
+            new Point(4, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(10, 7),
+            new Point(1, 10),
+            new Point(1, 1),
+            new Point(-1, -7)
+        };
+        int NUMPOINTS = POINTS.length;
 
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertTrue(LIC.getLaunchInterceptorCondition10());
+    }
+
+
+    /**
+     * Negative test case, ensure LIC10 is not satisfied when three points seperated by
+     * exactly E_PTS and F_PTS consecutive points respectively form a triangle of area
+     * inferior to AREA1.
+     */
+    @Test
+    public void LIC10FalseTriangleOfAreaInferiorToArea1() {
+        PARAMETERS.E_PTS = 2;
+        PARAMETERS.F_PTS = 2;
+        PARAMETERS.AREA1 = 3;
+        Point[] POINTS = new Point[]{
+            new Point(0, 1),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(0, 0),
+            new Point(1, 10),
+            new Point(1, 2),
+            new Point(1, 0)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertFalse(LIC.getLaunchInterceptorCondition10());
+    }
+
+
+    /**
+     * Edge-case test case, ensure LIC10 is not satisfied when three points seperated by
+     * exactly E_PTS and F_PTS consecutive points respectively form a triangle of area
+     * equals to AREA1.
+     */
+    @Test
+    public void LIC10FalseTriangleOfAreaEqualToArea1() {
+        PARAMETERS.E_PTS = 2;
+        PARAMETERS.F_PTS = 2;
+        PARAMETERS.AREA1 = 2;
+        Point[] POINTS = new Point[]{
+            new Point(0, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(0, 0),
+            new Point(1, 10),
+            new Point(1, 2),
+            new Point(2, 0)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertFalse(LIC.getLaunchInterceptorCondition10());
+    }
+
+    /**
+     * Unsufficient input test for LIC10, must return false if there are 5 points or less
+     */
+    @Test
+    public void LIC10FalseOn5PointsOrLess() {
+        Point[] POINTS = new Point[]{
+            new Point(0, 2),
+            new Point(1, 2)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertFalse(LIC.getLaunchInterceptorCondition10());
+    }
+
+    /**
+     * Illegal argument value test case for LIC10, ensures an exception is raised if the
+     * value of AREA1 is strictly negative.
+     */
+    @Test
+    public void LIC10InvalidArgumentStrictlyNegativeArea() {
+        PARAMETERS.AREA1 = -1;
+        Point[] POINTS = new Point[]{
+            new Point(0, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(0, 0),
+            new Point(1, 10),
+            new Point(1, 2),
+            new Point(2, 0)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition10(); }
+        );
+    }
+
+    /**
+     * Illegal argument value test case for LIC10, ensures an exception is raised if the
+     * value of E_PTS is negative or null.
+     */
+    @Test
+    public void LIC10InvalidArgumentNegativeOrNullEpts() {
+        PARAMETERS.E_PTS = 0;
+        PARAMETERS.AREA1 = 1;
+        Point[] POINTS = new Point[]{
+            new Point(0, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(0, 0),
+            new Point(1, 10),
+            new Point(1, 2),
+            new Point(2, 0)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition10(); }
+        );
+    }
+
+    /**
+     * Illegal argument value test case for LIC10, ensures an exception is raised if the
+     * value of F_PTS is negative or null.
+     */
+    @Test
+    public void LIC10InvalidArgumentNegativeOrNullFpts() {
+        PARAMETERS.E_PTS = 1;
+        PARAMETERS.F_PTS = -1;
+        PARAMETERS.AREA1 = 1;
+        Point[] POINTS = new Point[]{
+            new Point(0, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(0, 0),
+            new Point(1, 10),
+            new Point(1, 2),
+            new Point(2, 0)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition10(); }
+        );
+    }
+
+    /**
+     * Illegal argument value test case for LIC10, ensures an exception is raised if
+     * E_PTS + F_PTS > NUMPOINTS - 3.
+     */
+    @Test
+    public void LIC10InvalidArgumentNegativeSumOfEptsAndFptsTooBig() {
+        PARAMETERS.AREA1 = 10;
+        Point[] POINTS = new Point[]{
+            new Point(0, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(0, 0),
+            new Point(1, 10),
+            new Point(1, 2),
+            new Point(2, 0)
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.E_PTS = NUMPOINTS;
+        PARAMETERS.F_PTS = NUMPOINTS;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition10(); }
+        );
+    }
+
+    
     /**
      * ========================= [ LIC 11 ] ==========================
      */
