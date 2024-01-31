@@ -358,12 +358,12 @@ public class LaunchInterceptorConditionsTest {
 
     /**
      * Positive test case, ensure LIC10 is satisfied when three points seperated by
-     * exactly E_PTS and F_PTS consecutive pointsrespectively form a triangle of area
-     * striclty more than AREA1 apart.
+     * exactly E_PTS and F_PTS consecutive points respectively form a triangle of area
+     * striclty superior to AREA1.
      */
     @Ignore
     @Test
-    public void LIC10TrueOnPointsSeparatedByEptsAndFptsPointsOfAreaStrictlySuperiorToArea1() {
+    public void LIC10TrueTriangleOfAreaStrictlySuperiorToArea1() {
         PARAMETERS.E_PTS = 2;
         PARAMETERS.E_PTS = 2;
         PARAMETERS.AREA1 = 3;
@@ -386,8 +386,8 @@ public class LaunchInterceptorConditionsTest {
 
     /**
      * Negative test case, ensure LIC10 is not satisfied when three points seperated by
-     * exactly E_PTS and F_PTS consecutive pointsrespectively form a triangle of area
-     * inferior  than AREA1 apart.
+     * exactly E_PTS and F_PTS consecutive points respectively form a triangle of area
+     * inferior to AREA1.
      */
     @Ignore
     @Test
