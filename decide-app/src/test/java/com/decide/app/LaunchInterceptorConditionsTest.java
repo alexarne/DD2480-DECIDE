@@ -186,6 +186,21 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
+     * Edge-case test case. Ensure the calculated radius from three points forming 
+     * parallell lines is returned as NaN.
+     */
+    @Test
+    public void findCircleRadiusParallelLines() {
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(2, 2);
+        Point p3 = new Point(3, 3);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(Double.NaN, LIC.findCircleRadius(p1, p2, p3), 0.00001);
+    }
+
+
+
+    /**
      * Invalid input test case, ensure the distance to a null object
      * causes an IllegalArgumentException to be thrown.
      */
