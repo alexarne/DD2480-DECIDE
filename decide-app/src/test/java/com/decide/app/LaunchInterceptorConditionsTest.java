@@ -486,13 +486,164 @@ public class LaunchInterceptorConditionsTest {
      * ========================== [ LIC 4 ] ==========================
      */
 
+    /**
+     * Positive test case, ensure LIC4 is satisfied when receives three points with at least two
+     * of them in different Quads
+     */
+    @Test
+    public void LIC4TruewithThreePointsAndTwoQuads() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.QUADS = 1;
+        PARAMETERS.Q_PTS = 3;
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(-1, 2),
+            new Point(2,-1)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition4());
+    }
+
+    /**
+     * Negative test case, ensure LIC4 is not satisfied when receives three points 
+     * which are in the same Quad
+     */
+    @Test
+    public void LIC4FalsewithThreePointsInSameQuad() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.QUADS = 1;
+        PARAMETERS.Q_PTS = 3;
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(10, 20),
+            new Point(2,1)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition4());
+    }
+    
+    /**
+    * edge case, if the number of Q_PTS is lower than the number
+    * of QUADS, the test should be FALSE  
+    */
+    @Test
+    public void LIC4FalseWithMoreQuadsThanPoints() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.QUADS = 3;
+        PARAMETERS.Q_PTS = 2;
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(-10, 20)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition4());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC4 throws IllegalArgumentException
+     * if the supplied parameter QUADS are not betweem 1 and 3
+     */
+    @Test
+    public void LIC4ThrowErrorIfQuadsAreNotOK() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.QUADS = 4;
+        PARAMETERS.Q_PTS = 2;
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(-10, 20)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition4(); }
+        );
+    }
+
+    /**
+     * Invalid input test case, ensure LIC4 throws IllegalArgumentException
+     * if the supplied parameter Q_PTS are not betweem 2 and NUMPOINTS
+     */
+    @Test
+    public void LIC4ThrowErrorIfQ_PTSAreNotOK() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.QUADS = 2;
+        PARAMETERS.Q_PTS = 3;
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(-10, 20)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition4(); }
+        );
+    }
     
 
     /**
      * ========================== [ LIC 5 ] ==========================
      */
+    /**
+     * Positive test case, ensure LIC5 is satisfied when two consecutive
+     * points follow that X[J] - X[i] < 0. with J = I+1
+     */
+    @Test
+    public void LIC5TruewithX2lowerThanX1() {
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(0, 4)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition5());
+    }
 
+    /**
+     * Negative test case, ensure LIC5 is not satisfied when two consecutive
+     * points don't follow that X[J] - X[i] < 0. with J = I+1
+     */
+    @Test
+    public void LIC5FalseWithX2HigherThanX1() {
+        Point[] POINTS = new Point[]{
+            new Point(0, 2), 
+            new Point(1, 4)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition5());
+    }
+
+     /**
+     * Egde-case test, ensure LIC5 is not satisfied when two consecutive
+     * points are in the same X position.
+     */
+    @Test
+    public void LIC5FalseWithEqualX() {
+        Point[] POINTS = new Point[]{
+            new Point(1, 2), 
+            new Point(1, 4)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition5());
+    }
+
+    @Test
+    public void LIC5FalseWithLessThanTwoPoints() {
+        Point[] POINTS = new Point[]{
+            new Point(1, 2)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition5());
+    }
     
+   
 
     /**
      * ========================== [ LIC 6 ] ==========================
@@ -798,6 +949,121 @@ public class LaunchInterceptorConditionsTest {
      * ========================== [ LIC 9 ] ==========================
      */
 
+    /**
+     * Positive test case. Ensure LIC9 satisfied when angle between points smaller than
+     * Pi - EPSILON.
+     */
+    @Test
+    public void LIC9TrueAngleSmallerThanLowerLimit(){
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        PARAMETERS.C_PTS = 2;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(7, 9), new Point(0, 0), new Point(1,1), new Point(5, 3), new Point(2, 1.2)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition9());
+
+    }
+
+    /**
+     * Positive test case. Ensure LIC9 satisfied when angle between points larger than
+     * EPSILON + Pi.
+     */
+    @Test
+    public void LIC9TrueAngleGreaterThanUpperLimit(){
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        PARAMETERS.C_PTS = 1;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(0, 2), new Point(1,1), new Point(8, 1), new Point(2, 0.8)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition9());
+
+    }
+
+    /**
+     * Negative test case. Ensure LIC9 not satisfied when angle between points is
+     * between Pi - EPSILON and EPSILON + Pi.
+     */
+    @Test
+    public void LIC9FalseAngleBetweenLimits(){
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        PARAMETERS.C_PTS = 2;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(2, 1), new Point(3, 1), new Point(2, 3), new Point(1,1), new Point(0, 1), new Point(0, 1)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition9());
+
+    }
+
+    /**
+     * Edge-case test case. Ensure LIC9 not satisfied when one of the two points
+     * coincide with the vertex. 
+     */
+    @Test
+    public void LIC9FalsePointEqualsVertex(){
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        PARAMETERS.C_PTS = 1;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(1, 1), new Point(0, 1), new Point(1,1), new Point(0, 1), new Point(2, 1.2)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition9());
+    }
+
+    /**
+     * Edge-case test case. Ensure LIC9 not satisfied when angle between points is
+     * exactly Pi - EPSILON
+     */
+    @Test
+    public void LIC9FalseAngleEqualToLimit(){
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.0;
+        PARAMETERS.C_PTS = 2;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(2, 1), new Point(0, 3), new Point(3, 1), new Point(1,1), new Point(5, 2), new Point(0, 1)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition9());
+
+    }
+
+    /**
+     * Incorrect input test case. Ensure LIC9 is not satisfied when less than 5 points
+     * are supplied.
+     */
+    @Test 
+    public void LIC9FalseLessThan5Points(){
+        PARAMETERS.C_PTS = 1;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(4, 2), new Point(1, 2), new Point(3, 5)};
+        int NUMPOINTS = POINTS.length;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertFalse(LIC.getLaunchInterceptorCondition9());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC9 throws IllegalArgumentException
+     * if the supplied parameter C_PTS is less than 1.
+     */
+    @Test
+    public void LIC9ThrowsIllegalArgumentExceptionOnInvalidParameter() {
+        PARAMETERS.C_PTS = 0;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(1,1), new Point(2, 1.2), new Point(2, 2), new Point(2, 3)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition9(); }
+        );
+    }
     
 
     /**
@@ -1190,7 +1456,7 @@ public class LaunchInterceptorConditionsTest {
     
 
 
-  
+    
     
     /**
      * ========================= [ HELPERS ] =========================
@@ -1246,6 +1512,152 @@ public class LaunchInterceptorConditionsTest {
         assertThrows(
             IllegalArgumentException.class, 
             () -> { LIC.distance(p1, p2); }
+        );
+    }
+
+     /**
+     * ======================== [WhichQuad] =========================
+     */
+
+    /**
+    * WhichQuad is expected to return the Quad where the point is.
+    */
+    @Test
+    public void WhichQuad() {
+        Point p1 = new Point(2,-1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(4, LIC.whichQuad(p1), 0.00001);
+    }
+
+    /**
+    * Edge-case, for point (0,0) should return 1
+    */
+    @Test
+    public void WhichQuadCenter() {
+        Point p1 = new Point(0,0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(1, LIC.whichQuad(p1), 0.00001);
+    }
+
+    /**
+    * Edge-case, for point (0,1) should return 1
+    */
+    @Test
+    public void WhichQuadBetweenQuadIAndQuadII() {
+        Point p1 = new Point(0,1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(1, LIC.whichQuad(p1), 0.00001);
+    }
+
+    /**
+    * Edge-case, for point (1,0) should return 1
+    */
+    @Test
+    public void WhichQuadBetweenQuadIAndQuadIV() {
+        Point p1 = new Point(1,0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(1, LIC.whichQuad(p1), 0.00001);
+    }
+
+    /**
+    * Edge-case, for point (-1,0) should return 2
+    */
+    @Test
+    public void WhichQuadBetweenQuadIIAndQuadIII() {
+        Point p1 = new Point(-1,0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(2, LIC.whichQuad(p1), 0.00001);
+    }
+
+    /**
+    * Edge-case, for point (0,-1) should return 3
+    */
+    @Test
+    public void WhichQuadBetweenQuadIIIAndQuadIV() {
+        Point p1 = new Point(0,-1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(3, LIC.whichQuad(p1), 0.00001);
+    }
+
+    /**
+     * ==================== [ ContainedInCircle ] =====================
+     */
+  
+    /**
+     * Positive test case. Ensure containedInCircle returns true when
+     * it is possible to contain the points in a circle of radius R.
+     */
+    @Test
+    public void containedInCircleCorrectWhenPossible() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(2, 0.5);
+        Point p3 = new Point(3, 0);
+        double R = 1;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertTrue(LIC.containedInCircle(p1, p2, p3, R));
+    }
+  
+    /**
+     * Positive test case. Ensure containedInCircle returns true when
+     * it is possible to contain points, distributed on a line, in a 
+     * circle of radius R.
+     */
+    @Test
+    public void containedInCircleCorrectWhenPointsOnLine() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(2, 0);
+        Point p3 = new Point(3, 0);
+        double R = 1;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertTrue(LIC.containedInCircle(p1, p2, p3, R));
+    }
+  
+    /**
+     * Negative test case. Ensure containedInCircle returns false when
+     * it is not possible to contain the points in a circle of radius R.
+     */
+    @Test
+    public void containedInCircleCorrectWhenNotPossible() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(2, 2.5);
+        Point p3 = new Point(3, 0);
+        double R = 1;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertFalse(LIC.containedInCircle(p1, p2, p3, R));
+    }
+  
+    /**
+     * Invalid input test case. Ensure containedInCircle throws
+     * IllegalArgumentException if either point is null or the radius
+     * is negative.
+     */
+    @Test
+    public void containedInCircleThrowsExceptionOnInvalidInput() {
+        Point p1 = null;
+        Point p2 = null;
+        Point p3 = null;
+        double R = -1;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.containedInCircle(p1, p2, p3, R); }
+        );
+    }
+  
+    /**
+     * Invalid input test case. Ensure containedInCircle throws
+     * IllegalArgumentException if input radius is NaN.
+     */
+    @Test
+    public void containedInCircleThrowsExceptionOnNaNRadius() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(2, 0);
+        Point p3 = new Point(3, 0);
+        double R = Double.NaN;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.containedInCircle(p1, p2, p3, R); }
         );
     }
 
@@ -1361,6 +1773,94 @@ public class LaunchInterceptorConditionsTest {
         assertThrows(
             IllegalArgumentException.class, 
             () -> { LIC.triangleArea(p1, p2, p3); }
+        );
+    }
+
+    /**
+     * ======================= [ Angle ] =======================
+     */
+          
+    /**
+     * Positive test case, ensure that the angle of a right angle is correct.
+     */
+    @Test
+    public void angleCorrectOnRightAngle() {
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(1, 0);
+        Point p3 = new Point(0, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        double ang = LIC.angle(p1, p2, p3);
+        assertEquals(ang, Math.PI / 2, 0.00001);
+    }
+    
+    /**
+     * Positive test case, ensure that the angle of an acute angle is correct.
+     */
+    @Test
+    public void angleCorrectOnAcuteAngle() {
+        Point p1 = new Point(1, 1);
+        Point p2 = new Point(1, 2);
+        Point p3 = new Point(2, 1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        double ang = LIC.angle(p1, p2, p3);
+        assertEquals(ang, Math.PI / 4, 0.00001);
+    }
+
+    /**
+     * Positive test case, ensure that the angle of an obtuse angle is correct.
+     */
+    @Test
+    public void angleCorrectOnObtuseAngle() {
+        Point p1 = new Point(5, 2);
+        Point p2 = new Point(3, 2);
+        Point p3 = new Point(1, 4);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        double ang = LIC.angle(p1, p2, p3);
+        assertEquals(ang, 3* Math.PI / 4, 0.00001);
+    }
+
+    /**
+     * Edge-case test case, ensure that the angle of equal start and end point is zero.
+     */
+    @Test
+    public void angleCorrectOnZeroAngle() {
+        Point p1 = new Point(7, 3);
+        Point p2 = new Point(2, 4);
+        Point p3 = new Point(7, 3);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        double ang = LIC.angle(p1, p2, p3);
+        assertEquals(ang, 0, 0.00001);
+    }
+
+    /**
+     * Invalid input test case, ensure a null point
+     * causes an IllegalArgumentException to be thrown.
+     */
+    @Test
+    public void angleThrowsExceptionOnNull() {
+        Point p1 = new Point(0, 0);
+        Point p2 = null;
+        Point p3 = new Point(0, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.angle(p1, p2, p3); }
+        );
+    }
+
+    /**
+     * Invalid input test case, ensure no angle being formed
+     * causes an IllegalArgumentException to be thrown.
+     */
+    @Test
+    public void angleThrowsExceptionOnNoAngle() {
+        Point p1 = new Point(1, 5);
+        Point p2 = new Point(2, 1);
+        Point p3 = new Point(2, 1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.angle(p1, p2, p3); }
         );
     }
 

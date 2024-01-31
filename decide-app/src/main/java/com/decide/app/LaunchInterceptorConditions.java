@@ -121,11 +121,48 @@ public class LaunchInterceptorConditions {
     }
 
     public boolean getLaunchInterceptorCondition4() {
-        return true;
+        if (PARAMETERS.Q_PTS < 2 || PARAMETERS.Q_PTS>NUMPOINTS) throw new IllegalArgumentException("incorrect No. of Points");
+        if (PARAMETERS.QUADS < 1 || PARAMETERS.QUADS > 3) throw new IllegalArgumentException("incorrect No. of Quads");
+
+        if(PARAMETERS.QUADS>=PARAMETERS.Q_PTS) return false;
+        for (int i = 0; i < NUMPOINTS-(PARAMETERS.Q_PTS-1); i++) {
+            int Q1=0;
+            int Q2=0;
+            int Q3=0;
+            int Q4=0;
+            int countQuads = 0;
+            for (int j = i; j < i+PARAMETERS.Q_PTS; j++){
+                if (whichQuad(POINTS[j])==1) {
+                    Q1+=1;
+                    if (Q1==1) countQuads+=1;
+                }
+                else if (whichQuad(POINTS[j])==2) {
+                    Q2+=1;
+                    if (Q2==1) countQuads+=1;
+                }
+                else if (whichQuad(POINTS[j])==3) {
+                    Q3+=1;
+                    if (Q3==1) countQuads+=1;
+                }
+                else {
+                    Q4+=1;
+                    if (Q4==1) countQuads+=1;
+                }
+            }
+            
+            if (countQuads>PARAMETERS.QUADS) return true;
+            
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition5() {
-        return true;
+        for (int i = 0; i < NUMPOINTS-1; i++) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+1];
+            if ((p2.getX()-p1.getX())<0) return true;
+        }
+        return false;
     }
 
     /*
@@ -218,8 +255,41 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 9:
+     * There exists at least one set of three data points separated 
+     * by exactly C_PTS and D_PTS consecutive intervening points, 
+     * respectively, that form an angle such that:
+     * angle < (PI − EPSILON) or angle > (PI + EPSILON)
+     * The second point of the set of three points is always the vertex 
+     * of the angle. If either the first point or the last point (or both) 
+     * coincide with the vertex, the angle is undefined and the LIC is not 
+     * satisfied by those three points. When NUMPOINTS < 5, the condition is not met.
+     * Constraints: 1 ≤ C_PTS, 1 ≤ D_PTS, C_PTS + D_PTS ≤ NUMPOINTS − 3
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition9() {
-        return true;
+        if(NUMPOINTS < 5) return false;
+        if(PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
+        if(PARAMETERS.C_PTS < 1 || PARAMETERS.D_PTS < 1 || PARAMETERS.C_PTS + PARAMETERS.D_PTS > NUMPOINTS - 3) throw new IllegalArgumentException();
+        
+        int interveningPointsC = PARAMETERS.C_PTS + 1;
+        int interveningPointsD = interveningPointsC + PARAMETERS.D_PTS + 1;
+
+        for(int i = 0; i < NUMPOINTS-interveningPointsD; i++){
+            Point vertex = POINTS[i+interveningPointsC];
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+interveningPointsD];
+            double x1 = (p1.getX() - vertex.getX());
+            double y1 = (p1.getY() - vertex.getY());
+            double x2 = (p2.getX() - vertex.getX());
+            double y2 = (p2.getY() - vertex.getY());
+            double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
+            if((a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI)
+                && !(p1.getX() == vertex.getX() && p1.getY() == vertex.getY()
+                || p2.getX() == vertex.getX() && p2.getY() == vertex.getY())) return true;
+        }
+        return false;
     }
 
     /**
@@ -333,6 +403,43 @@ public class LaunchInterceptorConditions {
         return Math.sqrt(dx*dx + dy*dy);
     }
 
+    public int whichQuad(Point p) {
+        if (p.getX() >=0 && p.getY() >=0) return 1;
+        else if (p.getX() <0 && p.getY() >=0) return 2;
+        else if (p.getX() <=0 && p.getY() <0) return 3;
+        else return 4;
+    }
+    /**
+     * Tell whether or not three points can be contained on or inside a
+     * circle with specified radius.
+     * @param p1 The first point.
+     * @param p2 The second point.
+     * @param p3 The third point.
+     * @param r The radius of the circle.
+     * @return True if all points can be contained on or inside the circle.
+     */
+    public boolean containedInCircle(Point p1, Point p2, Point p3, double R) {
+        if (p1 == null || p2 == null || p3 == null) throw new IllegalArgumentException();
+        if (Double.isNaN(R) || R < 0) throw new IllegalArgumentException();
+        double d1 = distance(p1, p2);
+        double d2 = distance(p1, p3);
+        double d3 = distance(p2, p3);
+        if (d1 > 2*R || d2 > 2*R || d3 > 2*R) return false;
+
+        // Midpoints (Act as centers)
+        Point m12 = new Point(p1.getX()/2 + p2.getX()/2, p1.getY()/2 + p2.getY());
+        Point m23 = new Point(p2.getX()/2 + p3.getX()/2, p2.getY()/2 + p3.getY());
+        Point m13 = new Point(p1.getX()/2 + p3.getX()/2, p1.getY()/2 + p3.getY());
+        if (distance(m12, p3) <= R) return true;
+        if (distance(m23, p1) <= R) return true;
+        if (distance(m13, p2) <= R) return true;
+
+        double circleRadius = findCircleRadius(p1, p2, p3);
+        if (Double.isNaN(circleRadius)) return false;
+        if (circleRadius > R) return false;
+        return true;
+    }
+
     /**
      * Find the radius of a circle which intersects three points.
      * @param p1 The first point.
@@ -407,6 +514,25 @@ public class LaunchInterceptorConditions {
         double S = (distance1+distance2+distance3)/2;
         double area = Math.sqrt(S*(S-distance1)*(S-distance2)*(S-distance3));
         return area;
+    }
+
+    /**
+     * Find the angle formed by 3 points, at point 2.
+     * @param p1 The first point.
+     * @param p2 The second point.
+     * @param p3 The third point.
+     * @return The angle formed by 3 points, at point 2.
+     */
+    public double angle(Point p1, Point p2, Point p3) {
+        if (p1 == null || p2 == null || p3 == null || (p2.getX() == p1.getX()) && (p2.getY() == p1.getY()) ||  (p2.getX() == p3.getX()) && (p2.getY() == p3.getY()))  throw new IllegalArgumentException();
+        if (p1.getX() == p3.getX() && p1.getY() == p3.getY()) return 0;
+        double[] v1 = {p1.getX()-p2.getX(), p1.getY()-p2.getY()};
+        double[] v2 = {p3.getX()-p2.getX(), p3.getY()-p2.getY()};
+        double scal = v1[0]*v2[0] + v1[1] * v2[1];
+        double norm1 = Math.sqrt(v1[0]*v1[0]+v1[1]*v1[1]);
+        double norm2 = Math.sqrt(v2[0]*v2[0]+v2[1]*v2[1]);
+        double ang = Math.acos(scal / (norm1 * norm2));
+        return ang;
     }
 
 }
