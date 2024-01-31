@@ -161,7 +161,29 @@ public class LaunchInterceptorConditions {
     }
 
     public boolean getLaunchInterceptorCondition8() {
-        return true;
+        if(NUMPOINTS < 5) return false;
+        // Check parameters
+        if(PARAMETERS.RADIUS1 < 0) throw new IllegalArgumentException();
+        if(PARAMETERS.A_PTS < 1 || PARAMETERS.B_PTS < 1 || PARAMETERS.A_PTS + PARAMETERS.B_PTS > NUMPOINTS - 3) throw new IllegalArgumentException();
+
+        int interveningPointsA = PARAMETERS.A_PTS + 1;
+        int interveningPointsB = interveningPointsA + PARAMETERS.B_PTS + 1;
+
+        for(int i = 0; i < NUMPOINTS-interveningPointsB; i++){
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+interveningPointsA];
+            Point p3 = POINTS[i+interveningPointsB];
+            double d1 = distance(p1, p2);
+            double d2 = distance(p1, p3);
+            double d3 = distance(p2, p3);
+
+            if(d1 > PARAMETERS.RADIUS1*2 || d2 > PARAMETERS.RADIUS1*2 || d3 > PARAMETERS.RADIUS1*2) return true;
+            else{
+                double r = findCircleRadius(POINTS[i], POINTS[i+interveningPointsA], POINTS[i+interveningPointsB]);
+                if(r > PARAMETERS.RADIUS1) return true;
+            }
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition9() {
