@@ -302,6 +302,37 @@ public class LaunchInterceptorConditions {
     }
 
     /**
+     * Tell whether or not three points can be contained on or inside a
+     * circle with specified radius.
+     * @param p1 The first point.
+     * @param p2 The second point.
+     * @param p3 The third point.
+     * @param r The radius of the circle.
+     * @return True if all points can be contained on or inside the circle.
+     */
+    public boolean containedInCircle(Point p1, Point p2, Point p3, double R) {
+        if (p1 == null || p2 == null || p3 == null) throw new IllegalArgumentException();
+        if (Double.isNaN(R) || R < 0) throw new IllegalArgumentException();
+        double d1 = distance(p1, p2);
+        double d2 = distance(p1, p3);
+        double d3 = distance(p2, p3);
+        if (d1 > 2*R || d2 > 2*R || d3 > 2*R) return false;
+
+        // Midpoints (Act as centers)
+        Point m12 = new Point(p1.getX()/2 + p2.getX()/2, p1.getY()/2 + p2.getY());
+        Point m23 = new Point(p2.getX()/2 + p3.getX()/2, p2.getY()/2 + p3.getY());
+        Point m13 = new Point(p1.getX()/2 + p3.getX()/2, p1.getY()/2 + p3.getY());
+        if (distance(m12, p3) <= R) return true;
+        if (distance(m23, p1) <= R) return true;
+        if (distance(m13, p2) <= R) return true;
+
+        double circleRadius = findCircleRadius(p1, p2, p3);
+        if (Double.isNaN(circleRadius)) return false;
+        if (circleRadius > R) return false;
+        return true;
+    }
+
+    /**
      * Find the radius of a circle which intersects three points.
      * @param p1 The first point.
      * @param p2 The second point.
