@@ -98,15 +98,13 @@ public class LaunchInterceptorConditions {
     public boolean getLaunchInterceptorCondition2() {
         if (PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
         for(int i = 0; i < NUMPOINTS-2; i++){
+            Point p1 = POINTS[i];
             Point vertex = POINTS[i+1];
-            double x1 = (POINTS[i].getX() - vertex.getX());
-            double y1 = (POINTS[i].getY() - vertex.getY());
-            double x2 = (POINTS[i+2].getX() - vertex.getX());
-            double y2 = (POINTS[i+2].getY() - vertex.getY());
-            double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
-            if((a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI)
-                && !(POINTS[i].getX() == vertex.getX() && POINTS[i].getY() == vertex.getY()
-                || POINTS[i+2].getX() == vertex.getX() && POINTS[i+2].getY() == vertex.getY())) return true;
+            Point p3 = POINTS[i+2];
+            if (p1.getX() == vertex.getX() && p1.getY() == vertex.getY()) continue;
+            if (p3.getX() == vertex.getX() && p3.getY() == vertex.getY()) continue;
+            double a = angle(p1, vertex, p3);
+            if(a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI) return true;
         }
         return false;
     }
@@ -314,17 +312,14 @@ public class LaunchInterceptorConditions {
         int interveningPointsD = interveningPointsC + PARAMETERS.D_PTS + 1;
 
         for(int i = 0; i < NUMPOINTS-interveningPointsD; i++){
-            Point vertex = POINTS[i+interveningPointsC];
             Point p1 = POINTS[i];
+            Point vertex = POINTS[i+interveningPointsC];
             Point p2 = POINTS[i+interveningPointsD];
-            double x1 = (p1.getX() - vertex.getX());
-            double y1 = (p1.getY() - vertex.getY());
-            double x2 = (p2.getX() - vertex.getX());
-            double y2 = (p2.getY() - vertex.getY());
-            double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
-            if((a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI)
-                && !(p1.getX() == vertex.getX() && p1.getY() == vertex.getY()
-                || p2.getX() == vertex.getX() && p2.getY() == vertex.getY())) return true;
+            if (p1.getX() == vertex.getX() && p1.getY() == vertex.getY()) continue;
+            if (p2.getX() == vertex.getX() && p2.getY() == vertex.getY()) continue;
+            double a = angle(p1, vertex, p2);
+            if (a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI) 
+                return true;
         }
         return false;
     }
