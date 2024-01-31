@@ -148,14 +148,16 @@ public class LaunchInterceptorConditions {
 
         for(int i = 0; i < NUMPOINTS-interveningPointsD; i++){
             Point vertex = POINTS[i+interveningPointsC];
-            double x1 = (POINTS[i].getX() - vertex.getX());
-            double y1 = (POINTS[i].getY() - vertex.getY());
-            double x2 = (POINTS[i+interveningPointsD].getX() - vertex.getX());
-            double y2 = (POINTS[i+interveningPointsD].getY() - vertex.getY());
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+interveningPointsD];
+            double x1 = (p1.getX() - vertex.getX());
+            double y1 = (p1.getY() - vertex.getY());
+            double x2 = (p2.getX() - vertex.getX());
+            double y2 = (p2.getY() - vertex.getY());
             double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
             if((a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI)
-                && !(POINTS[i].getX() == vertex.getX() && POINTS[i].getY() == vertex.getY()
-                || POINTS[i+interveningPointsD].getX() == vertex.getX() && POINTS[i+interveningPointsD].getY() == vertex.getY())) return true;
+                && !(p1.getX() == vertex.getX() && p1.getY() == vertex.getY()
+                || p2.getX() == vertex.getX() && p2.getY() == vertex.getY())) return true;
         }
         return false;
     }
