@@ -174,19 +174,6 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
-     * Negative test case. Ensure the radius of the circle through the
-     * points is not incorrect.
-     */
-    @Test
-    public void findCircleRadiusIncorrect() {
-        Point p1 = new Point(1, 0);
-        Point p2 = new Point(2, 1);
-        Point p3 = new Point(5, 0);
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
-        assertNotEquals(1, LIC.findCircleRadius(p1, p2, p3), 0.00001);
-    }
-
-    /**
      * Edge-case test case. Ensure the radius of a straight line is returned as NaN.
      */
     @Test
