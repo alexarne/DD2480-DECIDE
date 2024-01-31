@@ -510,6 +510,7 @@ public class LaunchInterceptorConditionsTest {
             () -> { LIC.getLaunchInterceptorCondition10(); }
         );
     }
+
     /**
      * Illegal argument value test case for LIC10, ensures an exception is raised if the
      * value of F_PTS is negative or null.
@@ -539,6 +540,34 @@ public class LaunchInterceptorConditionsTest {
         );
     }
 
+    /**
+     * Illegal argument value test case for LIC10, ensures an exception is raised if
+     * E_PTS + F_PTS > NUMPOINTS - 3.
+     */
+    @Ignore
+    @Test
+    public void LIC10InvalidArgumentNegativeSumOfEptsAndFptsTooBig() {
+        PARAMETERS.AREA1 = 10;
+        Point[] POINTS = new Point[]{
+            new Point(0, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(0, 0),
+            new Point(1, 10),
+            new Point(1, 2),
+            new Point(2, 0)
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.E_PTS = NUMPOINTS;
+        PARAMETERS.F_PTS = NUMPOINTS;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition10(); }
+        );
+    }
 
     
     /**
