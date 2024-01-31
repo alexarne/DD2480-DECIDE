@@ -129,8 +129,43 @@ public class LaunchInterceptorConditions {
         return true;
     }
 
+    /**
+     * Launch Interceptor Condition 10:
+     * There exists at least one set of three data points separated
+     * by exactly E_PTS and F_PTS consecutive intervening points,
+     * respectively, that are the vertices of a triangle with area
+     * greater than AREA1. The condition is not met when NUMPOINTS < 5.
+     * Constraints:
+     * 1 ≤ E_PTS, 1 ≤ F_PTS
+     * E_PTS + F_PTS ≤ NUMPOINTS − 3
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition10() {
-        return true;
+        if (NUMPOINTS < 5) {
+            return false;
+        }
+        if (PARAMETERS.AREA1 < 0) throw new IllegalArgumentException("AREA is strictly negative");
+        if (PARAMETERS.E_PTS < 1 || PARAMETERS.F_PTS < 1) {
+            throw new IllegalArgumentException("E_PTS or F_PTS is negative or null");
+        }
+        if (PARAMETERS.E_PTS + PARAMETERS.F_PTS > NUMPOINTS - 3) {
+            throw new IllegalArgumentException("The sum of E_PTS and F_PTS is stricyl superior to NUMPOINTS - 3");
+        }
+
+        // implementation
+        for(int i = 0; i < NUMPOINTS - PARAMETERS.E_PTS - PARAMETERS.F_PTS - 2; i++) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+PARAMETERS.E_PTS+1];
+            Point p3 = POINTS[i+PARAMETERS.E_PTS+1+PARAMETERS.F_PTS+1];
+            double distance1 = distance(p1, p2);
+            double distance2 = distance(p2, p3);
+            double distance3 = distance(p1, p3);
+            double S = (distance1+distance2+distance3)/2;
+            double Area = Math.sqrt(S*(S-distance1)*(S-distance2)*(S-distance3));
+            if (Area > PARAMETERS.AREA1) return true;
+        }
+
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition11() {
