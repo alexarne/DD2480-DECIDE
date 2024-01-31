@@ -139,13 +139,14 @@ public class LaunchInterceptorConditions {
      * @return True if the condition is met, false otherwise.
      */
     public boolean getLaunchInterceptorCondition9() {
-        if (PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
+        if(NUMPOINTS < 5) return false;
+        if(PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
         if(PARAMETERS.C_PTS < 1 || PARAMETERS.D_PTS < 1 || PARAMETERS.C_PTS + PARAMETERS.D_PTS > NUMPOINTS - 3) throw new IllegalArgumentException();
         
         int interveningPointsC = PARAMETERS.C_PTS + 1;
         int interveningPointsD = interveningPointsC + PARAMETERS.D_PTS + 1;
 
-        for(int i = 0; i < NUMPOINTS-2; i++){
+        for(int i = 0; i < NUMPOINTS-interveningPointsD; i++){
             Point vertex = POINTS[i+interveningPointsC];
             double x1 = (POINTS[i].getX() - vertex.getX());
             double y1 = (POINTS[i].getY() - vertex.getY());
@@ -154,7 +155,7 @@ public class LaunchInterceptorConditions {
             double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
             if((a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI)
                 && !(POINTS[i].getX() == vertex.getX() && POINTS[i].getY() == vertex.getY()
-                || POINTS[i+2].getX() == vertex.getX() && POINTS[i+2].getY() == vertex.getY())) return true;
+                || POINTS[i+interveningPointsD].getX() == vertex.getX() && POINTS[i+interveningPointsD].getY() == vertex.getY())) return true;
         }
         return false;
     }

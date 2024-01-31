@@ -348,6 +348,121 @@ public class LaunchInterceptorConditionsTest {
      * ========================== [ LIC 9 ] ==========================
      */
 
+    /**
+     * Positive test case. Ensure LIC9 satisfied when angle between points smaller than
+     * Pi - EPSILON.
+     */
+    @Test
+    public void LIC9TrueAngleSmallerThanLowerLimit(){
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        PARAMETERS.C_PTS = 2;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(7, 9), new Point(0, 0), new Point(1,1), new Point(5, 3), new Point(2, 1.2)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition9());
+
+    }
+
+    /**
+     * Positive test case. Ensure LIC9 satisfied when angle between points larger than
+     * EPSILON + Pi.
+     */
+    @Test
+    public void LIC9TrueAngleGreaterThanUpperLimit(){
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        PARAMETERS.C_PTS = 1;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(0, 2), new Point(1,1), new Point(8, 1), new Point(2, 0.8)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition9());
+
+    }
+
+    /**
+     * Negative test case. Ensure LIC9 not satisfied when angle between points is
+     * between Pi - EPSILON and EPSILON + Pi.
+     */
+    @Test
+    public void LIC9FalseAngleBetweenLimits(){
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        PARAMETERS.C_PTS = 2;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(2, 1), new Point(3, 1), new Point(2, 3), new Point(1,1), new Point(0, 1), new Point(0, 1)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition9());
+
+    }
+
+    /**
+     * Edge-case test case. Ensure LIC9 not satisfied when one of the two points
+     * coincide with the vertex. 
+     */
+    @Test
+    public void LIC9FalsePointEqualsVertex(){
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        PARAMETERS.C_PTS = 1;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(1, 1), new Point(0, 1), new Point(1,1), new Point(0, 1), new Point(2, 1.2)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition9());
+    }
+
+    /**
+     * Edge-case test case. Ensure LIC9 not satisfied when angle between points is
+     * exactly Pi - EPSILON
+     */
+    @Test
+    public void LIC9FalseAngleEqualToLimit(){
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.0;
+        PARAMETERS.C_PTS = 2;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(2, 1), new Point(0, 3), new Point(3, 1), new Point(1,1), new Point(5, 2), new Point(0, 1)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition9());
+
+    }
+
+    /**
+     * Incorrect input test case. Ensure LIC9 is not satisfied when less than 5 points
+     * are supplied.
+     */
+    @Test 
+    public void LIC9FalseLessThan5Points(){
+        PARAMETERS.C_PTS = 1;
+        PARAMETERS.D_PTS = 1;
+        Point[] POINTS = new Point[]{ new Point(6, 1), new Point(4, 2), new Point(1, 2), new Point(3, 5)};
+        int NUMPOINTS = POINTS.length;
+        // Processing
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        // Assertion
+        assertFalse(LIC.getLaunchInterceptorCondition9());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC9 throws IllegalArgumentException
+     * if the supplied parameter C_PTS is less than 1.
+     */
+    @Test
+    public void LIC9ThrowsIllegalArgumentExceptionOnInvalidParameter() {
+        PARAMETERS.C_PTS = 0;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(1,1), new Point(2, 1.2), new Point(2, 2), new Point(2, 3)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition9(); }
+        );
+    }
     
 
     /**
