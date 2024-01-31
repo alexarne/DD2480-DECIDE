@@ -160,6 +160,14 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 8:
+     * There exists at least one set of three data points separated 
+     * by exactly A_PTS and B_PTS consecutive intervening points, 
+     * respectively, that cannot be contained within or on a circle 
+     * of radius RADIUS1. The condition is not met when NUMPOINTS < 5.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition8() {
         if(NUMPOINTS < 5) return false;
         // Check parameters
