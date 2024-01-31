@@ -28,8 +28,32 @@ public class Decide {
         return decision;
     }
 
-    public boolean[][] getPreliminaryUnlockingMatrix(boolean[] CMV) {
-        boolean[][] PUM = new boolean[][]{{ true }};
+    /**
+     * Preliminary Unlocking Matrix:
+     * The entries in the LCM represent the logical connectors to 
+     * be used between pairs of LICs to determine the corresponding 
+     * entry in the PUM, i.e. LCM[i,j] represents the boolean operator 
+     * to be applied to CMV[i] and CMV[j]. PUM[i,j] is set according 
+     * to the result of this operation. If LCM[i,j] is NOTUSED, then 
+     * PUM[i,j] should be set to true.
+     * @param ConditionsMetVector The Conditions Met Vector (length n)
+     * @return Preliminary Unlocking Matrix: Matrix (n x n) of boolean values.
+     */
+    public boolean[][] getPreliminaryUnlockingMatrix(boolean[] ConditionsMetVector) {
+        int n = ConditionsMetVector.length;
+        if (LCM.length < n) throw new IllegalArgumentException();
+        boolean[][] PUM = new boolean[n][n];
+        for (int i = 0; i < PUM.length; ++i) {
+            if (LCM[i].length < n) throw new IllegalArgumentException();
+            for (int j = 0; j < PUM[i].length; ++j) {
+                if (LCM[i][j] == Connector.ANDD) 
+                    PUM[i][j] = ConditionsMetVector[i] && ConditionsMetVector[j];
+                if (LCM[i][j] == Connector.ORR) 
+                    PUM[i][j] = ConditionsMetVector[i] || ConditionsMetVector[j];
+                if (LCM[i][j] == Connector.NOTUSED) 
+                    PUM[i][j] = true;
+            }
+        }
         return PUM;
     }
 
