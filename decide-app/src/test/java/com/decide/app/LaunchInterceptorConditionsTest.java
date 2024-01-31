@@ -383,6 +383,34 @@ public class LaunchInterceptorConditionsTest {
         assertTrue(LIC.getLaunchInterceptorCondition10());
     }
 
+
+    /**
+     * Negative test case, ensure LIC10 is not satisfied when three points seperated by
+     * exactly E_PTS and F_PTS consecutive pointsrespectively form a triangle of area
+     * inferior  than AREA1 apart.
+     */
+    @Ignore
+    @Test
+    public void LIC10FalseTriangleOfAreaInferiorToArea1() {
+        PARAMETERS.E_PTS = 2;
+        PARAMETERS.E_PTS = 2;
+        PARAMETERS.AREA1 = 3;
+        Point[] POINTS = new Point[]{
+            new Point(0, 1),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(0, 0),
+            new Point(1, 10),
+            new Point(1, 2),
+            new Point(1, 0)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertFalse(LIC.getLaunchInterceptorCondition10());
+    }
+
     /**
      * ========================= [ LIC 11 ] ==========================
      */
