@@ -1,6 +1,7 @@
 package com.decide.app;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -119,6 +120,29 @@ public class DecideTest {
                 assertTrue(PUM[i][j] == PUM_CORRECT[i][j]);
             }
         }
+    }
+
+    /**
+     * Invalid input test case, ensure that PUM throws IllegalArgumentException
+     * if there are less elements in the LCM than can support the length of the CMV.
+     */
+    @Test
+    public void PUMThrowsExceptionIfInvalidLCM() {
+        Connector[][] LCM = new Connector[][]{
+            {Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED},
+            {Connector.NOTUSED, Connector.NOTUSED},
+            {Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED},
+        };
+        Decide decide = new Decide(0, null, PARAMETERS, LCM, null);
+        boolean[] CMV = new boolean[]{
+            true,
+            true,
+            true
+        };
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { decide.getPreliminaryUnlockingMatrix(CMV); }
+        );
     }
     
     /**
