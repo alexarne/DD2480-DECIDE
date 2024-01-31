@@ -1157,10 +1157,77 @@ public class LaunchInterceptorConditionsTest {
     /**
      * ========================= [ LIC 14 ] ==========================
      */
-    
 
+    /**
+     * Positive test case, ensure LIC14 is satisfied when the triangle
+     * has area greater than AREA1 and less than AREA2
+     */
+    @Test
+    public void LIC14TrueWhenSatisfied() {
+        PARAMETERS.E_PTS = 1;
+        PARAMETERS.F_PTS = 1;
+        PARAMETERS.AREA1 = 1;
+        PARAMETERS.AREA2 = 3;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(1,3),
+            new Point(0,2),
+            new Point(2,0),
+            new Point(2,0)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition14());
+    }
 
+    /**
+     * Edge-case test case, ensure LIC14 is not satisfied when the triangle
+     * has area equal to AREA1 and AREA2.
+     */
+    @Test
+    public void LIC14FalseWhenEqualArea() {
+        PARAMETERS.E_PTS = 1;
+        PARAMETERS.F_PTS = 1;
+        PARAMETERS.AREA1 = 2;
+        PARAMETERS.AREA2 = 2;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(1,3),
+            new Point(0,2),
+            new Point(2,0),
+            new Point(2,0)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition14());
+    }
+
+    /**
+     * Edge-case test case, ensure LIC14 is not satisfied when the triangle
+     * has area equal to AREA1 and AREA2.
+     */
+    @Test
+    public void LIC14ThrowsExceptionOnInvalidInput() {
+        PARAMETERS.E_PTS = 0;
+        PARAMETERS.F_PTS = 0;
+        PARAMETERS.AREA1 = -1;
+        PARAMETERS.AREA2 = -1;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(1,3),
+            new Point(0,2),
+            new Point(2,0),
+            new Point(2,0)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition14(); }
+        );
+    }
   
+
     
     /**
      * ========================= [ HELPERS ] =========================
