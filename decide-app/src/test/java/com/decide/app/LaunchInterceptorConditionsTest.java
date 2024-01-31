@@ -1206,7 +1206,96 @@ public class LaunchInterceptorConditionsTest {
      * ========================= [ LIC 13 ] ==========================
      */
 
-    
+    /**
+     * Positive test case, ensure LIC13 is satisfied when the points can be
+     * contained in a circle of radius RADIUS2, but not of RADIUS1.  
+     */
+    @Test
+    public void LIC13TrueWhenSatisfied() {
+        PARAMETERS.A_PTS = 1;
+        PARAMETERS.B_PTS = 1;
+        PARAMETERS.RADIUS1 = 0.9;
+        PARAMETERS.RADIUS2 = 1.1;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(1,3),
+            new Point(1,0.5),
+            new Point(2,0),
+            new Point(2,0)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition13());
+    }
+
+    /**
+     * Negative test case, ensure LIC13 is not satisfied when the points 
+     * can be contained in a circle with radius exactly RADIUS1.  
+     */
+    @Test
+    public void LIC13FalseOnBoundary() {
+        PARAMETERS.A_PTS = 1;
+        PARAMETERS.B_PTS = 1;
+        PARAMETERS.RADIUS1 = 1;
+        PARAMETERS.RADIUS2 = 1;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(1,3),
+            new Point(1,0.5),
+            new Point(2,0),
+            new Point(2,0)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition13());
+    }
+
+    /**
+     * Negative test case, ensure LIC13 is not satisfied when the points 
+     * require a larger circle to be contained. 
+     */
+    @Test
+    public void LIC13FalseOnTooSmallRADIUS2() {
+        PARAMETERS.A_PTS = 1;
+        PARAMETERS.B_PTS = 1;
+        PARAMETERS.RADIUS1 = 1;
+        PARAMETERS.RADIUS2 = 1;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(1,3),
+            new Point(1,2.5),
+            new Point(2,0),
+            new Point(2,0)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition13());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC12 throws IllegalArgumentException
+     * if the supplied parameters LENGTH1, LENGTH2, or K_PTS are out of bounds.
+     */
+    @Test
+    public void LIC13ThrowsIllegalArgumentExceptionOnInvalidInput() {
+        PARAMETERS.A_PTS = 0;
+        PARAMETERS.B_PTS = 0;
+        PARAMETERS.RADIUS1 = -1;
+        PARAMETERS.RADIUS2 = -1;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(1,3),
+            new Point(1,2.5),
+            new Point(2,0),
+            new Point(2,0)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition13(); }
+        );
+    }
 
     /**
      * ========================= [ LIC 14 ] ==========================
