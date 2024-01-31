@@ -18,7 +18,7 @@ DECIDE is a boolean decision-maker for a hypothetical anti-ballistic missile sys
 - [FUV + Tests](https://github.com/alexarne/DECIDE/pull/66)
 - [Final Launch Decision + Tests](https://github.com/alexarne/DECIDE/pull/49)
 - [ContainedInCircle Helper + Tests](https://github.com/alexarne/DECIDE/pull/79)
-- [Extract TriangleArea Helper + Tests](https://github.com/alexarne/DECIDE/pull/67)
+- [Refactor TriangleArea Helper + Tests](https://github.com/alexarne/DECIDE/pull/67)
 - []()
 
 **Anne Haaker**
