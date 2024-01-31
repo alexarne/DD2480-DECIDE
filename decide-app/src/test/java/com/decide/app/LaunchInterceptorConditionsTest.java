@@ -692,6 +692,34 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
+     * Edge-case test case, ensure LIC6 gives correct output when the first
+     * and last of the N_PTS points are the same.
+     */
+    @Test
+    public void LIC6CorrectOutputOnIdenticalEndpoints() {
+        Parameters PARAMETERS = new Parameters();
+        Point[] POINTS = {
+            new Point(1, 1), 
+            new Point(0, 2), 
+            new Point(5, 3),     
+            new Point(3, 2), 
+            new Point(3, 3), 
+            new Point(14,3), 
+            new Point(3, 3), 
+            new Point(3, 1), 
+            new Point(1, 3), 
+            new Point(2, 1)
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.N_PTS = 3;
+        PARAMETERS.DIST = 10;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition6());
+        POINTS[5] = new Point(8, 3);
+        assertFalse(LIC.getLaunchInterceptorCondition6());
+    }
+
+    /**
      * Edge-case test case, ensure LIC6 is not satisfied when one of N_PTS consecutive
      * points lies exactly the same distance as DIST apart from the line joining the
      * first and last of these N_PTS points.
@@ -778,7 +806,7 @@ public class LaunchInterceptorConditionsTest {
             new Point(1,2),
         };
         int NUMPOINTS = POINTS.length;
-        PARAMETERS.N_PTS = 3;
+        PARAMETERS.N_PTS = 2;
         PARAMETERS.DIST = -1;
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertThrows(
