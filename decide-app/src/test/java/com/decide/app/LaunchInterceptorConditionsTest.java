@@ -427,7 +427,7 @@ public class LaunchInterceptorConditionsTest {
 
     /**
      * Invalid input test case, ensure LIC12 throws IllegalArgumentException
-     * if the supplied parameter AREA1 is less than 0.
+     * if the supplied parameters LENGTH1, LENGTH2, or K_PTS are out of bounds.
      */
     @Test
     public void LIC12ThrowsIllegalArgumentExceptionOnInvalidInput() {
