@@ -334,9 +334,9 @@ public class LaunchInterceptorConditions {
     }
 
     public int whichQuad(Point p) {
-        if (p.x >=0 && p.y >=0) return 1;
-        else if (p.x <0 && p.y >=0) return 2;
-        else if (p.x <=0 && p.y <0) return 3;
+        if (p.getX() >=0 && p.getY() >=0) return 1;
+        else if (p.getX() <0 && p.getY() >=0) return 2;
+        else if (p.getX() <=0 && p.getY() <0) return 3;
         else return 4;
     }
     /**
