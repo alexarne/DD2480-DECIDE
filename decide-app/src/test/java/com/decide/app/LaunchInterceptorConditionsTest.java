@@ -505,6 +505,16 @@ public class LaunchInterceptorConditionsTest {
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         assertFalse(LIC.getLaunchInterceptorCondition5());
     }
+
+    @Test
+    public void LIC5FalseWithLessThanTwoPoints() {
+        Point[] POINTS = new Point[]{
+            new Point(1, 2)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition5());
+    }
     
    
 
