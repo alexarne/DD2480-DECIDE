@@ -1220,6 +1220,88 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
+     * ==================== [ ContainedInCircle ] =====================
+     */
+  
+    /**
+     * Positive test case. Ensure containedInCircle returns true when
+     * it is possible to contain the points in a circle of radius R.
+     */
+    @Test
+    public void containedInCircleCorrectWhenPossible() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(2, 0.5);
+        Point p3 = new Point(3, 0);
+        double R = 1;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertTrue(LIC.containedInCircle(p1, p2, p3, R));
+    }
+  
+    /**
+     * Positive test case. Ensure containedInCircle returns true when
+     * it is possible to contain points, distributed on a line, in a 
+     * circle of radius R.
+     */
+    @Test
+    public void containedInCircleCorrectWhenPointsOnLine() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(2, 0);
+        Point p3 = new Point(3, 0);
+        double R = 1;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertTrue(LIC.containedInCircle(p1, p2, p3, R));
+    }
+  
+    /**
+     * Negative test case. Ensure containedInCircle returns false when
+     * it is not possible to contain the points in a circle of radius R.
+     */
+    @Test
+    public void containedInCircleCorrectWhenNotPossible() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(2, 2.5);
+        Point p3 = new Point(3, 0);
+        double R = 1;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertFalse(LIC.containedInCircle(p1, p2, p3, R));
+    }
+  
+    /**
+     * Invalid input test case. Ensure containedInCircle throws
+     * IllegalArgumentException if either point is null or the radius
+     * is negative.
+     */
+    @Test
+    public void containedInCircleThrowsExceptionOnInvalidInput() {
+        Point p1 = null;
+        Point p2 = null;
+        Point p3 = null;
+        double R = -1;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.containedInCircle(p1, p2, p3, R); }
+        );
+    }
+  
+    /**
+     * Invalid input test case. Ensure containedInCircle throws
+     * IllegalArgumentException if input radius is NaN.
+     */
+    @Test
+    public void containedInCircleThrowsExceptionOnNaNRadius() {
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(2, 0);
+        Point p3 = new Point(3, 0);
+        double R = Double.NaN;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.containedInCircle(p1, p2, p3, R); }
+        );
+    }
+
+    /**
      * ======================= [ CircleRadius ] =======================
      */
   
