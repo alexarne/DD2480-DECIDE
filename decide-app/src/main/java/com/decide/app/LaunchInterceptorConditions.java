@@ -176,6 +176,7 @@ public class LaunchInterceptorConditions {
     public boolean getLaunchInterceptorCondition6() {
         if (NUMPOINTS<3) return false;
         Point[] p = new Point[PARAMETERS.N_PTS];
+        if (PARAMETERS.N_PTS > NUMPOINTS || PARAMETERS.N_PTS < 3 || PARAMETERS.DIST < 0) throw new IllegalArgumentException();
         for (int i = 0; i < NUMPOINTS-PARAMETERS.N_PTS+1; i++) {
             for (int j = 0; j < PARAMETERS.N_PTS; j++) {
                 p[j] = POINTS[i+j]; 
