@@ -150,6 +150,9 @@ public class LaunchInterceptorConditions {
         //two lines A through p1-p2 and B through p2-p3
         double slopeA = (y2-y1)/(x2-x1);
         double slopeB = (y3-y2)/(x3-x2);
+
+        // slopes parallel
+        if(slopeA == slopeB) return Double.NaN;
         
         // if slope is infinite, line is vertical. Change order of points. 
         if(Double.isInfinite(slopeA)){
