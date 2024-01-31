@@ -30,7 +30,7 @@ public class Parameters {
         Q_PTS = 0;
         QUADS = 0;
         DIST = 0;
-        N_PTS = 1;
+        N_PTS = 3;
         K_PTS = 1;
         A_PTS = 1;
         B_PTS = 1;
