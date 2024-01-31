@@ -21,5 +21,26 @@ public class Parameters {
     public double RADIUS2;         // Maximum radius in LIC 13
     public double AREA2;           // Maximum area in LIC 14
 
-    public Parameters() {}
+    public Parameters() {
+        // Default assignments, assumes lowest value if 0 is not allowed
+        LENGTH1 = 0;
+        RADIUS1 = 0;
+        EPSILON = 0;
+        AREA1 = 0;
+        Q_PTS = 0;
+        QUADS = 0;
+        DIST = 0;
+        N_PTS = 1;
+        K_PTS = 1;
+        A_PTS = 1;
+        B_PTS = 1;
+        C_PTS = 1;
+        D_PTS = 1;
+        E_PTS = 1;
+        F_PTS = 1;
+        G_PTS = 1;
+        LENGTH2 = 0;
+        RADIUS2 = 0;
+        AREA2 = 0;
+    }
 }
