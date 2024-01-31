@@ -203,7 +203,58 @@ public class LaunchInterceptorConditionsTest {
             () -> { LIC.getLaunchInterceptorCondition4(); }
         );
     }
-    
+
+    /**
+     * ========================= [ HELPERS ] =========================
+     */
+
+    /**
+     * Positive test case, ensure the distance between two points is correct.
+     */
+    @Test
+    public void distanceCorrect() {
+        Point p1 = new Point(1, 2);
+        Point p2 = new Point(1, 3);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(1, LIC.distance(p1, p2), 0.00001);
+    }
+
+    /**
+     * Negative test case, ensure the distance between two points is not incorrect.
+     */
+    @Test
+    public void distanceIncorrect() {
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(0, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertNotEquals(1, LIC.distance(p1, p2), 0.00001);
+    }
+
+    /**
+     * Positive test case, ensure the distance between two diagonal points is correct.
+     */
+    @Test
+    public void diagonalDistanceCorrect() {
+        Point p1 = new Point(3, 3);
+        Point p2 = new Point(0,-1);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(5, LIC.distance(p1, p2), 0.00001);
+    }
+
+    /**
+     * Invalid input test case, ensure the distance to a null object
+     * causes an IllegalArgumentException to be thrown.
+     */
+    @Test
+    public void distanceThrowsIllegalArgumentExceptionOnNull() {
+        Point p1 = new Point(0, 0);
+        Point p2 = null;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.distance(p1, p2); }
+        );
+    }
 
     /**
     * WhichQuad is expected to return the Quad where the point is.
@@ -263,58 +314,6 @@ public class LaunchInterceptorConditionsTest {
         Point p1 = new Point(0,-1);
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
         assertEquals(3, LIC.whichQuad(p1), 0.00001);
-    }
-
-    /**
-     * ========================= [ HELPERS ] =========================
-     */
-
-    /**
-     * Positive test case, ensure the distance between two points is correct.
-     */
-    @Test
-    public void distanceCorrect() {
-        Point p1 = new Point(1, 2);
-        Point p2 = new Point(1, 3);
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
-        assertEquals(1, LIC.distance(p1, p2), 0.00001);
-    }
-
-    /**
-     * Negative test case, ensure the distance between two points is not incorrect.
-     */
-    @Test
-    public void distanceIncorrect() {
-        Point p1 = new Point(0, 0);
-        Point p2 = new Point(0, 0);
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
-        assertNotEquals(1, LIC.distance(p1, p2), 0.00001);
-    }
-
-    /**
-     * Positive test case, ensure the distance between two diagonal points is correct.
-     */
-    @Test
-    public void diagonalDistanceCorrect() {
-        Point p1 = new Point(3, 3);
-        Point p2 = new Point(0,-1);
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
-        assertEquals(5, LIC.distance(p1, p2), 0.00001);
-    }
-
-    /**
-     * Invalid input test case, ensure the distance to a null object
-     * causes an IllegalArgumentException to be thrown.
-     */
-    @Test
-    public void distanceThrowsIllegalArgumentExceptionOnNull() {
-        Point p1 = new Point(0, 0);
-        Point p2 = null;
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
-        assertThrows(
-            IllegalArgumentException.class, 
-            () -> { LIC.distance(p1, p2); }
-        );
     }
 
 }
