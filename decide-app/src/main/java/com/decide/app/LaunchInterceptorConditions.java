@@ -223,8 +223,41 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 9:
+     * There exists at least one set of three data points separated 
+     * by exactly C_PTS and D_PTS consecutive intervening points, 
+     * respectively, that form an angle such that:
+     * angle < (PI − EPSILON) or angle > (PI + EPSILON)
+     * The second point of the set of three points is always the vertex 
+     * of the angle. If either the first point or the last point (or both) 
+     * coincide with the vertex, the angle is undefined and the LIC is not 
+     * satisfied by those three points. When NUMPOINTS < 5, the condition is not met.
+     * Constraints: 1 ≤ C_PTS, 1 ≤ D_PTS, C_PTS + D_PTS ≤ NUMPOINTS − 3
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition9() {
-        return true;
+        if(NUMPOINTS < 5) return false;
+        if(PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
+        if(PARAMETERS.C_PTS < 1 || PARAMETERS.D_PTS < 1 || PARAMETERS.C_PTS + PARAMETERS.D_PTS > NUMPOINTS - 3) throw new IllegalArgumentException();
+        
+        int interveningPointsC = PARAMETERS.C_PTS + 1;
+        int interveningPointsD = interveningPointsC + PARAMETERS.D_PTS + 1;
+
+        for(int i = 0; i < NUMPOINTS-interveningPointsD; i++){
+            Point vertex = POINTS[i+interveningPointsC];
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+interveningPointsD];
+            double x1 = (p1.getX() - vertex.getX());
+            double y1 = (p1.getY() - vertex.getY());
+            double x2 = (p2.getX() - vertex.getX());
+            double y2 = (p2.getY() - vertex.getY());
+            double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
+            if((a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI)
+                && !(p1.getX() == vertex.getX() && p1.getY() == vertex.getY()
+                || p2.getX() == vertex.getX() && p2.getY() == vertex.getY())) return true;
+        }
+        return false;
     }
 
     /**
