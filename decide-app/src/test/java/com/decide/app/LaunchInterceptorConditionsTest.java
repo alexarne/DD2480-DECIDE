@@ -411,6 +411,34 @@ public class LaunchInterceptorConditionsTest {
         assertFalse(LIC.getLaunchInterceptorCondition10());
     }
 
+
+    /**
+     * Edge-case test case, ensure LIC10 is not satisfied when three points seperated by
+     * exactly E_PTS and F_PTS consecutive points respectively form a triangle of area
+     * equals to AREA1.
+     */
+    @Ignore
+    @Test
+    public void LIC10FalseTriangleOfAreaEqualToArea1() {
+        PARAMETERS.E_PTS = 2;
+        PARAMETERS.E_PTS = 2;
+        PARAMETERS.AREA1 = 2;
+        Point[] POINTS = new Point[]{
+            new Point(0, 2),
+            new Point(1, 2),
+            new Point(2, 5),
+            new Point(0, 0),
+            new Point(1, 10),
+            new Point(1, 2),
+            new Point(2, 0)
+        };
+        int NUMPOINTS = POINTS.length;
+
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+
+        assertFalse(LIC.getLaunchInterceptorCondition10());
+    }
+
     /**
      * ========================= [ LIC 11 ] ==========================
      */
