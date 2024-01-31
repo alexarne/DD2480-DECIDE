@@ -86,8 +86,29 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 2:
+     * There exists at least one set of three consecutive data points
+     * which form an angle such that:
+     * angle < (PI−EPSILON) or angle > (PI+EPSILON)
+     * The second of the three consecutive points is always the vertex of the angle. 
+     * If a point coincides with the vertex, the angle is undefined and the LIC is not satisfied.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition2() {
-        return true;
+        if (PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
+        for(int i = 0; i < NUMPOINTS-2; i++){
+            Point vertex = POINTS[i+1];
+            double x1 = (POINTS[i].getX() - vertex.getX());
+            double y1 = (POINTS[i].getY() - vertex.getY());
+            double x2 = (POINTS[i+2].getX() - vertex.getX());
+            double y2 = (POINTS[i+2].getY() - vertex.getY());
+            double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
+            if((a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI)
+                && !(POINTS[i].getX() == vertex.getX() && POINTS[i].getY() == vertex.getY()
+                || POINTS[i+2].getX() == vertex.getX() && POINTS[i+2].getY() == vertex.getY())) return true;
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition3() {
@@ -175,11 +196,7 @@ public class LaunchInterceptorConditions {
             Point p1 = POINTS[i];
             Point p2 = POINTS[i+PARAMETERS.E_PTS+1];
             Point p3 = POINTS[i+PARAMETERS.E_PTS+1+PARAMETERS.F_PTS+1];
-            double distance1 = distance(p1, p2);
-            double distance2 = distance(p2, p3);
-            double distance3 = distance(p1, p3);
-            double S = (distance1+distance2+distance3)/2;
-            double Area = Math.sqrt(S*(S-distance1)*(S-distance2)*(S-distance3));
+            double Area = triangleArea(p1, p2, p3);
             if (Area > PARAMETERS.AREA1) return true;
         }
 

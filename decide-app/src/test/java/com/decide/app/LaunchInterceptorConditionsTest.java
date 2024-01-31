@@ -11,6 +11,8 @@ import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
+import java.lang.Math;
+
 public class LaunchInterceptorConditionsTest {
     Parameters PARAMETERS;
 
@@ -142,7 +144,7 @@ public class LaunchInterceptorConditionsTest {
             () -> { LIC.getLaunchInterceptorCondition0(); }
         );
     }
-
+  
     /**
      * ========================== [ LIC 1 ] ==========================
      */
@@ -243,13 +245,116 @@ public class LaunchInterceptorConditionsTest {
         );
     }
 
-    
-
     /**
      * ========================== [ LIC 2 ] ==========================
      */
 
-    
+
+    /**
+     * Positive test case. Ensure LIC2 satisfied when angle between points smaller than
+     * Pi - EPSILON.
+     */
+    @Test
+    public void LIC2TrueAngleSmallerThanLowerLimit(){
+        int NUMPOINTS = 3;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(1,1), new Point(2, 1.2)};
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition2());
+
+    }
+
+    /**
+     * Positive test case. Ensure LIC2 satisfied when angle between points larger than
+     * EPSILON + Pi.
+     */
+    @Test
+    public void LIC2TrueAngleGreaterThanUpperLimit(){
+        int NUMPOINTS = 3;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(1,1), new Point(2, 0.8)};
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition2());
+        
+    }
+
+    /**
+     * Negative test case. Ensure LIC2 not satisfied when angle between points is
+     * between Pi - EPSILON and EPSILON + Pi.
+     */
+    @Test
+    public void LIC2FalseAngleBetweenLimits(){
+        int NUMPOINTS = 3;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        Point[] POINTS = new Point[]{ new Point(2, 1), new Point(1,1), new Point(0, 1)};
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition2());
+        
+    }
+
+    /**
+     * Edge-case test case. Ensure LIC2 not satisfied when one of the two points
+     * coincide with the vertex. 
+     */
+    @Test
+    public void LIC2FalsePointEqualsVertex(){
+        int NUMPOINTS = 3;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.01;
+        Point[] POINTS = new Point[]{ new Point(1, 1), new Point(1,1), new Point(2, 1.2)};
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition2());
+    }
+
+    /**
+     * Edge-case test case. Ensure LIC2 not satisfied when angle between points is
+     * exactly Pi - EPSILON
+     */
+    @Test
+    public void LIC2FalseAngleEqualToLimit(){
+        int NUMPOINTS = 3;
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.EPSILON = 0.0;
+        Point[] POINTS = new Point[]{ new Point(2, 1), new Point(1,1), new Point(0, 1)};
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition2());
+        
+    }
+
+    /**
+     * Invalid input test case, ensure LIC2 throws IllegalArgumentException
+     * if the supplied parameter EPSILON is less than 0.
+     */
+    @Test
+    public void LIC2ThrowsIllegalArgumentExceptionOnInvalidParameterSmall() {
+        PARAMETERS.EPSILON = -1.0;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(1,1), new Point(2, 1.2)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition2(); }
+        );
+    }
+
+    /**
+     * Invalid input test case, ensure LIC2 throws IllegalArgumentException
+     * if the supplied parameter EPSILON is equal to Pi. 
+     */
+    @Test
+    public void LIC2ThrowsIllegalArgumentExceptionOnInvalidParameterLarge() {
+        PARAMETERS.EPSILON = Math.PI;
+        Point[] POINTS = new Point[]{ new Point(0, 1), new Point(1,1), new Point(2, 1.2)};
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition2(); }
+        );
+    }
 
     /**
      * ========================== [ LIC 3 ] ==========================
