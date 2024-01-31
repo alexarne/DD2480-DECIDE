@@ -10,7 +10,10 @@ DECIDE is a boolean decision-maker for a hypothetical anti-ballistic missile sys
 
 - [Initial code structure](https://github.com/alexarne/DECIDE/pull/28)
 - [CMV + Tests](https://github.com/alexarne/DECIDE/pull/48)
+- [PUM + Tests](https://github.com/alexarne/DECIDE/pull/65)
+- [FUV + Tests](https://github.com/alexarne/DECIDE/pull/66)
 - [Final Launch Decision + Tests](https://github.com/alexarne/DECIDE/pull/49)
+- [Extract TriangleArea Helper + Tests](https://github.com/alexarne/DECIDE/pull/67)
 - []()
 
 **Anne Haaker**
@@ -33,7 +36,7 @@ DECIDE is a boolean decision-maker for a hypothetical anti-ballistic missile sys
 **Juan Bautista Lavagnini Portela**
 
 - [LIC3 + Tests](https://github.com/alexarne/DECIDE/pull/52)
-- []()
+- [TriangleArea Helper](https://github.com/alexarne/DECIDE/pull/52)
 
 ## Essence
 
