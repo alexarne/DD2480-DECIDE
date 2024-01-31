@@ -159,7 +159,97 @@ public class LaunchInterceptorConditionsTest {
      * ========================== [ LIC 3 ] ==========================
      */
 
-    
+    /**
+     * Positive test case, ensure LIC3 is satisfied when three consecutive
+     * points are the vertices of a triangle with area greater than AREA1.
+     */
+    @Test
+    public void LIC3TrueOnAreaGreaterThanAREA1() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.AREA1 = 1.9;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(0,2)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition3());
+    }
+
+    /**
+     * Negative test case, ensure LIC3 is not satisfied when three consecutive
+     * points are the vertices of a triangle with area lower than AREA1
+     */
+    @Test
+    public void LIC3FalseOnAreaLowerThanAREA1() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.AREA1 = 2.1;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(0,2)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition3());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC3 throws IllegalArgumentException
+     * if the supplied parameter AREA1 is less than 0.
+     */
+    @Test
+    public void LIC3ThrowsIllegalArgumentExceptionOnInvalidAREA1() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.AREA1 = -1;
+        Point[] POINTS = new Point[]{
+            new Point(0, 0),
+            new Point(1, 0),
+            new Point(0, 1)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition3(); }
+        );
+    }
+
+    /** 
+     * Edge-case test case, ensure LIC3 is not satisfied when three consecutive
+     * points are the vertices of a triangle with area EQUAL than AREA1
+     */
+    @Test
+    public void LIC3FalseOnAreaEqualsAREA1() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.AREA1 = 2;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(2,0),
+            new Point(0,2)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition3());
+    }
+
+    /** 
+     * Edge-case test case, ensure LIC3 is not satisfied when receives
+     * less than three points 
+     */
+    @Test
+    public void LIC3FalseForLessThanThreePoints() {
+        Parameters PARAMETERS = new Parameters();
+        PARAMETERS.AREA1 = 0;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(2,0)
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition3());
+    }
 
     /**
      * ========================== [ LIC 4 ] ==========================
@@ -377,103 +467,6 @@ public class LaunchInterceptorConditionsTest {
     /**
      * ========================= [ LIC 14 ] ==========================
      */
-  
-
-    /**
-     * ========================== [ LIC 3 ] ==========================
-     */
-
-    /**
-     * Positive test case, ensure LIC3 is satisfied when three consecutive
-     * points are the vertices of a triangle with area greater than AREA1.
-     */
-    @Test
-    public void LIC3TrueOnAreaGreaterThanAREA1() {
-        Parameters PARAMETERS = new Parameters();
-        PARAMETERS.AREA1 = 1.9;
-        Point[] POINTS = new Point[]{
-            new Point(0,0),
-            new Point(2,0),
-            new Point(0,2)
-        };
-        int NUMPOINTS = POINTS.length;
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        assertTrue(LIC.getLaunchInterceptorCondition3());
-    }
-
-    /**
-     * Negative test case, ensure LIC3 is not satisfied when three consecutive
-     * points are the vertices of a triangle with area lower than AREA1
-     */
-     @Test
-     public void LIC3FalseOnAreaLowerThanAREA1() {
-         Parameters PARAMETERS = new Parameters();
-         PARAMETERS.AREA1 = 2.1;
-         Point[] POINTS = new Point[]{
-             new Point(0,0),
-             new Point(2,0),
-             new Point(0,2)
-         };
-         int NUMPOINTS = POINTS.length;
-         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-         assertFalse(LIC.getLaunchInterceptorCondition3());
-     }
-
-    /**
-     * Invalid input test case, ensure LIC3 throws IllegalArgumentException
-     * if the supplied parameter AREA1 is less than 0.
-     */
-    @Test
-    public void LIC3ThrowsIllegalArgumentExceptionOnInvalidAREA1() {
-        Parameters PARAMETERS = new Parameters();
-        PARAMETERS.AREA1 = -1;
-        Point[] POINTS = new Point[]{
-            new Point(0, 0),
-            new Point(1, 0),
-            new Point(0, 1)
-        };
-        int NUMPOINTS = POINTS.length;
-        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-        assertThrows(
-            IllegalArgumentException.class, 
-            () -> { LIC.getLaunchInterceptorCondition3(); }
-        );
-    }
-
-    /** 
-     * Edge-case test case, ensure LIC3 is not satisfied when three consecutive
-     * points are the vertices of a triangle with area EQUAL than AREA1
-     */
-     @Test
-     public void LIC3FalseOnAreaEqualsAREA1() {
-         Parameters PARAMETERS = new Parameters();
-         PARAMETERS.AREA1 = 2;
-         Point[] POINTS = new Point[]{
-             new Point(0,0),
-             new Point(2,0),
-             new Point(0,2)
-         };
-         int NUMPOINTS = POINTS.length;
-         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-         assertFalse(LIC.getLaunchInterceptorCondition3());
-     }
-
-    /** 
-     * Edge-case test case, ensure LIC3 is not satisfied when receives
-     * less than three points 
-     */
-     @Test
-     public void LIC3FalseForLessThanThreePoints() {
-         Parameters PARAMETERS = new Parameters();
-         PARAMETERS.AREA1 = 0;
-         Point[] POINTS = new Point[]{
-             new Point(0,0),
-             new Point(2,0)
-         };
-         int NUMPOINTS = POINTS.length;
-         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
-         assertFalse(LIC.getLaunchInterceptorCondition3());
-     }
     
 
     /**
@@ -525,6 +518,58 @@ public class LaunchInterceptorConditionsTest {
         assertThrows(
             IllegalArgumentException.class, 
             () -> { LIC.distance(p1, p2); }
+        );
+    }
+
+    /**
+     * Positive test case, ensure that the area of a simple triangle is correct.
+     */
+    @Test
+    public void triangleAreaCorrectOnNormalTriangle() {
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(0, 3);
+        Point p3 = new Point(3, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(4.5, LIC.triangleArea(p1, p2, p3), 0.00001);
+    }
+
+    /**
+     * Positive test case, ensure that the area of a simple triangle is correct.
+     */
+    @Test
+    public void triangleAreaCorrectOnSkewedTriangle() {
+        Point p1 = new Point(4, 2);
+        Point p2 = new Point(3, 5);
+        Point p3 = new Point(1, 2);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(4.5, LIC.triangleArea(p1, p2, p3), 0.00001);
+    }
+
+    /**
+     * Positive test case, ensure that the area of a slim triangle is 0.
+     */
+    @Test
+    public void triangleAreaCorrectOnSlimTriangle() {
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(2, 2);
+        Point p3 = new Point(3, 3);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertEquals(0, LIC.triangleArea(p1, p2, p3), 0.00001);
+    }
+
+    /**
+     * Invalid input test case, ensure the triangle area with a null vertex
+     * causes an IllegalArgumentException to be thrown.
+     */
+    @Test
+    public void triangleAreaThrowsExceptionOnNull() {
+        Point p1 = new Point(0, 0);
+        Point p2 = null;
+        Point p3 = new Point(0, 0);
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.triangleArea(p1, p2, p3); }
         );
     }
 
