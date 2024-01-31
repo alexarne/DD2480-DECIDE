@@ -69,7 +69,16 @@ public class LaunchInterceptorConditions {
     }
 
     public boolean getLaunchInterceptorCondition3() {
-        return true;
+        if (PARAMETERS.AREA1 < 0) throw new IllegalArgumentException();
+        for (int i = 0; i < NUMPOINTS-2; i++) {
+            double distance1 = distance(POINTS[i], POINTS[i+1]);
+            double distance2 = distance(POINTS[i+1], POINTS[i+2]);
+            double distance3 = distance(POINTS[i], POINTS[i+2]);
+            double S = (distance1+distance2+distance3)/2;
+            double Area = Math.sqrt(S*(S-distance1)*(S-distance2)*(S-distance3));
+            if (Area > PARAMETERS.AREA1) return true;
+        }
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition4() {
@@ -84,8 +93,32 @@ public class LaunchInterceptorConditions {
         return true;
     }
 
+/**
+     * Launch Interceptor Condition 7:
+     * There exists at least one set of two data points separated
+     * by exactly K PTS consecutive intervening points that are a
+     * distance greater than the length, LENGTH1, apart. The condition
+     * is not met when NUMPOINTS < 3.
+     * Constraint: 1 ≤ K PTS ≤ (NUMPOINTS − 2)
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition7() {
-        return true;
+        if(NUMPOINTS < 3) {
+            return false;
+        }
+        if (PARAMETERS.LENGTH1 < 0) throw new IllegalArgumentException("LENGTH1 is strictly negative");
+        if (PARAMETERS.K_PTS < 1 || PARAMETERS.K_PTS > NUMPOINTS - 2) {
+            throw new IllegalArgumentException("K_PTS is either negative, null or strictly superior to NUMPOINTS - 2");
+        }
+
+        // implementation
+        for(int i = 0; i < NUMPOINTS - PARAMETERS.K_PTS - 1; i++) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+PARAMETERS.K_PTS+1];
+            if (distance(p1, p2) > PARAMETERS.LENGTH1) return true;
+        }
+
+        return false;
     }
 
     public boolean getLaunchInterceptorCondition8() {
