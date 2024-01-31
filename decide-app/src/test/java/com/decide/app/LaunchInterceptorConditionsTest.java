@@ -3,7 +3,6 @@ package com.decide.app;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.Ignore;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -11,7 +10,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
-import org.junit.Ignore;
 
 public class LaunchInterceptorConditionsTest {
     Parameters PARAMETERS;
@@ -361,11 +359,10 @@ public class LaunchInterceptorConditionsTest {
      * exactly E_PTS and F_PTS consecutive points respectively form a triangle of area
      * striclty superior to AREA1.
      */
-    @Ignore
     @Test
     public void LIC10TrueTriangleOfAreaStrictlySuperiorToArea1() {
         PARAMETERS.E_PTS = 2;
-        PARAMETERS.E_PTS = 2;
+        PARAMETERS.F_PTS = 2;
         PARAMETERS.AREA1 = 3;
         Point[] POINTS = new Point[]{
             new Point(4, 2),
@@ -389,11 +386,10 @@ public class LaunchInterceptorConditionsTest {
      * exactly E_PTS and F_PTS consecutive points respectively form a triangle of area
      * inferior to AREA1.
      */
-    @Ignore
     @Test
     public void LIC10FalseTriangleOfAreaInferiorToArea1() {
         PARAMETERS.E_PTS = 2;
-        PARAMETERS.E_PTS = 2;
+        PARAMETERS.F_PTS = 2;
         PARAMETERS.AREA1 = 3;
         Point[] POINTS = new Point[]{
             new Point(0, 1),
@@ -417,11 +413,10 @@ public class LaunchInterceptorConditionsTest {
      * exactly E_PTS and F_PTS consecutive points respectively form a triangle of area
      * equals to AREA1.
      */
-    @Ignore
     @Test
     public void LIC10FalseTriangleOfAreaEqualToArea1() {
         PARAMETERS.E_PTS = 2;
-        PARAMETERS.E_PTS = 2;
+        PARAMETERS.F_PTS = 2;
         PARAMETERS.AREA1 = 2;
         Point[] POINTS = new Point[]{
             new Point(0, 2),
@@ -442,7 +437,6 @@ public class LaunchInterceptorConditionsTest {
     /**
      * Unsufficient input test for LIC10, must return false if there are 5 points or less
      */
-    @Ignore
     @Test
     public void LIC10FalseOn5PointsOrLess() {
         Point[] POINTS = new Point[]{
@@ -460,7 +454,6 @@ public class LaunchInterceptorConditionsTest {
      * Illegal argument value test case for LIC10, ensures an exception is raised if the
      * value of AREA1 is strictly negative.
      */
-    @Ignore
     @Test
     public void LIC10InvalidArgumentStrictlyNegativeArea() {
         PARAMETERS.AREA1 = -1;
@@ -487,7 +480,6 @@ public class LaunchInterceptorConditionsTest {
      * Illegal argument value test case for LIC10, ensures an exception is raised if the
      * value of E_PTS is negative or null.
      */
-    @Ignore
     @Test
     public void LIC10InvalidArgumentNegativeOrNullEpts() {
         PARAMETERS.E_PTS = 0;
@@ -515,7 +507,6 @@ public class LaunchInterceptorConditionsTest {
      * Illegal argument value test case for LIC10, ensures an exception is raised if the
      * value of F_PTS is negative or null.
      */
-    @Ignore
     @Test
     public void LIC10InvalidArgumentNegativeOrNullFpts() {
         PARAMETERS.E_PTS = 1;
@@ -544,7 +535,6 @@ public class LaunchInterceptorConditionsTest {
      * Illegal argument value test case for LIC10, ensures an exception is raised if
      * E_PTS + F_PTS > NUMPOINTS - 3.
      */
-    @Ignore
     @Test
     public void LIC10InvalidArgumentNegativeSumOfEptsAndFptsTooBig() {
         PARAMETERS.AREA1 = 10;
