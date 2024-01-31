@@ -111,6 +111,12 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 3:
+     * There exists at least one set of three consecutive data points 
+     * that are the vertices of a triangle with area greater than AREA1.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition3() {
         if (PARAMETERS.AREA1 < 0) throw new IllegalArgumentException();
         for (int i = 0; i < NUMPOINTS-2; i++) {
