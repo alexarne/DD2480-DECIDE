@@ -156,6 +156,12 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 5:
+     * There exists at least one set of two consecutive data points, 
+     * (X[i],Y[i]) and (X[j],Y[j]), such that X[j] - X[i] < 0. (where i = j-1)
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition5() {
         for (int i = 0; i < NUMPOINTS-1; i++) {
             Point p1 = POINTS[i];
