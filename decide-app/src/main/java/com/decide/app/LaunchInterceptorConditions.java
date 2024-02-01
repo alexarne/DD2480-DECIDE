@@ -398,8 +398,40 @@ public class LaunchInterceptorConditions {
         return true;
     }
 
+    /**
+     * Launch Interceptor Condition 14:
+     * There exists at least one set of three data points, separated 
+     * by exactly E_PTS and F_PTS consecutive intervening points, 
+     * respectively, that are the vertices of a triangle with area 
+     * greater than AREA1. In addition, there exist three data points 
+     * (which can be the same or different from the three data points 
+     * just mentioned) separated by exactly E_PTS and F_PTS consecutive 
+     * intervening points, respectively, that are the vertices of a 
+     * triangle with area less than AREA2. Both parts must be true for 
+     * the LIC to be true. The condition is not met when NUMPOINTS < 5.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition14() {
-        return true;
+        if (PARAMETERS.AREA1 < 0) throw new IllegalArgumentException();
+        if (PARAMETERS.AREA2 < 0) throw new IllegalArgumentException();
+        if (NUMPOINTS < 5) return false;
+        if (PARAMETERS.E_PTS < 1) throw new IllegalArgumentException();
+        if (PARAMETERS.F_PTS < 1) throw new IllegalArgumentException();
+        if (PARAMETERS.E_PTS + PARAMETERS.F_PTS > NUMPOINTS - 3) 
+            throw new IllegalArgumentException();
+        
+        boolean A1_condition = false;
+        boolean A2_condition = false;
+        for (int i = 0; i < NUMPOINTS-PARAMETERS.E_PTS-1-PARAMETERS.F_PTS-1; ++i) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i + PARAMETERS.E_PTS + 1];
+            Point p3 = POINTS[i + PARAMETERS.E_PTS + 1 + PARAMETERS.F_PTS + 1];
+            if (triangleArea(p1, p2, p3) > PARAMETERS.AREA1) 
+                A1_condition = true;
+            if (triangleArea(p1, p2, p3) < PARAMETERS.AREA2) 
+                A2_condition = true;
+        }
+        return A1_condition && A2_condition;
     }
   
   
