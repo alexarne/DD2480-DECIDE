@@ -7,10 +7,21 @@ public class Decide {
     Connector[][] LCM;
     boolean[] PUV;
 
+    /**
+     * Default constructor
+     */
     public Decide() {
 
     }
 
+    /**
+     * Contruct the Decide object
+     * @param NUMPOINTS Number of points
+     * @param POINTS Array of Point objects
+     * @param PARAMETERS Parameters object with relevant parameter fields
+     * @param LCM Logical Connector matrix
+     * @param PUV Boolean array, Preliminary Unlocking Vector
+     */
     public Decide(int NUMPOINTS, Point[] POINTS, Parameters PARAMETERS, Connector[][] LCM, boolean[] PUV) {
         this.NUMPOINTS = NUMPOINTS;
         this.POINTS = POINTS;
@@ -19,6 +30,11 @@ public class Decide {
         this.PUV = PUV;
     }
 
+    /**
+     * Get the boolean signal of whether or not to launch an interceptor, 
+     * given the current input from initialization.
+     * @return True if an interceptor should be launched, false otherwise.
+     */
     public boolean DECIDE() {
         LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
         boolean[] CMV = LIC.getConditionsMetVector();

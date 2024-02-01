@@ -85,7 +85,6 @@ Other versions can work but are not guaranteed to. The following versions were u
 - [Final Launch Decision + Tests](https://github.com/alexarne/DECIDE/pull/49)
 - [ContainedInCircle Helper + Tests](https://github.com/alexarne/DECIDE/pull/79)
 - [Refactor TriangleArea Helper + Tests](https://github.com/alexarne/DECIDE/pull/67)
-- []()
 
 **Anne Haaker**
 
@@ -96,7 +95,6 @@ Other versions can work but are not guaranteed to. The following versions were u
 - [LIC9 + Tests](https://github.com/alexarne/DECIDE/pull/70)
 - [Distance Helper + Tests](https://github.com/alexarne/DECIDE/pull/37)
 - [CircleRadius Helper + Tests](https://github.com/alexarne/DECIDE/pull/64)
-- []()
 
 **Elliot Elmenbeck**
 
@@ -108,7 +106,6 @@ Other versions can work but are not guaranteed to. The following versions were u
 - [CI for Maven](https://github.com/alexarne/DECIDE/pull/4)
 - [LIC7 + Tests](https://github.com/alexarne/DECIDE/pull/56)
 - [LIC10 + Tests](https://github.com/alexarne/DECIDE/pull/71)
-- []()
 
 **Juan Bautista Lavagnini Portela**
 
@@ -116,6 +113,8 @@ Other versions can work but are not guaranteed to. The following versions were u
 - [LIC4 + Tests](https://github.com/alexarne/DECIDE/pull/60)
 - [LIC5 + Tests](https://github.com/alexarne/DECIDE/pull/61)
 - [TriangleArea Helper](https://github.com/alexarne/DECIDE/pull/52)
+- [WhichQuad Helper](https://github.com/alexarne/DECIDE/pull/60)
+- [countQuads](https://github.com/alexarne/DECIDE/pull/101)
 
 ## Essence
 
