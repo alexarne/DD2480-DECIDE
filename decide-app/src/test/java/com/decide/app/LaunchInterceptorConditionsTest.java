@@ -2203,4 +2203,38 @@ public class LaunchInterceptorConditionsTest {
         );
     }
 
+    
+    /**
+     * Positive test case, ensure return 1 if every point is in the
+     * same Quad.
+     */
+    @Test
+    public void countQuadsReturn1IfEveryPointInSameQuad() {
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        int count = LIC.countQuads(3, 0, 0, 0);
+        assertEquals(count, 1, 0.00001);
+    }
+
+    /**
+     * Positive test case, ensure return 4 if the distribution is one 
+     * point per quad
+     */
+    @Test
+    public void countQuadsReturn4IfEveryPointInSameQuad() {
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        int count = LIC.countQuads(1, 1, 1, 1);
+        assertEquals(count, 4, 0.00001);
+    }
+
+    /**
+     * Edge-case test, ensure return 0 if every Quad has zero points
+     */
+    @Test
+    public void countQuadsReturnZeroIfNoPoints() {
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions();
+        int count = LIC.countQuads(0 ,0 ,0 ,0);
+        assertEquals(count, 0, 0.00001);
+    }
+
+
 }
