@@ -619,7 +619,201 @@ public class LaunchInterceptorConditionsTest {
      * ========================== [ LIC 6 ] ==========================
      */
 
-    
+    /**
+     * Positive test case, ensure LIC6 is satisfied when one of N_PTS consecutive
+     * points lies a distance greater than DIST apart from the line joining the
+     * first and last of these N_PTS points.
+     */
+    @Test
+    public void LIC6TrueOnDistanceGreaterThanDIST() {
+        Parameters PARAMETERS = new Parameters();
+        Point[] POINTS = {
+            new Point(1, 1), 
+            new Point(0,2), 
+            new Point(5,3), 
+            new Point(8,2), 
+            new Point(3,9), 
+            new Point(1,3), 
+            new Point(7,2), 
+            new Point(9,2), 
+            new Point(3,1), 
+            new Point(1,4)
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.N_PTS = 6;
+        PARAMETERS.DIST = 8;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition6());
+    }
+
+    /**
+     * Negative test case, ensure LIC6 is not satisfied when none of N_PTS consecutive
+     * points lies a distance greater than DIST apart from the line joining the
+     * first and last of these N_PTS points.
+     */
+    @Test
+    public void LIC6FalseOnDistanceLesserThanDIST() {
+        Parameters PARAMETERS = new Parameters();
+        Point[] POINTS = {
+            new Point(1, 1), 
+            new Point(0,2), 
+            new Point(4,3), 
+            new Point(3,2), 
+            new Point(3,5), 
+            new Point(1,3), 
+            new Point(3,2), 
+            new Point(3,4), 
+            new Point(1,1), 
+            new Point(0,2)
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.N_PTS = 4;
+        PARAMETERS.DIST = 7;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition6());
+    }
+
+    /**
+     * Negative test case, ensure LIC6 is not satisfied when less than 3
+     * points are provided.
+     */
+    @Test
+    public void LIC6FalseForLessThanThreePoints() {
+        Parameters PARAMETERS = new Parameters();
+        Point[] POINTS = {
+            new Point(1, 1), 
+            new Point(0, 5), 
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.N_PTS = 2;
+        PARAMETERS.DIST = 3;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition6());
+    }
+
+    /**
+     * Edge-case test case, ensure LIC6 gives correct output when the first
+     * and last of the N_PTS points are the same.
+     */
+    @Test
+    public void LIC6CorrectOutputOnIdenticalEndpoints() {
+        Parameters PARAMETERS = new Parameters();
+        Point[] POINTS = {
+            new Point(1, 1), 
+            new Point(0, 2), 
+            new Point(5, 3),     
+            new Point(3, 2), 
+            new Point(3, 3), 
+            new Point(14,3), 
+            new Point(3, 3), 
+            new Point(3, 1), 
+            new Point(1, 3), 
+            new Point(2, 1)
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.N_PTS = 3;
+        PARAMETERS.DIST = 10;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertTrue(LIC.getLaunchInterceptorCondition6());
+        POINTS[5] = new Point(8, 3);
+        assertFalse(LIC.getLaunchInterceptorCondition6());
+    }
+
+    /**
+     * Edge-case test case, ensure LIC6 is not satisfied when one of N_PTS consecutive
+     * points lies exactly the same distance as DIST apart from the line joining the
+     * first and last of these N_PTS points.
+     */
+    @Test
+    public void LIC6FalseOnDistanceEqualToDIST() {
+        Parameters PARAMETERS = new Parameters();
+        Point[] POINTS = {
+            new Point(1, 1), 
+            new Point(0,2), 
+            new Point(1,3),     
+            new Point(3,2), 
+            new Point(5,11), 
+            new Point(1,3), 
+            new Point(3,2), 
+            new Point(3,1), 
+            new Point(1,1), 
+            new Point(10,1)
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.N_PTS = 10;
+        PARAMETERS.DIST = 10;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition6());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC6 throws IllegalArgumentException
+     * if N_PTS has a value greater than NUMPOINTS.
+     */
+    @Test
+    public void LIC6ThrowsIllegalArgumentExceptionOnTooHighN_PTS() {
+        Parameters PARAMETERS = new Parameters();
+        Point[] POINTS = {
+            new Point(1, 1), 
+            new Point(5,2), 
+            new Point(1,3),     
+            new Point(1,2),
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.N_PTS = 10;
+        PARAMETERS.DIST = 3;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition6(); }
+        );
+    }
+
+    /**
+     * Invalid input test case, ensure LIC6 throws IllegalArgumentException
+     * if N_PTS has a value lower than 3.
+     */
+    @Test
+    public void LIC6ThrowsIllegalArgumentExceptionOnTooLowN_PTS() {
+        Parameters PARAMETERS = new Parameters();
+        Point[] POINTS = {
+            new Point(1, 1), 
+            new Point(5,2), 
+            new Point(1,3),     
+            new Point(1,2),
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.N_PTS = 2;
+        PARAMETERS.DIST = 3;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition6(); }
+        );
+    }
+
+    /**
+     * Invalid input test case, ensure LIC6 throws IllegalArgumentException
+     * if DIST has a value lower than 0.
+     */
+    @Test
+    public void LIC6ThrowsIllegalArgumentExceptionOnTooLowDIST() {
+        Parameters PARAMETERS = new Parameters();
+        Point[] POINTS = {
+            new Point(1, 1), 
+            new Point(5,2), 
+            new Point(1,3),     
+            new Point(1,2),
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.N_PTS = 2;
+        PARAMETERS.DIST = -1;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { LIC.getLaunchInterceptorCondition6(); }
+        );
+    }
 
     /**
      * ========================== [ LIC 7 ] ==========================

@@ -67,21 +67,14 @@ public class LaunchInterceptorConditions {
      * @return True if the condition is met, false otherwise.
      */
     public boolean getLaunchInterceptorCondition1() {
-        if(PARAMETERS.RADIUS1 < 0) throw new IllegalArgumentException();
-        double d1;
-        double d2;
-        double d3;
-        if(NUMPOINTS != POINTS.length) return false;
-        for(int i = 0; i < NUMPOINTS-2; i++){
-            d1 = distance(POINTS[i], POINTS[i+1]);
-            d2 = distance(POINTS[i], POINTS[i+2]);
-            d3 = distance(POINTS[i+1], POINTS[i+2]);
-
-            if(d1 > PARAMETERS.RADIUS1*2 || d2 > PARAMETERS.RADIUS1*2 || d3 > PARAMETERS.RADIUS1*2) return true;
-            else{
-                double r = findCircleRadius(POINTS[i], POINTS[i+1], POINTS[i+2]);
-                if(r > PARAMETERS.RADIUS1) return true;
-            }
+        if (PARAMETERS.RADIUS1 < 0) throw new IllegalArgumentException();
+        if (NUMPOINTS != POINTS.length) return false;
+        for (int i = 0; i < NUMPOINTS-2; i++) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+1];
+            Point p3 = POINTS[i+2];
+            if (!containedInCircle(p1, p2, p3, PARAMETERS.RADIUS1))
+                return true;
         }
         return false;
     }
@@ -98,19 +91,23 @@ public class LaunchInterceptorConditions {
     public boolean getLaunchInterceptorCondition2() {
         if (PARAMETERS.EPSILON < 0 || PARAMETERS.EPSILON >= Math.PI) throw new IllegalArgumentException();
         for(int i = 0; i < NUMPOINTS-2; i++){
+            Point p1 = POINTS[i];
             Point vertex = POINTS[i+1];
-            double x1 = (POINTS[i].getX() - vertex.getX());
-            double y1 = (POINTS[i].getY() - vertex.getY());
-            double x2 = (POINTS[i+2].getX() - vertex.getX());
-            double y2 = (POINTS[i+2].getY() - vertex.getY());
-            double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
-            if((a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI)
-                && !(POINTS[i].getX() == vertex.getX() && POINTS[i].getY() == vertex.getY()
-                || POINTS[i+2].getX() == vertex.getX() && POINTS[i+2].getY() == vertex.getY())) return true;
+            Point p3 = POINTS[i+2];
+            if (p1.getX() == vertex.getX() && p1.getY() == vertex.getY()) continue;
+            if (p3.getX() == vertex.getX() && p3.getY() == vertex.getY()) continue;
+            double a = angle(p1, vertex, p3);
+            if(a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI) return true;
         }
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 3:
+     * There exists at least one set of three consecutive data points 
+     * that are the vertices of a triangle with area greater than AREA1.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition3() {
         if (PARAMETERS.AREA1 < 0) throw new IllegalArgumentException();
         for (int i = 0; i < NUMPOINTS-2; i++) {
@@ -167,6 +164,12 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 5:
+     * There exists at least one set of two consecutive data points, 
+     * (X[i],Y[i]) and (X[j],Y[j]), such that X[j] - X[i] < 0. (where i = j-1)
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition5() {
         for (int i = 0; i < NUMPOINTS-1; i++) {
             Point p1 = POINTS[i];
@@ -176,8 +179,57 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /*
+     * There exists at least one set of N PTS consecutive data points such that at least one of the
+     * points lies a distance greater than DIST from the line joining the first and last of these N PTS
+     * points. If the first and last points of these N PTS are identical, then the calculated distance
+     * to compare with DIST will be the distance from the coincident point to all other points of
+     * the N PTS consecutive points. The condition is not met when NUMPOINTS < 3.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition6() {
-        return true;
+        if (NUMPOINTS<3) return false;
+        Point[] p = new Point[PARAMETERS.N_PTS];
+        if (PARAMETERS.N_PTS > NUMPOINTS || PARAMETERS.N_PTS < 3 || PARAMETERS.DIST < 0) throw new IllegalArgumentException();
+        for (int i = 0; i < NUMPOINTS-PARAMETERS.N_PTS+1; i++) {
+            for (int j = 0; j < PARAMETERS.N_PTS; j++) {
+                p[j] = POINTS[i+j]; 
+            }
+
+            Point first = new Point((p[0].getX()),(p[0].getY()));
+            double x1 = first.getX();
+            double y1 = first.getY();
+            Point last = new Point((p[PARAMETERS.N_PTS - 1].getX()),(p[PARAMETERS.N_PTS - 1].getY()));
+            double xLast = last.getX();
+            double yLast = last.getY();
+            if (x1 == xLast && y1 == yLast){
+                for (int j = 1; j < PARAMETERS.N_PTS - 1; j++) {
+                    double x2 = p[j].getX();
+                    double y2= p[j].getY();
+                    Point v = new Point(x2 - x1, y2 - y1);
+                    double vNorm = Math.sqrt(v.getX()*v.getX() + v.getY() * v.getY());
+                    if (vNorm > PARAMETERS.DIST) return true;
+                }
+            }
+            else {
+                Point line = new Point(last.getX()-x1, last.getY()-y1);
+                double xLine = line.getX();
+                double yLine = line.getY();
+                for (int j = 1; j < PARAMETERS.N_PTS - 1; j++) {
+                    double x2 = p[j].getX();
+                    double y2= p[j].getY();
+                    Point v = new Point(x2 - x1, y2 - y1);
+                    double skal = (xLine * v.getX()) + (yLine * v.getY());
+                    double lineNorm = Math.sqrt(xLine*xLine + yLine*yLine);
+                    double mult = skal / (lineNorm * lineNorm);
+                    Point proj = new Point(xLine * mult, yLine * mult);
+                    Point distance = new Point(v.getX() - proj.getX(), v.getY()-proj.getY());
+                    double distanceNorm = Math.sqrt(distance.getX()*distance.getX() + distance.getY() * distance.getY());
+                    if (distanceNorm > PARAMETERS.DIST) return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -208,6 +260,14 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 8:
+     * There exists at least one set of three data points separated 
+     * by exactly A_PTS and B_PTS consecutive intervening points, 
+     * respectively, that cannot be contained within or on a circle 
+     * of radius RADIUS1. The condition is not met when NUMPOINTS < 5.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition8() {
         if(NUMPOINTS < 5) return false;
         // Check parameters
@@ -221,15 +281,8 @@ public class LaunchInterceptorConditions {
             Point p1 = POINTS[i];
             Point p2 = POINTS[i+interveningPointsA];
             Point p3 = POINTS[i+interveningPointsB];
-            double d1 = distance(p1, p2);
-            double d2 = distance(p1, p3);
-            double d3 = distance(p2, p3);
-
-            if(d1 > PARAMETERS.RADIUS1*2 || d2 > PARAMETERS.RADIUS1*2 || d3 > PARAMETERS.RADIUS1*2) return true;
-            else{
-                double r = findCircleRadius(POINTS[i], POINTS[i+interveningPointsA], POINTS[i+interveningPointsB]);
-                if(r > PARAMETERS.RADIUS1) return true;
-            }
+            if (!containedInCircle(p1, p2, p3, PARAMETERS.RADIUS1))
+                return true;
         }
         return false;
     }
@@ -256,17 +309,14 @@ public class LaunchInterceptorConditions {
         int interveningPointsD = interveningPointsC + PARAMETERS.D_PTS + 1;
 
         for(int i = 0; i < NUMPOINTS-interveningPointsD; i++){
-            Point vertex = POINTS[i+interveningPointsC];
             Point p1 = POINTS[i];
+            Point vertex = POINTS[i+interveningPointsC];
             Point p2 = POINTS[i+interveningPointsD];
-            double x1 = (p1.getX() - vertex.getX());
-            double y1 = (p1.getY() - vertex.getY());
-            double x2 = (p2.getX() - vertex.getX());
-            double y2 = (p2.getY() - vertex.getY());
-            double a = Math.abs(Math.atan2(y2,x2) - Math.atan2(y1, x1));
-            if((a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI)
-                && !(p1.getX() == vertex.getX() && p1.getY() == vertex.getY()
-                || p2.getX() == vertex.getX() && p2.getY() == vertex.getY())) return true;
+            if (p1.getX() == vertex.getX() && p1.getY() == vertex.getY()) continue;
+            if (p2.getX() == vertex.getX() && p2.getY() == vertex.getY()) continue;
+            double a = angle(p1, vertex, p2);
+            if (a < Math.PI - PARAMETERS.EPSILON || a > PARAMETERS.EPSILON + Math.PI) 
+                return true;
         }
         return false;
     }
