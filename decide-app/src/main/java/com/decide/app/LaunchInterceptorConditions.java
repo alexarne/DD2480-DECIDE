@@ -289,8 +289,9 @@ public class LaunchInterceptorConditions {
      * the three data points just mentioned) separated by exactly A_PTS 
      * and B_PTS consecutive intervening points, respectively, that can 
      * be contained in or on a circle of radius RADIUS2. Both parts must 
-     * be true for the LIC to be true. The condition is not met when 
-     * NUMPOINTS < 5.
+     * be true for the LIC to be true. 
+     * The condition is not met when NUMPOINTS < 5. Both RADIUS1 and 
+     * RADIUS2 need to be non-negative.
      * @return True if the condition is met, false otherwise.
      */
     public boolean getLaunchInterceptorCondition13() {
