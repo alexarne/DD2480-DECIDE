@@ -282,7 +282,83 @@ public class DecideTest {
         assertFalse(DECIDE.DECIDE());
     }
 
-    
+    /**
+     * Illegal argument test, parameter EPSILON out of bounds.
+     * Should throw an exception.
+     */
+    @Test
+    public void IllegalArgumentDecideTest() {
+        Connector[][] LCM = new Connector[][]{
+            {Connector.ORR, Connector.ANDD, Connector.ANDD, Connector.ORR, Connector.ORR, Connector.ANDD, Connector.ANDD, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.ANDD, Connector.ANDD},
+            {Connector.ANDD, Connector.NOTUSED, Connector.ANDD, Connector.NOTUSED, Connector.ORR, Connector.NOTUSED, Connector.ORR, Connector.ORR, Connector.ANDD, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.NOTUSED},
+            {Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.ORR, Connector.NOTUSED, Connector.ORR, Connector.ORR, Connector.ANDD, Connector.NOTUSED, Connector.ORR},
+            {Connector.ORR, Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.NOTUSED, Connector.ORR, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD},
+            {Connector.ORR, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.ORR, Connector.ORR, Connector.ANDD, Connector.ANDD, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ANDD},
+            {Connector.ANDD, Connector.NOTUSED, Connector.NOTUSED, Connector.ORR, Connector.ORR, Connector.ORR, Connector.NOTUSED, Connector.ANDD, Connector.ORR, Connector.ANDD, Connector.ORR, Connector.ORR, Connector.ORR, Connector.NOTUSED, Connector.ORR},
+            {Connector.ANDD, Connector.ORR, Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.NOTUSED, Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.NOTUSED, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ORR, Connector.NOTUSED},
+            {Connector.NOTUSED, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.ANDD, Connector.ANDD, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.ORR, Connector.NOTUSED, Connector.ORR, Connector.ORR, Connector.ANDD},
+            {Connector.NOTUSED, Connector.ANDD, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.NOTUSED, Connector.ANDD, Connector.ORR, Connector.NOTUSED, Connector.ANDD},
+            {Connector.NOTUSED, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.ANDD, Connector.NOTUSED, Connector.NOTUSED, Connector.ANDD, Connector.ANDD, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED},
+            {Connector.ORR, Connector.NOTUSED, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED, Connector.ANDD, Connector.ORR, Connector.ANDD, Connector.ANDD},
+            {Connector.NOTUSED, Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.ANDD, Connector.ORR, Connector.ANDD, Connector.NOTUSED, Connector.ANDD, Connector.NOTUSED, Connector.ANDD, Connector.ORR, Connector.ANDD, Connector.ORR, Connector.ANDD},
+            {Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.ANDD, Connector.ANDD, Connector.ORR, Connector.ANDD, Connector.ORR, Connector.ORR, Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.NOTUSED, Connector.NOTUSED, Connector.NOTUSED},
+            {Connector.ANDD, Connector.ANDD, Connector.NOTUSED, Connector.ANDD, Connector.ANDD, Connector.NOTUSED, Connector.ORR, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.ANDD, Connector.ORR, Connector.NOTUSED, Connector.NOTUSED, Connector.ANDD},
+            {Connector.ANDD, Connector.NOTUSED, Connector.ORR, Connector.ANDD, Connector.ANDD, Connector.ORR, Connector.NOTUSED, Connector.ANDD, Connector.ANDD, Connector.NOTUSED, Connector.ANDD, Connector.ANDD, Connector.NOTUSED, Connector.ANDD, Connector.ANDD}
+        };
+
+        boolean[] PUV = new boolean[] {
+            true,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        };
+
+        Point[] POINTS = new Point[] {
+            new Point(0,0),
+            new Point(1,1),
+            new Point(-1, -1),
+            new Point(-5, 6),
+            new Point(10, 2),
+            new Point(0, 1),
+            new Point(1,1),
+            new Point(2, 1.2),
+            new Point(0,2),
+            new Point(2,0),
+            new Point(5, 0),
+            new Point(3, 1),
+            new Point(1, 1), 
+            new Point(0,2), 
+            new Point(5,3), 
+            new Point(8,2), 
+            new Point(3,9), 
+            new Point(1,3), 
+            new Point(7,2), 
+            new Point(9,2), 
+            new Point(3,1), 
+            new Point(1,4),
+
+        };
+        int NUMPOINTS = POINTS.length;
+        PARAMETERS.EPSILON = Math.PI + 1;
+        
+        Decide DECIDE = new Decide(NUMPOINTS, POINTS, PARAMETERS, LCM, PUV);
+
+        assertThrows(
+            IllegalArgumentException.class, 
+            () -> { DECIDE.DECIDE(); }
+        );
+    }
     
     /**
      * =========================== [ PUM ] ===========================
