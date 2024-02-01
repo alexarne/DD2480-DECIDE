@@ -407,8 +407,42 @@ public class LaunchInterceptorConditions {
         return L1_condition && L2_condition;
     }
 
+    /**
+     * Launch Interceptor Condition 13:
+     * There exists at least one set of three data points, separated 
+     * by exactly A_PTS and B_PTS consecutive intervening points, 
+     * respectively, that cannot be contained within or on a circle 
+     * of radius RADIUS1. In addition, there exists at least one set 
+     * of three data points (which can be the same or different from 
+     * the three data points just mentioned) separated by exactly A_PTS 
+     * and B_PTS consecutive intervening points, respectively, that can 
+     * be contained in or on a circle of radius RADIUS2. Both parts must 
+     * be true for the LIC to be true. 
+     * The condition is not met when NUMPOINTS < 5. Both RADIUS1 and 
+     * RADIUS2 need to be non-negative.
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition13() {
-        return true;
+        if (PARAMETERS.RADIUS1 < 0) throw new IllegalArgumentException();
+        if (PARAMETERS.RADIUS2 < 0) throw new IllegalArgumentException();
+        if (NUMPOINTS < 5) return false;
+        if (PARAMETERS.A_PTS < 1) throw new IllegalArgumentException();
+        if (PARAMETERS.B_PTS < 1) throw new IllegalArgumentException();
+        if (PARAMETERS.A_PTS + PARAMETERS.B_PTS > NUMPOINTS - 3) 
+            throw new IllegalArgumentException();
+
+        boolean R1_condition = false;
+        boolean R2_condition = false;
+        for (int i = 0; i < NUMPOINTS-PARAMETERS.A_PTS-1-PARAMETERS.B_PTS-1; ++i) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i + PARAMETERS.A_PTS + 1];
+            Point p3 = POINTS[i + PARAMETERS.A_PTS + 1 + PARAMETERS.B_PTS + 1];
+            if (!containedInCircle(p1, p2, p3, PARAMETERS.RADIUS1)) 
+                R1_condition = true;
+            if (containedInCircle(p1, p2, p3, PARAMETERS.RADIUS2)) 
+                R2_condition = true;
+        }
+        return R1_condition && R2_condition;
     }
 
     /**
