@@ -85,6 +85,8 @@ Other versions can work but are not guaranteed to. The following versions were u
 - [Final Launch Decision + Tests](https://github.com/alexarne/DECIDE/pull/49)
 - [ContainedInCircle Helper + Tests](https://github.com/alexarne/DECIDE/pull/79)
 - [Refactor TriangleArea Helper + Tests](https://github.com/alexarne/DECIDE/pull/67)
+- Statement of Contributions
+- Reviewed: LIC0, LIC1, LIC2, LIC8, distance helper, findCircleRadius helper, LIC6, angle helper, LIC7, LIC10, LIC3, LIC4, LIC5
 
 **Anne Haaker**
 
@@ -95,17 +97,22 @@ Other versions can work but are not guaranteed to. The following versions were u
 - [LIC9 + Tests](https://github.com/alexarne/DECIDE/pull/70)
 - [Distance Helper + Tests](https://github.com/alexarne/DECIDE/pull/37)
 - [CircleRadius Helper + Tests](https://github.com/alexarne/DECIDE/pull/64)
+- Reviewed: LIC11, LIC12, CMV, PUM, FUV, DECIDE, triangleArea helper
 
 **Elliot Elmenbeck**
 
 - [LIC6 + Tests](https://github.com/alexarne/DECIDE/pull/93)
 - [Angle Helper + Tests](https://github.com/alexarne/DECIDE/pull/78)
+- Statement of Contributions
+- Reviewed: LIC2, LIC9, countQuads helper
 
 **Hugo Tricot**
 
 - [CI for Maven](https://github.com/alexarne/DECIDE/pull/4)
 - [LIC7 + Tests](https://github.com/alexarne/DECIDE/pull/56)
 - [LIC10 + Tests](https://github.com/alexarne/DECIDE/pull/71)
+- [User Manual](https://github.com/alexarne/DECIDE/pull/96)
+- Reviewed: Initial code, LIC13, LIC14, containedInCircle helper, LIC1, LIC9, LIC3, LIC5, LIC3
 
 **Juan Bautista Lavagnini Portela**
 
@@ -115,6 +122,7 @@ Other versions can work but are not guaranteed to. The following versions were u
 - [TriangleArea Helper](https://github.com/alexarne/DECIDE/pull/52)
 - [WhichQuad Helper](https://github.com/alexarne/DECIDE/pull/60)
 - [countQuads](https://github.com/alexarne/DECIDE/pull/101)
+- Reviewed: distance helper, Maven CI
 
 ## Essence
 
