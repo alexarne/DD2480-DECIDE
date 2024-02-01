@@ -140,27 +140,15 @@ public class LaunchInterceptorConditions {
             int Q2=0;
             int Q3=0;
             int Q4=0;
-            int countQuads = 0;
+
             for (int j = i; j < i+PARAMETERS.Q_PTS; j++){
-                if (whichQuad(POINTS[j])==1) {
-                    Q1+=1;
-                    if (Q1==1) countQuads+=1;
-                }
-                else if (whichQuad(POINTS[j])==2) {
-                    Q2+=1;
-                    if (Q2==1) countQuads+=1;
-                }
-                else if (whichQuad(POINTS[j])==3) {
-                    Q3+=1;
-                    if (Q3==1) countQuads+=1;
-                }
-                else {
-                    Q4+=1;
-                    if (Q4==1) countQuads+=1;
-                }
+                if (whichQuad(POINTS[j])==1) Q1+=1;
+                else if (whichQuad(POINTS[j])==2) Q2+=1;
+                else if (whichQuad(POINTS[j])==3) Q3+=1;
+                else Q4+=1;
             }
             
-            if (countQuads>PARAMETERS.QUADS) return true;
+            if (countQuads(Q1,Q2,Q3,Q4)>PARAMETERS.QUADS) return true;
             
         }
         return false;
@@ -630,6 +618,15 @@ public class LaunchInterceptorConditions {
         double norm2 = Math.sqrt(v2[0]*v2[0]+v2[1]*v2[1]);
         double ang = Math.acos(scal / (norm1 * norm2));
         return ang;
+    }
+
+    public int countQuads(int Q1,int Q2,int Q3,int Q4) {
+        int count = 0;
+        if (Q1>0) count+=1;
+        if (Q2>0) count+=1;
+        if (Q3>0) count+=1;
+        if (Q4>0) count+=1;
+        return count;
     }
 
 }
