@@ -1203,8 +1203,8 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
-     * Edge-case test case, ensure LIC14 is not satisfied when the triangle
-     * has area equal to AREA1 and AREA2.
+     * Invalid input test case, ensure LIC14 is not satisfied when inputs
+     * are outside of bounds.
      */
     @Test
     public void LIC14ThrowsExceptionOnInvalidInput() {
