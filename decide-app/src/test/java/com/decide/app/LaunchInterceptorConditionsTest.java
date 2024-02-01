@@ -1273,8 +1273,28 @@ public class LaunchInterceptorConditionsTest {
     }
 
     /**
-     * Invalid input test case, ensure LIC12 throws IllegalArgumentException
-     * if the supplied parameters LENGTH1, LENGTH2, or K_PTS are out of bounds.
+     * Negative test case, ensure LIC13 is not satisfied when there are too few points.
+     */
+    @Test
+    public void LIC13FalseOnFewPoints() {
+        PARAMETERS.A_PTS = 1;
+        PARAMETERS.B_PTS = 1;
+        PARAMETERS.RADIUS1 = 1;
+        PARAMETERS.RADIUS2 = 1;
+        Point[] POINTS = new Point[]{
+            new Point(0,0),
+            new Point(1,3),
+            new Point(1,2.5),
+            new Point(2,0),
+        };
+        int NUMPOINTS = POINTS.length;
+        LaunchInterceptorConditions LIC = new LaunchInterceptorConditions(NUMPOINTS, POINTS, PARAMETERS);
+        assertFalse(LIC.getLaunchInterceptorCondition13());
+    }
+
+    /**
+     * Invalid input test case, ensure LIC13 throws IllegalArgumentException
+     * if the supplied parameters A_PTS, B_PTS, RADIUS1, or RADIUS2 are out of bounds.
      */
     @Test
     public void LIC13ThrowsIllegalArgumentExceptionOnInvalidInput() {
