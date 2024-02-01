@@ -117,6 +117,19 @@ public class LaunchInterceptorConditions {
         return false;
     }
 
+    /**
+     * Launch Interceptor Condition 4:
+     * There exists at least one set of Q_PTS consecutive data points that 
+     * lie in more than QUADS quadrants. Where there is ambiguity as to 
+     * which quadrant contains a given point, priority of decision will be 
+     * by quadrant number, i.e., I, II, III, IV. For example, the data 
+     * point (0,0) is in quadrant I, the point (-1,0) is in quadrant II, 
+     * the point (0,-1) is in quadrant III, the point (0,1) is in 
+     * quadrant I and the point (1,0) is in quadrant I.
+     * Constraint: 2 ≤ Q_PTS ≤ NUMPOINTS
+     * Constraint: 1 ≤ QUADS ≤ 3
+     * @return True if the condition is met, false otherwise.
+     */
     public boolean getLaunchInterceptorCondition4() {
         if (PARAMETERS.Q_PTS < 2 || PARAMETERS.Q_PTS>NUMPOINTS) throw new IllegalArgumentException("incorrect No. of Points");
         if (PARAMETERS.QUADS < 1 || PARAMETERS.QUADS > 3) throw new IllegalArgumentException("incorrect No. of Quads");
