@@ -50,6 +50,7 @@ DECIDE is a boolean decision-maker for a hypothetical anti-ballistic missile sys
 - [LIC4 + Tests](https://github.com/alexarne/DECIDE/pull/60)
 - [LIC5 + Tests](https://github.com/alexarne/DECIDE/pull/61)
 - [TriangleArea Helper](https://github.com/alexarne/DECIDE/pull/52)
+- [WhichQuad Helper](https://github.com/alexarne/DECIDE/pull/60)
 
 ## Essence
 
