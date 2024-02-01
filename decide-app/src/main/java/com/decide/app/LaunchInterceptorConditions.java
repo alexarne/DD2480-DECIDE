@@ -67,21 +67,14 @@ public class LaunchInterceptorConditions {
      * @return True if the condition is met, false otherwise.
      */
     public boolean getLaunchInterceptorCondition1() {
-        if(PARAMETERS.RADIUS1 < 0) throw new IllegalArgumentException();
-        double d1;
-        double d2;
-        double d3;
-        if(NUMPOINTS != POINTS.length) return false;
-        for(int i = 0; i < NUMPOINTS-2; i++){
-            d1 = distance(POINTS[i], POINTS[i+1]);
-            d2 = distance(POINTS[i], POINTS[i+2]);
-            d3 = distance(POINTS[i+1], POINTS[i+2]);
-
-            if(d1 > PARAMETERS.RADIUS1*2 || d2 > PARAMETERS.RADIUS1*2 || d3 > PARAMETERS.RADIUS1*2) return true;
-            else{
-                double r = findCircleRadius(POINTS[i], POINTS[i+1], POINTS[i+2]);
-                if(r > PARAMETERS.RADIUS1) return true;
-            }
+        if (PARAMETERS.RADIUS1 < 0) throw new IllegalArgumentException();
+        if (NUMPOINTS != POINTS.length) return false;
+        for (int i = 0; i < NUMPOINTS-2; i++) {
+            Point p1 = POINTS[i];
+            Point p2 = POINTS[i+1];
+            Point p3 = POINTS[i+2];
+            if (!containedInCircle(p1, p2, p3, PARAMETERS.RADIUS1))
+                return true;
         }
         return false;
     }
@@ -277,15 +270,8 @@ public class LaunchInterceptorConditions {
             Point p1 = POINTS[i];
             Point p2 = POINTS[i+interveningPointsA];
             Point p3 = POINTS[i+interveningPointsB];
-            double d1 = distance(p1, p2);
-            double d2 = distance(p1, p3);
-            double d3 = distance(p2, p3);
-
-            if(d1 > PARAMETERS.RADIUS1*2 || d2 > PARAMETERS.RADIUS1*2 || d3 > PARAMETERS.RADIUS1*2) return true;
-            else{
-                double r = findCircleRadius(POINTS[i], POINTS[i+interveningPointsA], POINTS[i+interveningPointsB]);
-                if(r > PARAMETERS.RADIUS1) return true;
-            }
+            if (!containedInCircle(p1, p2, p3, PARAMETERS.RADIUS1))
+                return true;
         }
         return false;
     }
