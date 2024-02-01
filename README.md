@@ -22,10 +22,6 @@ The `main` branch contains the latest features and patches.
 
 Other setups can work but are not guaranteed to. the following is guaranteed to work:
 
-- OS: Fedora Linux 39
-
-- kernel: Linux version 6.6.13-200.fc39.x86_64
-
 - Java: opendk 17.0.9 (OpenJDK Runtime Envirnoment)
 
 - Maven: Apache Maven 3.9.1 (Red Hat 3.9.1-3)
