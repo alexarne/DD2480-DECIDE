@@ -1,6 +1,6 @@
-# SE-24
+# DECIDE: Launch Interceptor Program
 
-Assignments for DD2480 Software Engineering Fundamentals (KTH, 2024) 
+DECIDE is a boolean decision-maker for a hypothetical anti-ballistic missile system. The purpose is to analyze input radar signals and evaluate whether certain Launch Interceptor Conditions (LIC) are met. Depending on the input for the program, certain conditions may be disregarded. The final output is a boolean signal (`true` or `false`), which is the decision of whether an interceptor should be launched.
 
 # User manual
 
@@ -68,10 +68,6 @@ Other versions can work but are not guaranteed to. The following versions were u
 
 - Maven: Apache Maven 3.9.1 (Red Hat 3.9.1-3)
 
-
-# DECIDE: Launch Interceptor Program
-
-DECIDE is a boolean decision-maker for a hypothetical anti-ballistic missile system. The purpose is to analyze input radar signals and evaluate whether certain Launch Interceptor Conditions (LIC) are met. Depending on the input for the program, certain conditions may be disregarded. The final output is a boolean signal (`true` or `false`), which is the decision of whether an interceptor should be launched.
 
 ## Statement of Contributions
 
