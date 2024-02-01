@@ -98,6 +98,7 @@ Other versions can work but are not guaranteed to. The following versions were u
 - [Distance Helper + Tests](https://github.com/alexarne/DECIDE/pull/37)
 - [CircleRadius Helper + Tests](https://github.com/alexarne/DECIDE/pull/64)
 - Reviewed: LIC11, LIC12, CMV, PUM, FUV, DECIDE, triangleArea helper
+- Way of working - Essence paragraph
 
 **Elliot Elmenbeck**
 
